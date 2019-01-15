@@ -2,144 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="99d57d47-14a1-4e30-a140-5ecc2c501c0f" name="Default" comment="">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/reservation-web-master/.babelrc" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/reservation-web-master/.drone.yml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/reservation-web-master/.env" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/reservation-web-master/.eslintignore" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/reservation-web-master/.eslintrc.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/reservation-web-master/.gitignore" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/reservation-web-master/CHANGELOG.md" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/reservation-web-master/Dockerfile" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/reservation-web-master/ISSUE_TEMPLATE.md" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/reservation-web-master/LICENSE.md" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/reservation-web-master/README.md" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/reservation-web-master/bower.json" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/reservation-web-master/documentation/assets/css/bootstrap.min.css" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/reservation-web-master/documentation/assets/css/demo-documentation.css" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/reservation-web-master/documentation/assets/css/material-dashboard.css" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/reservation-web-master/documentation/assets/img/apple-icon.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/reservation-web-master/documentation/assets/img/cover.jpeg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/reservation-web-master/documentation/assets/img/faces/marc.jpg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/reservation-web-master/documentation/assets/img/favicon.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/reservation-web-master/documentation/assets/img/mask.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/reservation-web-master/documentation/assets/img/new_logo.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/reservation-web-master/documentation/assets/img/reactlogo.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/reservation-web-master/documentation/assets/img/sidebar-1.jpg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/reservation-web-master/documentation/assets/img/sidebar-2.jpg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/reservation-web-master/documentation/assets/img/sidebar-3.jpg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/reservation-web-master/documentation/assets/img/sidebar-4.jpg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/reservation-web-master/documentation/assets/img/tim_80x80.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/reservation-web-master/documentation/assets/js/bootstrap.min.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/reservation-web-master/documentation/assets/js/jquery-3.2.1.min.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/reservation-web-master/documentation/tutorial-components.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/reservation-web-master/nginx.config" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/reservation-web-master/package-lock.json" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/reservation-web-master/package.json" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/reservation-web-master/public/apple-icon.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/reservation-web-master/public/favicon.ico" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/reservation-web-master/public/index.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/reservation-web-master/public/manifest.json" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/reservation-web-master/src/assets/css/material-dashboard-react.css" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/reservation-web-master/src/assets/github/angular.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/reservation-web-master/src/assets/github/chrome.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/reservation-web-master/src/assets/github/dashboard.jpg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/reservation-web-master/src/assets/github/edge.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/reservation-web-master/src/assets/github/firefox.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/reservation-web-master/src/assets/github/html.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/reservation-web-master/src/assets/github/map.jpg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/reservation-web-master/src/assets/github/md-react.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/reservation-web-master/src/assets/github/notifications.jpg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/reservation-web-master/src/assets/github/opera.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/reservation-web-master/src/assets/github/opt_md_angular_thumbnail.jpg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/reservation-web-master/src/assets/github/opt_md_thumbnail.jpg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/reservation-web-master/src/assets/github/opt_md_vue_thumbnail.jpg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/reservation-web-master/src/assets/github/opt_mdr_thumbnail.jpg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/reservation-web-master/src/assets/github/react.svg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/reservation-web-master/src/assets/github/safari.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/reservation-web-master/src/assets/github/tables.jpg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/reservation-web-master/src/assets/github/userprofile.jpg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/reservation-web-master/src/assets/github/vuejs.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/reservation-web-master/src/assets/img/apple-icon.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/reservation-web-master/src/assets/img/cover.jpeg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/reservation-web-master/src/assets/img/favicon.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/reservation-web-master/src/assets/img/mask.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/reservation-web-master/src/assets/img/new_logo.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/reservation-web-master/src/assets/img/reactlogo.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/reservation-web-master/src/assets/img/sidebar-1.jpg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/reservation-web-master/src/assets/img/sidebar-2.jpg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/reservation-web-master/src/assets/img/sidebar-3.jpg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/reservation-web-master/src/assets/img/sidebar-4.jpg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/reservation-web-master/src/assets/img/tim_80x80.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/reservation-web-master/src/assets/jss/material-dashboard-react.jsx" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/reservation-web-master/src/assets/jss/material-dashboard-react/cardImagesStyles.jsx" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/reservation-web-master/src/assets/jss/material-dashboard-react/checkboxAdnRadioStyle.jsx" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/reservation-web-master/src/assets/jss/material-dashboard-react/components/buttonStyle.jsx" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/reservation-web-master/src/assets/jss/material-dashboard-react/components/cardAvatarStyle.jsx" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/reservation-web-master/src/assets/jss/material-dashboard-react/components/cardBodyStyle.jsx" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/reservation-web-master/src/assets/jss/material-dashboard-react/components/cardFooterStyle.jsx" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/reservation-web-master/src/assets/jss/material-dashboard-react/components/cardHeaderStyle.jsx" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/reservation-web-master/src/assets/jss/material-dashboard-react/components/cardIconStyle.jsx" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/reservation-web-master/src/assets/jss/material-dashboard-react/components/cardStyle.jsx" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/reservation-web-master/src/assets/jss/material-dashboard-react/components/customInputStyle.jsx" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/reservation-web-master/src/assets/jss/material-dashboard-react/components/customTabsStyle.jsx" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/reservation-web-master/src/assets/jss/material-dashboard-react/components/footerStyle.jsx" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/reservation-web-master/src/assets/jss/material-dashboard-react/components/headerLinksStyle.jsx" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/reservation-web-master/src/assets/jss/material-dashboard-react/components/headerStyle.jsx" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/reservation-web-master/src/assets/jss/material-dashboard-react/components/sidebarStyle.jsx" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/reservation-web-master/src/assets/jss/material-dashboard-react/components/snackbarContentStyle.jsx" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/reservation-web-master/src/assets/jss/material-dashboard-react/components/tableStyle.jsx" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/reservation-web-master/src/assets/jss/material-dashboard-react/components/tasksStyle.jsx" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/reservation-web-master/src/assets/jss/material-dashboard-react/components/typographyStyle.jsx" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/reservation-web-master/src/assets/jss/material-dashboard-react/dropdownStyle.jsx" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/reservation-web-master/src/assets/jss/material-dashboard-react/layouts/dashboardStyle.jsx" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/reservation-web-master/src/assets/jss/material-dashboard-react/tooltipStyle.jsx" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/reservation-web-master/src/assets/jss/material-dashboard-react/views/dashboardStyle.jsx" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/reservation-web-master/src/assets/jss/material-dashboard-react/views/iconsStyle.jsx" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/reservation-web-master/src/components/Card/Card.jsx" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/reservation-web-master/src/components/Card/CardAvatar.jsx" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/reservation-web-master/src/components/Card/CardBody.jsx" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/reservation-web-master/src/components/Card/CardFooter.jsx" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/reservation-web-master/src/components/Card/CardHeader.jsx" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/reservation-web-master/src/components/Card/CardIcon.jsx" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/reservation-web-master/src/components/CustomButtons/Button.jsx" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/reservation-web-master/src/components/CustomInput/CustomInput.jsx" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/reservation-web-master/src/components/CustomTabs/CustomTabs.jsx" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/reservation-web-master/src/components/Footer/Footer.jsx" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/reservation-web-master/src/components/Grid/GridContainer.jsx" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/reservation-web-master/src/components/Grid/GridItem.jsx" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/reservation-web-master/src/components/Header/Header.jsx" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/reservation-web-master/src/components/Header/HeaderLinks.jsx" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/reservation-web-master/src/components/Sidebar/Sidebar.jsx" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/reservation-web-master/src/components/Snackbar/Snackbar.jsx" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/reservation-web-master/src/components/Snackbar/SnackbarContent.jsx" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/reservation-web-master/src/components/Table/Table.jsx" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/reservation-web-master/src/components/Tasks/Tasks.jsx" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/reservation-web-master/src/components/Typography/Danger.jsx" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/reservation-web-master/src/components/Typography/Info.jsx" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/reservation-web-master/src/components/Typography/Muted.jsx" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/reservation-web-master/src/components/Typography/Primary.jsx" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/reservation-web-master/src/components/Typography/Quote.jsx" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/reservation-web-master/src/components/Typography/Success.jsx" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/reservation-web-master/src/components/Typography/Warning.jsx" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/reservation-web-master/src/index.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/reservation-web-master/src/layouts/Dashboard/Dashboard.jsx" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/reservation-web-master/src/logo.svg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/reservation-web-master/src/routes/dashboard.jsx" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/reservation-web-master/src/routes/index.jsx" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/reservation-web-master/src/variables/charts.jsx" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/reservation-web-master/src/variables/general.jsx" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/reservation-web-master/src/views/Icons/Icons.jsx" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/reservation-web-master/src/views/Maps/Maps.jsx" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/reservation-web-master/src/views/MeetingPage/MeetingPage.jsx" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/reservation-web-master/src/views/Notifications/Notifications.jsx" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/reservation-web-master/src/views/RoomPage/RoomPage.jsx" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/reservation-web-master/src/views/RoomProfile/RoomProfile.jsx" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/reservation-web-master/src/views/RoomSchedule/RoomSchedule.jsx" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/reservation-web-master/src/views/TableList/TableList.jsx" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/reservation-web-master/src/views/Typography/Typography.jsx" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/reservation-web-master/src/views/UpgradeToPro/UpgradeToPro.jsx" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/reservation-web-master/src/views/UserProfile/UserProfile.jsx" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/reservation-web-master/yarn.lock" afterPath="" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/vcs.xml" afterPath="$PROJECT_DIR$/.idea/vcs.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/views/RoomPage/RoomPage.jsx" afterPath="$PROJECT_DIR$/src/views/RoomPage/RoomPage.jsx" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -153,22 +18,12 @@
   </component>
   <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
   <component name="FileEditorManager">
-    <leaf>
-      <file leaf-file-name="App.css" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/App.css">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="0">
-              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="600">
       <file leaf-file-name="RoomPage.jsx" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/views/RoomPage/RoomPage.jsx">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="360">
-              <caret line="26" column="90" lean-forward="true" selection-start-line="26" selection-start-column="90" selection-end-line="26" selection-end-column="90" />
+            <state relative-caret-position="225">
+              <caret line="160" column="37" lean-forward="true" selection-start-line="160" selection-start-column="37" selection-end-line="160" selection-end-column="37" />
               <folding>
                 <element signature="e#0#26#0" expanded="true" />
               </folding>
@@ -176,14 +31,104 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Notifications.jsx" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/views/Notifications/Notifications.jsx">
+      <file leaf-file-name="GridItem.jsx" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/components/Grid/GridItem.jsx">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-945">
+            <state relative-caret-position="-234">
+              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="RoomProfile.jsx" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/views/RoomProfile/RoomProfile.jsx">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-954">
               <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
               <folding>
-                <element signature="n#!!doc" expanded="true" />
+                <element signature="e#0#26#0" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="RoomSchedule.jsx" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/views/RoomSchedule/RoomSchedule.jsx">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="2430">
+              <caret line="75" column="25" lean-forward="true" selection-start-line="75" selection-start-column="25" selection-end-line="75" selection-end-column="25" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="MeetingPage.jsx" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/views/MeetingPage/MeetingPage.jsx">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="756">
+              <caret line="97" column="1" lean-forward="true" selection-start-line="97" selection-start-column="1" selection-end-line="97" selection-end-column="1" />
+              <folding>
+                <element signature="e#0#26#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Table.jsx" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/components/Table/Table.jsx">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="0">
+              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+              <folding>
+                <element signature="e#0#26#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Header.jsx" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/components/Header/Header.jsx">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-1080">
+              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+              <folding>
+                <element signature="e#0#26#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Footer.jsx" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/components/Footer/Footer.jsx">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-1215">
+              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+              <folding>
+                <element signature="e#0#26#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="CustomInput.jsx" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/components/CustomInput/CustomInput.jsx">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-2304">
+              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+              <folding>
+                <element signature="e#0#26#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="CustomTabs.jsx" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/components/CustomTabs/CustomTabs.jsx">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="621">
+              <caret line="114" column="35" lean-forward="true" selection-start-line="114" selection-start-column="35" selection-end-line="114" selection-end-column="35" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -217,6 +162,7 @@
     <option name="width" value="3232" />
     <option name="height" value="1732" />
   </component>
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectView">
     <navigator currentView="ProjectPane" proportions="" version="1">
       <flattenPackages />
@@ -232,6 +178,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -294,24 +241,263 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="Notifications" />
+              <option name="myItemId" value="RoomSchedule" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="management-frontend" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="management-frontend" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="views" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="RoomProfile" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="management-frontend" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="management-frontend" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="views" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="RoomPage" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="management-frontend" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="management-frontend" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="views" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="MeetingPage" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="management-frontend" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="management-frontend" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="components" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="management-frontend" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="management-frontend" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="components" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Table" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="management-frontend" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="management-frontend" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="components" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Header" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="management-frontend" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="management-frontend" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="components" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Grid" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="management-frontend" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="management-frontend" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="components" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="CustomTabs" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="management-frontend" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="management-frontend" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="components" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="CustomInput" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="management-frontend" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="management-frontend" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="components" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="CustomButtons" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="management-frontend" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="management-frontend" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="components" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Card" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
         </subPane>
       </pane>
       <pane id="Scratches" />
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
     <property name="nodejs_interpreter_path" value="C:/Program Files/nodejs/node" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="D:/学校/上海交通大学/课程/专业课/校园巴士app/BackManagement/backmanagement_frontend" />
     <property name="HbShouldOpenHtmlAsHb" value="" />
     <property name="node.js.path.for.package.eslint" value="project" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.selected.package.eslint" value="D:\fwwb\management-frontend\node_modules\eslint" />
+    <property name="settings.editor.selected.configurable" value="settings.github" />
+    <property name="SearchEverywhereHistoryKey" value="Button&#9;null&#9;null" />
   </component>
   <component name="RunDashboard">
     <option name="ruleStates">
@@ -326,12 +512,72 @@
     </option>
   </component>
   <component name="RunManager">
+    <configuration default="true" type="DartCommandLineRunConfigurationType" factoryName="Dart Command Line Application">
+      <method />
+    </configuration>
+    <configuration default="true" type="DartTestRunConfigurationType" factoryName="Dart Test">
+      <method />
+    </configuration>
+    <configuration default="true" type="JavaScriptTestRunnerJest" factoryName="Jest">
+      <node-interpreter value="project" />
+      <working-dir value="" />
+      <envs />
+      <scope-kind value="ALL" />
+      <method />
+    </configuration>
+    <configuration default="true" type="JavaScriptTestRunnerKarma" factoryName="Karma">
+      <config-file value="" />
+      <node-interpreter value="project" />
+      <envs />
+      <method />
+    </configuration>
+    <configuration default="true" type="JavaScriptTestRunnerProtractor" factoryName="Protractor">
+      <config-file value="" />
+      <node-interpreter value="project" />
+      <envs />
+      <method />
+    </configuration>
+    <configuration default="true" type="JavascriptDebugType" factoryName="JavaScript Debug">
+      <method />
+    </configuration>
     <configuration default="true" type="NodeJSConfigurationType" factoryName="Node.js" path-to-node="project" working-dir="">
+      <method />
+    </configuration>
+    <configuration default="true" type="cucumber.js" factoryName="Cucumber.js">
+      <option name="cucumberJsArguments" value="" />
+      <option name="executablePath" />
+      <option name="filePath" />
+      <method />
+    </configuration>
+    <configuration default="true" type="js.build_tools.gulp" factoryName="Gulp.js">
+      <method />
+    </configuration>
+    <configuration default="true" type="js.build_tools.npm" factoryName="npm">
+      <command value="run" />
+      <scripts />
+      <node-interpreter value="project" />
+      <envs />
+      <method />
+    </configuration>
+    <configuration default="true" type="mocha-javascript-test-runner" factoryName="Mocha">
+      <node-interpreter>project</node-interpreter>
+      <node-options />
+      <working-directory />
+      <pass-parent-env>true</pass-parent-env>
+      <envs />
+      <ui />
+      <extra-mocha-options />
+      <test-kind>DIRECTORY</test-kind>
+      <test-directory />
+      <recursive>false</recursive>
       <method />
     </configuration>
   </component>
   <component name="ShelveChangesManager" show_recycled="false">
     <option name="remove_strategy" value="false" />
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
   </component>
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
@@ -340,33 +586,33 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1547543980672</updated>
-      <workItem from="1547543982791" duration="494000" />
+      <workItem from="1547543982791" duration="738000" />
+      <workItem from="1547544905924" duration="7662000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="494000" />
+    <option name="totallyTimeSpent" value="8400000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-16" y="-16" width="3232" height="1732" extended-state="0" />
-    <editor active="true" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.24984168" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="true" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="npm" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32944405" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
-      <window_info id="npm" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="true" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32875773" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32875773" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="true" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
     </layout>
   </component>
@@ -391,18 +637,148 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/views/Notifications/Notifications.jsx">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-945">
+        <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
-            <element signature="n#!!doc" expanded="true" />
+            <element signature="n#!!doc" expanded="false" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/views/RoomPage/RoomPage.jsx">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="360">
-          <caret line="26" column="90" lean-forward="true" selection-start-line="26" selection-start-column="90" selection-end-line="26" selection-end-column="90" />
+        <state relative-caret-position="3195">
+          <caret line="71" column="8" lean-forward="false" selection-start-line="71" selection-start-column="8" selection-end-line="71" selection-end-column="8" />
+          <folding>
+            <element signature="e#0#26#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/App.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/views/Notifications/Notifications.jsx">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding>
+            <element signature="n#!!doc" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/components/Header/HeaderLinks.jsx">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="45">
+          <caret line="44" column="10" lean-forward="false" selection-start-line="44" selection-start-column="10" selection-end-line="57" selection-end-column="19" />
+          <folding>
+            <element signature="e#0#26#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/components/CustomButtons/Button.jsx">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1044">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/components/Grid/GridItem.jsx">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-234">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/components/CustomTabs/CustomTabs.jsx">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="621">
+          <caret line="114" column="35" lean-forward="true" selection-start-line="114" selection-start-column="35" selection-end-line="114" selection-end-column="35" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/components/Table/Table.jsx">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding>
+            <element signature="e#0#26#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/components/CustomInput/CustomInput.jsx">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-2304">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding>
+            <element signature="e#0#26#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/components/Footer/Footer.jsx">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1215">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding>
+            <element signature="e#0#26#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/components/Header/Header.jsx">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1080">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding>
+            <element signature="e#0#26#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/views/RoomProfile/RoomProfile.jsx">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-954">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding>
+            <element signature="e#0#26#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/views/RoomSchedule/RoomSchedule.jsx">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2430">
+          <caret line="75" column="25" lean-forward="true" selection-start-line="75" selection-start-column="25" selection-end-line="75" selection-end-column="25" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/views/MeetingPage/MeetingPage.jsx">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="756">
+          <caret line="97" column="1" lean-forward="true" selection-start-line="97" selection-start-column="1" selection-end-line="97" selection-end-column="1" />
+          <folding>
+            <element signature="e#0#26#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/views/RoomPage/RoomPage.jsx">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="225">
+          <caret line="160" column="37" lean-forward="true" selection-start-line="160" selection-start-column="37" selection-end-line="160" selection-end-column="37" />
           <folding>
             <element signature="e#0#26#0" expanded="true" />
           </folding>
