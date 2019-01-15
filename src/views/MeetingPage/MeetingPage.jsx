@@ -56,7 +56,7 @@ const meetings = [{
   end: "14:00"
 },];
 
-const exitButton = (id) => {
+/*const exitButton = (id) => {
   return <Button color="danger" size="sm">退出会议 {id}</Button>;
 } 
 
@@ -64,13 +64,13 @@ const manageButton = (id) => {
   return <Button color="success" size="sm">管理会议 {id}</Button>
 }
 
-const checkButtons = (id) => {
-  return <Button color="info" size="sm">查看会议 {id}</Button>
-}
+const deleteButton = (id) => {
+    return <Button color = "dangerous" size="sm">删除会议 {id}</Button>
+}*/
 
-const joinButton = (id) => {
-  return <Button color="success" size="sm">加入会议 {id}</Button>
-}
+const checkButtons = (id) => {
+  return <Button color="info" size="sm">查看详情 </Button>
+};
 
 function handleExit(id) {
   return;
@@ -86,12 +86,12 @@ function JSONToArray(jsonArray, type){
     temp_ele.push(<Link to={"/room/"+ele.location+"/profile"}>{ele.location}</Link>);
     temp_ele.push(ele.date);
     temp_ele.push(ele.start + "~" + ele.end);
-    if (type === "meeting")
+    /*if (type === "meeting")
       temp_ele.push([manageButton(ele.id), "\t", exitButton(ele.id)]);
     else if (type === "history")
-      temp_ele.push([checkButtons(ele.id)])
-    else if (type === "attend")
-      temp_ele.push([checkButtons(ele.id), "\t", joinButton(ele.id)])
+      temp_ele.push([checkButtons(ele.id)])*/
+    temp_ele.push([checkButtons()]);
+
     re.push(temp_ele);
   }
   return re;
@@ -115,17 +115,6 @@ class MeetingPage extends React.Component {
                       tableHeaderColor="primary"
                       tableHead={["ID", "发起人", "会议室", "日期", "时间", "操作"]}
                       tableData={JSONToArray(meetings, "meeting")}
-                    />
-                  )
-                },
-                {
-                  tabName: "加入会议",
-                  tabIcon: LibraryAdd,
-                  tabContent: (
-                    <Table
-                      tableHeaderColor="primary"
-                      tableHead={["ID", "发起人", "会议室", "日期", "时间", "操作"]}
-                      tableData={JSONToArray(attendMeetings, "attend")}
                     />
                   )
                 },

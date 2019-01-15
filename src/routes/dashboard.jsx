@@ -1,7 +1,8 @@
 // @material-ui/icons
-import Dashboard from "@material-ui/icons/Dashboard";
+import MeetingRoom from "@material-ui/icons/MeetingRoom";
 import Person from "@material-ui/icons/Person";
-import Work from "@material-ui/icons/Work";
+import Today from "@material-ui/icons/Today";
+import Mail from "@material-ui/icons/Mail";
 // import ContentPaste from "@material-ui/icons/ContentPaste";
 import BubbleChart from "@material-ui/icons/BubbleChart";
 import LocationOn from "@material-ui/icons/LocationOn";
@@ -22,53 +23,32 @@ import RoomProfile from "views/RoomProfile/RoomProfile.jsx";
 export const dashboardRoutes = [
   {
     path: "/room",
-    sidebarName: "查看会议室",
-    navbarName: "查看会议室",
-    icon: Dashboard,
+    sidebarName: "会议室管理",
+    navbarName: "会议室管理",
+    icon:  MeetingRoom,
     component: RoomPage
   },
   {
     path: "/meeting",
-    sidebarName: "查看会议",
-    navbarName: "查看会议",
-    icon: Work,
+    sidebarName: "会议管理",
+    navbarName: "会议管理",
+    icon: Today,
     component: MeetingPage
   },
   {
     path: "/user",
-    sidebarName: "个人信息",
-    navbarName: "个人信息",
+    sidebarName: "用户管理",
+    navbarName: "用户管理",
     icon: Person,
     component: UserProfile
   },
-  {
-    path: "/table",
-    sidebarName: "Table List",
-    navbarName: "Table List",
-    icon: "content_paste",
-    component: TableList
-  },
-  {
-    path: "/icons",
-    sidebarName: "Icons",
-    navbarName: "Icons",
-    icon: BubbleChart,
-    component: Icons
-  },
-  {
-    path: "/maps",
-    sidebarName: "Maps",
-    navbarName: "Map",
-    icon: LocationOn,
-    component: Maps
-  },
-  {
-    path: "/notifications",
-    sidebarName: "Notifications",
-    navbarName: "Notifications",
-    icon: Notifications,
-    component: NotificationsPage
-  },
+    {
+        path: "/message",
+        sidebarName: "通知管理",
+        navbarName: "通知管理",
+        icon: Mail,
+        component: UserProfile //------------------------------------------------------------
+    },
   {
     path: "/upgrade-to-pro",
     sidebarName: "Upgrade To PRO",
