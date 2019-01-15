@@ -23,5 +23,5 @@ pipeline:
     secrets: [ssh_username, ssh_password]
     port: 22
     script:
-      - /root/shell/frontend-managent-deployment.sh
+      - /root/shell/frontend-management-deployment.sh
 
