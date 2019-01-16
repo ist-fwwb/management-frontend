@@ -9,7 +9,7 @@ pipeline:
     secrets: [docker_username,docker_password]
     commands:
         - docker login --username=$DOCKER_USERNAME --password=$DOCKER_PASSWORD registry.cn-shenzhen.aliyuncs.com/pipipan
-        - docker build -t registry.cn-shenzhen.aliyuncs.com/pipipan/meetingroom-management-frontend:master -f Dockerfile .
+        - docker build -t registry.cn-shenzhen.aliyuncs.com/pipipan/meetingroom-management-frontend:master --no-cache -f Dockerfile .
         - docker push registry.cn-shenzhen.aliyuncs.com/pipipan/meetingroom-management-frontend:master
     volumes:
         - /var/run/docker.sock:/var/run/docker.sock
