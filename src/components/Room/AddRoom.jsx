@@ -3,22 +3,16 @@
  */
 
 import React from "react";
+
 import GridItem from "components/Grid/GridItem.jsx";
 import GridContainer from "components/Grid/GridContainer.jsx";
-import OutlinedInput from "@material-ui/core/OutlinedInput";
 import Button from "components/CustomButtons/Button.jsx";
+
+import OutlinedInput from "@material-ui/core/OutlinedInput";
 import Checkbox from '@material-ui/core/Checkbox';
-import FormControl from '@material-ui/core/FormControl';
-import FormGroup from '@material-ui/core/FormGroup';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-
-
 import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
 import TextField from "@material-ui/core/TextField";
-
-
-const allDevices=["AIRCONDITIONER", ]
 
 
 class AddRoom extends React.Component {
