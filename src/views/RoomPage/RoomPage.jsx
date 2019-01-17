@@ -28,6 +28,8 @@ import CardBody from "components/Card/CardBody.jsx";
 
 import dashboardStyle from "assets/jss/material-dashboard-react/views/dashboardStyle.jsx";
 import AddRoom from "../../components/Room/AddRoom";
+import TextField from "@material-ui/core/es/TextField/TextField";
+import SearchRoom from "../../components/Room/SearchRoom";
 
 let rooms = [
   { location: "410", capacity: 10, status: 2, device: "是", others: "无" },
@@ -86,7 +88,8 @@ class Dashboard extends React.Component {
         <GridContainer>
           <GridItem xs={12} sm={12} md={15}>
             <CustomTabs
-              title=""
+              title={null}
+              style={{ background: "#000" }}
               headerColor="success"
               tabs={[
                 {
@@ -137,47 +140,7 @@ class Dashboard extends React.Component {
                 {
                   tabName: "查询会议室",
                   tabIcon: Search,
-                  tabContent: (
-                    <GridContainer xs={12} sm={12} md={12}>
-                      <GridItem xs={12} sm={12} md={4}>
-                        <Button color="black">显示所有会议室</Button>
-                      </GridItem>
-                      <GridItem xs={12} sm={12} md={8}>
-                        <CustomInput
-                          formControlProps={{
-                            className: classes.margin + " " + classes.search
-                          }}
-                          inputProps={{
-                            placeholder: "输入与会议室相关信息",
-                            inputProps: {
-                              "aria-label": "Search"
-                            }
-                          }}
-                          style={{ width: "40%" }}
-                        />
-                        <Button color="white" aria-label="edit" justIcon round>
-                          <Search />
-                        </Button>
-                      </GridItem>
-                      <GridItem xs={12} sm={12} md={12}>
-                        <Card>
-                          <CardBody>
-                            <Table
-                              tableHeaderColor="primary"
-                              tableHead={[
-                                "房间号",
-                                "可容纳人数",
-                                "状态",
-                                "有无投影设备",
-                                "备注"
-                              ]}
-                              tableData={JSONToArray(rooms, "rooms")}
-                            />
-                          </CardBody>
-                        </Card>
-                      </GridItem>
-                    </GridContainer>
-                  )
+                  tabContent: <SearchRoom />
                 },
                 {
                   tabName: "添加会议室",

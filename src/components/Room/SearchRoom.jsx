@@ -26,7 +26,8 @@ import MenuItem from '@material-ui/core/MenuItem';
 
 const CustomTableCell = withStyles(theme => ({
     head: {
-        backgroundColor: theme.palette.common.black,
+       // backgroundColor: theme.palette.common.black,
+        backgroundColor:"#212121",
         color: theme.palette.common.white,
     },
     body: {
@@ -45,7 +46,9 @@ const styles = theme => ({
     },
     row: {
         '&:nth-of-type(odd)': {
+
             backgroundColor: theme.palette.background.default,
+
         },
     },
 });
@@ -86,22 +89,23 @@ class SearchRoom extends React.Component {
 
     render() {
         return (
+            <div>
             <GridContainer xs={12} sm={12} md={12}>
-                <GridItem xs={12} sm={12} md={4}>
-                    <Button color="black">显示所有会议室</Button>
-                </GridItem>
-                <GridItem xs={12} sm={12} md={8}>
-                    <TextField placeholder="输入与会议室相关信息" style={{ width: "40%" }} margin="normal"/>
-                    <Button color="white" aria-label="edit" justIcon round>
+                <GridItem xs={12} sm={12} md={12}>&nbsp;</GridItem>
+                <GridItem xs={12} sm={12} md={12}>
+                    <Button color="black" style={{fontSize:"20px", background:"#00bcd4", marginLeft:"8%"}}>显示所有会议室</Button>
+                    <TextField placeholder="输入与会议室相关信息" style={{ width: "40%", lineHeight:"200px", marginLeft:"15%"}} />
+                    <Button color="white"   aria-label="edit" justIcon round>
                         <Search />
                     </Button>
                 </GridItem>
-                <h1 />
-                <br />
-                <GridItem xs={12} sm={12} md={12}>
-                    <Table className="room page">
+            </GridContainer>
+                <br/>
+            <GridContainer xs={12} sm={12} md={11}>
+                <GridItem xs={12} sm={12} md={11}>
+                    <Table className="room page" style={{marginLeft:"10%"}}>
                         <TableHead>
-                            <TableRow>
+                            <TableRow >
                                 <CustomTableCell  align="center" style={{width:"13%", fontSize:"20px"}}>房间号</CustomTableCell>
                                 <CustomTableCell  style={{width:"15%", fontSize:"20px"}}>可容纳人数</CustomTableCell>
                                 <CustomTableCell  style={{width:"10%", fontSize:"20px"}}>状态</CustomTableCell>
@@ -123,6 +127,7 @@ class SearchRoom extends React.Component {
                     </Table>
                 </GridItem>
             </GridContainer>
+            </div>
         );
     }
 }
