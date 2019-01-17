@@ -28,8 +28,8 @@ import CardBody from "components/Card/CardBody.jsx";
 
 import dashboardStyle from "assets/jss/material-dashboard-react/views/dashboardStyle.jsx";
 import AddRoom from "../../components/Room/AddRoom";
-import TextField from "@material-ui/core/es/TextField/TextField";
 import SearchRoom from "../../components/Room/SearchRoom";
+import DeleteRoom from "../../components/Room/DeleteRoom";
 
 let rooms = [
   { location: "410", capacity: 10, status: 2, device: "是", others: "无" },
@@ -150,7 +150,7 @@ class Dashboard extends React.Component {
                 {
                   tabName: "删除会议室",
                   tabIcon: DeleteOutline,
-                    tabContent:<Button>Stupid</Button>
+                  tabContent:<DeleteRoom />
                 },
                 {
                   tabName: "修改会议室",
