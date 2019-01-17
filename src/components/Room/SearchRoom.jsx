@@ -4,12 +4,11 @@
 
 import React from "react";
 
-import Search from "@material-ui/icons/Search";
-
 import GridItem from "components/Grid/GridItem.jsx";
 import GridContainer from "components/Grid/GridContainer.jsx";
-
 import Button from "components/CustomButtons/Button";
+
+import Search from "@material-ui/icons/Search";
 import TextField from "@material-ui/core/TextField";
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
@@ -17,12 +16,7 @@ import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import { withStyles } from '@material-ui/core/styles';
-import CustomInput from "components/CustomInput/CustomInput.jsx";
-import Checkbox from '@material-ui/core/Checkbox';
 
-
-import Select from '@material-ui/core/Select';
-import MenuItem from '@material-ui/core/MenuItem';
 
 const CustomTableCell = withStyles(theme => ({
     head: {
