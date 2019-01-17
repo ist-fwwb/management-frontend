@@ -105,6 +105,7 @@ class MeetingPage extends React.Component {
           <GridItem xs={12} sm={12} md={12}>
             <CustomTabs
               title="Tasks:"
+              style={{background:"#212121"}}
               headerColor="rose"
               tabs={[
                 {
@@ -112,9 +113,10 @@ class MeetingPage extends React.Component {
                   tabIcon: Assignment,
                   tabContent: (
                     <Table
-                      tableHeaderColor="primary"
+                      tableHeaderColor="rose"
                       tableHead={["ID", "发起人", "会议室", "日期", "时间", "操作"]}
                       tableData={JSONToArray(meetings, "meeting")}
+                      //style={{background:"#212121"}}
                     />
                   )
                 },
