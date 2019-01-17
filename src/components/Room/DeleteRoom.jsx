@@ -45,9 +45,7 @@ const styles = theme => ({
     },
     row: {
         '&:nth-of-type(odd)': {
-
             backgroundColor: theme.palette.background.default,
-
         },
     },
 });
