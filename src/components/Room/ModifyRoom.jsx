@@ -61,14 +61,23 @@ class ModifyRoom extends React.Component{
             open: false,
             toModify: -1,
             rows: old_rows,
+            tmp_capacity: -1,
         }
     }
 
     handleClickModify=(key) => {
         this.setState({
-            toModify: key
-        })
+            toModify: key,
+            tmp_capacity: this.state.rows[key].capacity,
+        });
         console.log(key);
+    };
+
+    handleCapacityChange = (e) => {
+        this.setState({
+            tmp_capacity:e.target.value
+        });
+        console.log(e.target.value)
     };
 
 
@@ -119,13 +128,13 @@ class ModifyRoom extends React.Component{
                                         if(key !== this.state.toModify)
                                             return (
                                                 <TableRow key={row.id}>
-                                                    <CustomTableCell style={{width: "13%", fontSize: "18px"}}>{row.location}</CustomTableCell>
-                                                    <CustomTableCell style={{width: "13%", fontSize: "18px"}}>{row.capacity}</CustomTableCell>
+                                                    <CustomTableCell style={{width: "12%", fontSize: "18px"}}>{row.location}</CustomTableCell>
+                                                    <CustomTableCell style={{width: "10%", fontSize: "18px"}}>{row.capacity}</CustomTableCell>
                                                     <CustomTableCell style={{width: "10%", fontSize: "18px"}}>{row.using}</CustomTableCell>
                                                     <CustomTableCell style={{width: "30%", fontSize: "18px"}}>{row.devices}</CustomTableCell>
-                                                    <CustomTableCell style={{width: "30%", fontSize: "18px"}}>{row.comment}</CustomTableCell>
+                                                    <CustomTableCell style={{width: "20%", fontSize: "18px"}}>{row.comment}</CustomTableCell>
                                                     <CustomTableCell>
-                                                        <Button style={{width: "20%", fontSize: "18px", background: "#00bcd4"}}>修改</Button>
+                                                        <Button style={{width: "18%", fontSize: "18px", background: "#00bcd4"}}>修改</Button>
                                                     </CustomTableCell>
                                                 </TableRow>
                                             )
@@ -133,14 +142,24 @@ class ModifyRoom extends React.Component{
                                             return (
                                                 <TableRow key={row.id}>
                                                     <CustomTableCell style={{width: "13%", fontSize: "18px"}}>{row.location}</CustomTableCell>
-                                                    <CustomTableCell style={{width: "13%", fontSize: "18px"}}>{row.capacity}</CustomTableCell>
+                                                    <CustomTableCell style={{width: "10%", fontSize: "18px"}}>
+                                                        <TextField
+                                                            placeholder="选择人数" value={this.state.tmp_capacity} type="number"
+                                                            onChange={this.handleCapacityChange}
+                                                            style={{width:"50%", fontSize:"18px"}}
+                                                            InputLabelProps={{
+                                                                shrink: true,
+                                                            }}
+                                                        />
+                                                    </CustomTableCell>
                                                     <CustomTableCell style={{width: "10%", fontSize: "18px"}}>{row.using}</CustomTableCell>
                                                     <CustomTableCell style={{width: "30%", fontSize: "18px"}}>{row.devices}</CustomTableCell>
                                                     <CustomTableCell>
-                                                        <TextField  placeholder="请输入备注信息" style={{ fontSize: "18px"}} />
+                                                        <TextField  placeholder="请输入备注信息" style={{ fontSize: "18px", lineHeight:"80px"}} />
                                                     </CustomTableCell>
                                                     <CustomTableCell>
-                                                        <Button style={{width: "20%", fontSize: "18px", background: "#00bcd4"}}>修改</Button>
+                                                        <Button style={{width: "40%", fontSize: "18px", background: "#00bcd4"}}>确认</Button>
+                                                        <Button style={{width: "40%", fontSize: "18px", background: "#b0bec5"}}>取消</Button>
                                                     </CustomTableCell>
                                                 </TableRow>
                                             )
