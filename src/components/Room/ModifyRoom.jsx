@@ -2,15 +2,25 @@
  * Created by 励颖 on 2019/1/17.
  */
 import React from "react";
-import Button from "@material-ui/core/Button";
+
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
+import TextField from '@material-ui/core/TextField';
+import ExpansionPanel from "@material-ui/core/ExpansionPanel";
+import ExpansionPanelSummary from "@material-ui/core/ExpansionPanelSummary";
+import ExpansionPanelDetails from "@material-ui/core/ExpansionPanelDetails";
+import Typography from "@material-ui/core/Typography";
 import { withStyles } from '@material-ui/core/styles';
+
+
 import GridItem from "components/Grid/GridItem.jsx";
 import GridContainer from "components/Grid/GridContainer.jsx";
+import Button from "components/CustomButtons/Button";
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import Search from "@material-ui/icons/Search";
 
 
 
@@ -39,12 +49,12 @@ const old_rows = [
 
 
 class ModifyRoom extends React.Component{
-    constructor(props){
+    constructor(props) {
         super(props);
-        this.state={
+        this.state = {
             content: "",
             location: "",
-            capacity:  0,
+            capacity: 0,
             using: false,
             devices: [],
             comment: "",
@@ -54,10 +64,29 @@ class ModifyRoom extends React.Component{
         }
     }
 
+    handleClickModify=(key) => {
+        this.setState({
+            toModify: key
+        })
+        console.log(key);
+    };
+
+
 
     render() {
         return (
             <div>
+                <GridContainer xs={12} sm={12} md={12}>
+                    <GridItem xs={12} sm={12} md={12}>&nbsp;</GridItem>
+                    <GridItem xs={12} sm={12} md={12}>
+                        <Button color="black" style={{fontSize:"20px", background:"#00bcd4", marginLeft:"8%"}}>显示所有会议室</Button>
+                        <TextField placeholder="输入与会议室相关信息" style={{ width: "40%", lineHeight:"200px", marginLeft:"15%"}} />
+                        <Button color="white"   aria-label="edit" justIcon round>
+                            <Search />
+                        </Button>
+                    </GridItem>
+                </GridContainer>
+                <br/>
                 <GridContainer xs={12} sm={12} md={11}>
                     <GridItem xs={12} sm={12} md={11}>
                         <Table className="room page" style={{marginLeft:"10%"}}>
@@ -73,7 +102,8 @@ class ModifyRoom extends React.Component{
                             </TableHead>
                             <TableBody>
                                 {this.state.rows.map((row,key) => {
-                                    return (
+                                    if(this.state.toModify === -1)
+                                        return (
                                         <TableRow  key={row.id}>
                                             <CustomTableCell style={{width:"13%", fontSize:"18px"}}>{row.location}</CustomTableCell>
                                             <CustomTableCell style={{width:"13%", fontSize:"18px"}}>{row.capacity}</CustomTableCell>
@@ -81,10 +111,41 @@ class ModifyRoom extends React.Component{
                                             <CustomTableCell style={{width:"30%", fontSize:"18px"}}>{row.devices}</CustomTableCell>
                                             <CustomTableCell style={{width:"14%", fontSize:"18px"}}>{row.comment}</CustomTableCell>
                                             <CustomTableCell>
-                                                <Button style={{width:"20%", fontSize:"16px", background:"#00bcd4"}}>修改</Button>
+                                                <Button style={{width:"20%", fontSize:"18px", background:"#00bcd4"}} onClick={()=>this.handleClickModify(key)}>修改</Button>
                                             </CustomTableCell>
                                         </TableRow>
-                                    )})}
+                                        )
+                                    else {
+                                        if(key !== this.state.toModify)
+                                            return (
+                                                <TableRow key={row.id}>
+                                                    <CustomTableCell style={{width: "13%", fontSize: "18px"}}>{row.location}</CustomTableCell>
+                                                    <CustomTableCell style={{width: "13%", fontSize: "18px"}}>{row.capacity}</CustomTableCell>
+                                                    <CustomTableCell style={{width: "10%", fontSize: "18px"}}>{row.using}</CustomTableCell>
+                                                    <CustomTableCell style={{width: "30%", fontSize: "18px"}}>{row.devices}</CustomTableCell>
+                                                    <CustomTableCell style={{width: "30%", fontSize: "18px"}}>{row.comment}</CustomTableCell>
+                                                    <CustomTableCell>
+                                                        <Button style={{width: "20%", fontSize: "18px", background: "#00bcd4"}}>修改</Button>
+                                                    </CustomTableCell>
+                                                </TableRow>
+                                            )
+                                        else
+                                            return (
+                                                <TableRow key={row.id}>
+                                                    <CustomTableCell style={{width: "13%", fontSize: "18px"}}>{row.location}</CustomTableCell>
+                                                    <CustomTableCell style={{width: "13%", fontSize: "18px"}}>{row.capacity}</CustomTableCell>
+                                                    <CustomTableCell style={{width: "10%", fontSize: "18px"}}>{row.using}</CustomTableCell>
+                                                    <CustomTableCell style={{width: "30%", fontSize: "18px"}}>{row.devices}</CustomTableCell>
+                                                    <CustomTableCell>
+                                                        <TextField  placeholder="请输入备注信息" style={{ fontSize: "18px"}} />
+                                                    </CustomTableCell>
+                                                    <CustomTableCell>
+                                                        <Button style={{width: "20%", fontSize: "18px", background: "#00bcd4"}}>修改</Button>
+                                                    </CustomTableCell>
+                                                </TableRow>
+                                            )
+                                    }
+                                    })}
                             </TableBody>
                         </Table>
                     </GridItem>
