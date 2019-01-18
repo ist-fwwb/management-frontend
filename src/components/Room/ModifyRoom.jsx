@@ -9,6 +9,7 @@ import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import TextField from '@material-ui/core/TextField';
+import Checkbox from '@material-ui/core/Checkbox';
 
 import { withStyles } from '@material-ui/core/styles';
 
@@ -34,12 +35,19 @@ function createData(location, capacity, using, devices, comment) {
     return { location, capacity, using, devices, comment };
 }
 
+function searchDevice(str, device){
+    if (str.indexOf(device) !== -1)
+        return true;
+    else
+        return false;
+}
+
 const old_rows = [
-    createData( '会议室405', 10, "使用中", "空调，白板，桌子，投影仪，电源", "无"),
-    createData( '会议室406', 20, "空闲", "空调，白板，投影仪，电源", "投影仪损坏"),
-    createData( '会议室407', 15, "使用中", "白板，投影仪", "无"),
-    createData( '会议室408', 10, "空闲", "空调，白板，桌子，投影仪，电源", "无"),
-    createData( '会议室409', 10, "使用中", "空调，白板，投影仪，电源", "无"),
+    createData( '会议室405', 10, "使用中", "空调，白板，桌子，投影，电源", "无"),
+    createData( '会议室406', 20, "空闲", "空调，白板，投影，电源", "投影仪损坏"),
+    createData( '会议室407', 15, "使用中", "白板，投影", "无"),
+    createData( '会议室408', 10, "空闲", "空调，白板，桌子，投影，电源", "无"),
+    createData( '会议室409', 10, "使用中", "空调，白板，投影，电源", "无"),
 ];
 
 
@@ -53,10 +61,26 @@ class ModifyRoom extends React.Component{
             rows: old_rows,
             tmp_capacity: -1,
             tmp_comment: "",
+            AirConditioner: false,
+            BlockBoard: false,
+            Table: false,
+            Projector: false,
+            PowerSupply: false,
         }
     }
 
     handleClickModify=(key) => {
+        let device_string = this.state.rows[key].devices;
+        if(searchDevice(device_string, "空调"))
+            this.setState({AirConditioner: true});
+        if(searchDevice(device_string, "白板"))
+            this.setState({BlockBoard: true});
+        if(searchDevice(device_string, "桌子"))
+            this.setState({Table: true});
+        if(searchDevice(device_string, "投影"))
+            this.setState({Projector: true});
+        if(searchDevice(device_string, "电源"))
+            this.setState({PowerSupply: true});
         this.setState({
             toModify: key,
             tmp_capacity: this.state.rows[key].capacity,
@@ -79,6 +103,25 @@ class ModifyRoom extends React.Component{
         console.log(e.target.value)
     };
 
+    handleDeviceChange = name => event => {
+        this.setState({
+            [name]:event.target.checked,
+            tmp_devices:[]
+        },()=>{
+            if(this.state.AirConditioner)
+                this.state.tmp_devices.push("空调");
+            if(this.state.BlockBoard)
+                this.state.tmp_devices.push("白板");
+            if(this.state.Table)
+                this.state.tmp_devices.push("桌子");
+            if(this.state.Projector)
+                this.state.tmp_devices.push("投影");
+            if(this.state.PowerSupply)
+                this.state.tmp_devices.push("电源");
+            for (let i =0; i< this.state.tmp_devices.length;i++)
+                console.log(this.state.tmp_devices[i]);
+        })
+    };
 
     handleConfirmModify=(key)=>{
         console.log(key);
@@ -86,7 +129,16 @@ class ModifyRoom extends React.Component{
         this.state.rows[key].capacity = this.state.tmp_capacity;
         this.setState({
             toModify: -1
-        })
+        });
+        this.state.rows[key].devices=[];
+        let size = this.state.tmp_devices.length;
+        for (let i =0; i< size-1;i++) {
+            //console.log(this.state.tmp_devices[i]);
+            this.state.rows[key].devices += this.state.tmp_devices[i]
+            this.state.rows[key].devices += "，"
+        }
+        this.state.rows[key].devices += this.state.tmp_devices[size-1];
+        console.log(this.state.rows[key].devices);
     };
 
     handleCancelModify=()=>{
@@ -94,6 +146,11 @@ class ModifyRoom extends React.Component{
             toModify: -1,
             tmp_capacity: -1,
             tmp_comment: "",
+            AirConditioner: false,
+            BlockBoard: false,
+            Table: false,
+            Projector: false,
+            PowerSupply: false,
         })
     };
 
@@ -170,12 +227,25 @@ class ModifyRoom extends React.Component{
                                                         />
                                                     </CustomTableCell>
                                                     <CustomTableCell style={{width: "10%", fontSize: "18px"}}>{row.using}</CustomTableCell>
-                                                    <CustomTableCell style={{width: "30%", fontSize: "18px"}}>{row.devices}</CustomTableCell>
+                                                    <CustomTableCell style={{width: "30%", fontSize: "18px"}}>
+                                                        <Checkbox  checked={this.state.AirConditioner} onChange={this.handleDeviceChange('AirConditioner')} value="AirConditioner" />
+                                                        <span style={{fontSize: "18px" }}>空调</span>
+                                                        <Checkbox  style={{ marginLeft: "3%"}} checked={this.state.BlockBoard} onChange={this.handleDeviceChange('BlockBoard')} value="BlockBoard" />
+                                                        <span style={{fontSize: "18px" }}>白板</span>
+                                                        <Checkbox style={{ marginLeft: "3%"}} checked={this.state.Table} onChange={this.handleDeviceChange('Table')} value="Table"/>
+                                                        <span style={{fontSize: "18px" }}>桌子</span>
+                                                        <br/>
+                                                        <Checkbox checked={this.state.Projector} onChange={this.handleDeviceChange('Projector')} value="Projector"/>
+                                                        <span style={{fontSize: "18px" }}>投影</span>
+                                                        <Checkbox style={{ marginLeft: "3%"}} checked={this.state.PowerSupply} onChange={this.handleDeviceChange('PowerSupply')} value="PowerSupply"/>
+                                                        <span style={{fontSize: "18px" }}>电源</span>
+                                                    </CustomTableCell>
                                                     <CustomTableCell>
                                                         <TextField  value={this.state.tmp_comment} onChange={this.handleCommentChange} style={{ fontSize: "18px", lineHeight:"80px"}} />
                                                     </CustomTableCell>
                                                     <CustomTableCell>
                                                         <Button style={{width: "40%", fontSize: "18px", background: "#00bcd4"}} onClick={()=>this.handleConfirmModify(key)}>确认</Button>
+                                                        &nbsp;&nbsp;&nbsp;
                                                         <Button style={{width: "40%", fontSize: "18px", background: "#b0bec5"}} onClick={this.handleCancelModify}>取消</Button>
                                                     </CustomTableCell>
                                                 </TableRow>
@@ -191,4 +261,4 @@ class ModifyRoom extends React.Component{
     }
 }
 
-export default  ModifyRoom;
+export default ModifyRoom;

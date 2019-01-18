@@ -29,23 +29,6 @@ const CustomTableCell = withStyles(theme => ({
     },
 }))(TableCell);
 
-const styles = theme => ({
-    root: {
-        width: '100%',
-        marginTop: theme.spacing.unit * 3,
-        overflowX: 'auto',
-    },
-    table: {
-        minWidth: 700,
-    },
-    row: {
-        '&:nth-of-type(odd)': {
-
-            backgroundColor: theme.palette.background.default,
-
-        },
-    },
-});
 
 let id = 0;
 function createData(location, capacity, using, devices, comment) {

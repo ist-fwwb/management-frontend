@@ -34,22 +34,6 @@ const CustomTableCell = withStyles(theme => ({
     },
 }))(TableCell);
 
-const styles = theme => ({
-    root: {
-        width: '100%',
-        marginTop: theme.spacing.unit * 3,
-        overflowX: 'auto',
-    },
-    table: {
-        minWidth: 700,
-    },
-    row: {
-        '&:nth-of-type(odd)': {
-            backgroundColor: theme.palette.background.default,
-        },
-    },
-});
-
 
 function createData(location, capacity, using, devices, comment) {
     return { location, capacity, using, devices, comment };
@@ -114,7 +98,7 @@ class DeleteRoom extends React.Component {
 
         for (let i=0; i<size; i++)
             if(i !== toDelete)
-                new_rows.push(createData(rows[i].location, rows[i].capacity, rows[i].using, rows[i].devices, rows[i].comment))
+                new_rows.push(createData(rows[i].location, rows[i].capacity, rows[i].using, rows[i].devices, rows[i].comment));
         console.log("new rows: ", new_rows.length);
         this.setState ({
             open: false,
