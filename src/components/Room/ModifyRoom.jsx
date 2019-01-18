@@ -9,19 +9,14 @@ import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import TextField from '@material-ui/core/TextField';
-import ExpansionPanel from "@material-ui/core/ExpansionPanel";
-import ExpansionPanelSummary from "@material-ui/core/ExpansionPanelSummary";
-import ExpansionPanelDetails from "@material-ui/core/ExpansionPanelDetails";
-import Typography from "@material-ui/core/Typography";
+
 import { withStyles } from '@material-ui/core/styles';
 
 
 import GridItem from "components/Grid/GridItem.jsx";
 import GridContainer from "components/Grid/GridContainer.jsx";
 import Button from "components/CustomButtons/Button";
-import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import Search from "@material-ui/icons/Search";
-
 
 
 const CustomTableCell = withStyles(theme => ({
@@ -53,15 +48,11 @@ class ModifyRoom extends React.Component{
         super(props);
         this.state = {
             content: "",
-            location: "",
-            capacity: 0,
-            using: false,
-            devices: [],
-            comment: "",
-            open: false,
+            tmp_devices: [],
             toModify: -1,
             rows: old_rows,
             tmp_capacity: -1,
+            tmp_comment: "",
         }
     }
 
@@ -69,6 +60,7 @@ class ModifyRoom extends React.Component{
         this.setState({
             toModify: key,
             tmp_capacity: this.state.rows[key].capacity,
+            tmp_comment: this.state.rows[key].comment,
         });
         console.log(key);
     };
@@ -78,6 +70,31 @@ class ModifyRoom extends React.Component{
             tmp_capacity:e.target.value
         });
         console.log(e.target.value)
+    };
+
+    handleCommentChange = (e) => {
+        this.setState({
+            tmp_comment: e.target.value,
+        });
+        console.log(e.target.value)
+    };
+
+
+    handleConfirmModify=(key)=>{
+        console.log(key);
+        this.state.rows[key].comment = this.state.tmp_comment;
+        this.state.rows[key].capacity = this.state.tmp_capacity;
+        this.setState({
+            toModify: -1
+        })
+    };
+
+    handleCancelModify=()=>{
+        this.setState({
+            toModify: -1,
+            tmp_capacity: -1,
+            tmp_comment: "",
+        })
     };
 
 
@@ -155,11 +172,11 @@ class ModifyRoom extends React.Component{
                                                     <CustomTableCell style={{width: "10%", fontSize: "18px"}}>{row.using}</CustomTableCell>
                                                     <CustomTableCell style={{width: "30%", fontSize: "18px"}}>{row.devices}</CustomTableCell>
                                                     <CustomTableCell>
-                                                        <TextField  placeholder="请输入备注信息" style={{ fontSize: "18px", lineHeight:"80px"}} />
+                                                        <TextField  value={this.state.tmp_comment} onChange={this.handleCommentChange} style={{ fontSize: "18px", lineHeight:"80px"}} />
                                                     </CustomTableCell>
                                                     <CustomTableCell>
-                                                        <Button style={{width: "40%", fontSize: "18px", background: "#00bcd4"}}>确认</Button>
-                                                        <Button style={{width: "40%", fontSize: "18px", background: "#b0bec5"}}>取消</Button>
+                                                        <Button style={{width: "40%", fontSize: "18px", background: "#00bcd4"}} onClick={()=>this.handleConfirmModify(key)}>确认</Button>
+                                                        <Button style={{width: "40%", fontSize: "18px", background: "#b0bec5"}} onClick={this.handleCancelModify}>取消</Button>
                                                     </CustomTableCell>
                                                 </TableRow>
                                             )
