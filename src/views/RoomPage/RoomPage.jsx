@@ -30,6 +30,7 @@ import dashboardStyle from "assets/jss/material-dashboard-react/views/dashboardS
 import AddRoom from "../../components/Room/AddRoom";
 import SearchRoom from "../../components/Room/SearchRoom";
 import DeleteRoom from "../../components/Room/DeleteRoom";
+import ModifyRoom from "../../components/Room/ModifyRoom";
 
 let rooms = [
   { location: "410", capacity: 10, status: 2, device: "是", others: "无" },
@@ -154,7 +155,8 @@ class Dashboard extends React.Component {
                 },
                 {
                   tabName: "修改会议室",
-                  tabIcon: PanTool
+                  tabIcon: PanTool,
+                  tabContent:<ModifyRoom />
                 }
               ]}
             />
