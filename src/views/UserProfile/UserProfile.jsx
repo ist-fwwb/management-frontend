@@ -169,7 +169,7 @@ class UserProfile extends React.Component {
                 </GridContainer>
               </CardBody>
               <CardFooter>
-                <Button color="primary">确认修改</Button>
+                <Button style={{background:"#212121"}}>确认修改</Button>
               </CardFooter>
             </Card>
           </GridItem>
