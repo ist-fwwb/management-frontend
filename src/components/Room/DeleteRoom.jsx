@@ -115,10 +115,6 @@ class DeleteRoom extends React.Component {
                     <GridItem xs={12} sm={12} md={12}>&nbsp;</GridItem>
                     <GridItem xs={12} sm={12} md={12}>
                         <Button color="black" style={{fontSize:"20px", background:"#00bcd4", marginLeft:"8%"}}>显示所有会议室</Button>
-                        <TextField placeholder="输入与会议室相关信息" style={{ width: "40%", lineHeight:"200px", marginLeft:"15%"}} />
-                        <Button color="white"   aria-label="edit" justIcon round>
-                            <Search />
-                        </Button>
                     </GridItem>
                 </GridContainer>
                 <br/>

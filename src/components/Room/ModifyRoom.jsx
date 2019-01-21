@@ -120,6 +120,7 @@ class ModifyRoom extends React.Component{
                 this.state.tmp_devices.push("电源");
             for (let i =0; i< this.state.tmp_devices.length;i++)
                 console.log(this.state.tmp_devices[i]);
+
         })
     };
 
@@ -127,9 +128,7 @@ class ModifyRoom extends React.Component{
         console.log(key);
         this.state.rows[key].comment = this.state.tmp_comment;
         this.state.rows[key].capacity = this.state.tmp_capacity;
-        this.setState({
-            toModify: -1
-        });
+
         this.state.rows[key].devices=[];
         let size = this.state.tmp_devices.length;
         for (let i =0; i< size-1;i++) {
@@ -139,6 +138,14 @@ class ModifyRoom extends React.Component{
         }
         this.state.rows[key].devices += this.state.tmp_devices[size-1];
         console.log(this.state.rows[key].devices);
+        this.setState({
+            AirConditioner: false,
+            BlockBoard: false,
+            Table: false,
+            Projector: false,
+            PowerSupply: false,
+            toModify: -1
+        })
     };
 
     handleCancelModify=()=>{

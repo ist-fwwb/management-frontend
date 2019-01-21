@@ -15,6 +15,7 @@ import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
+import Checkbox from '@material-ui/core/Checkbox';
 import { withStyles } from '@material-ui/core/styles';
 
 
@@ -54,13 +55,34 @@ class SearchRoom extends React.Component {
             using: false,
             devices: [],
             comment: "",
+            AirConditioner: false,
+            BlockBoard: false,
+            Table: false,
+            Projector: false,
+            PowerSupply: false,
+
         }
     }
 
-    handleContentChange = (e) =>{
-        this.setState ({
-            capacity: e.target.value
-        });
+
+    handleDeviceChange = name => event => {
+        this.setState({
+            [name]:event.target.checked,
+            devices:[]
+        },()=>{
+            if(this.state.AirConditioner)
+                this.state.devices.push("AIRCONDITIONER");
+            if(this.state.BlockBoard)
+                this.state.devices.push("BLOCKBOARD");
+            if(this.state.Table)
+                this.state.devices.push("TABLE");
+            if(this.state.Projector)
+                this.state.devices.push("PROJECTOR");
+            if(this.state.PowerSupply)
+                this.state.devices.push("POWERSUPPLY");
+            for (let i =0; i< this.state.devices.length;i++)
+                console.log(this.state.devices[i]);
+        })
     };
 
 
@@ -71,8 +93,19 @@ class SearchRoom extends React.Component {
                 <GridItem xs={12} sm={12} md={12}>&nbsp;</GridItem>
                 <GridItem xs={12} sm={12} md={12}>
                     <Button color="black" style={{fontSize:"20px", background:"#00bcd4", marginLeft:"8%"}}>显示所有会议室</Button>
-                    <TextField placeholder="输入与会议室相关信息" style={{ width: "40%", lineHeight:"200px", marginLeft:"15%"}} />
-                    <Button color="white"   aria-label="edit" justIcon round>
+                    <span style={{fontSize:"20px", marginLeft:"8%"}}> 设备条件：</span>
+                    <Checkbox style={{marginLeft:"1%"}} checked={this.state.AirConditioner} onChange={this.handleDeviceChange('AirConditioner')} value="AirConditioner" />
+                    <span style={{fontSize: "20px" }}>空调</span>
+                    <Checkbox  style={{ marginLeft: "1%"}} checked={this.state.BlockBoard} onChange={this.handleDeviceChange('BlockBoard')} value="BlockBoard" />
+                    <span style={{fontSize: "20px" }}>白板</span>
+                    <Checkbox style={{ marginLeft: "1%"}} checked={this.state.Table} onChange={this.handleDeviceChange('Table')} value="Table"/>
+                    <span style={{fontSize: "20px" }}>桌子</span>
+
+                    <Checkbox style={{ marginLeft: "1%"}} checked={this.state.Projector} onChange={this.handleDeviceChange('Projector')} value="Projector"/>
+                    <span style={{fontSize: "20px" }}>投影</span>
+                    <Checkbox style={{ marginLeft: "1%"}} checked={this.state.PowerSupply} onChange={this.handleDeviceChange('PowerSupply')} value="PowerSupply"/>
+                    <span style={{fontSize: "20px" }}>电源</span>
+                    <Button color="white"   aria-label="edit"  style={{ marginLeft: "1%"}}justIcon round>
                         <Search />
                     </Button>
                 </GridItem>
