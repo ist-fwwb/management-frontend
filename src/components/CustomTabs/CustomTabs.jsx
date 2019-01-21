@@ -31,6 +31,7 @@ class CustomTabs extends React.Component {
       plainTabs,
       tabs,
       title,
+      style,
       rtlActive
     } = this.props;
     const cardTitle = classNames({
@@ -39,7 +40,7 @@ class CustomTabs extends React.Component {
     });
     return (
       <Card plain={plainTabs}>
-        <CardHeader color={headerColor} plain={plainTabs}>
+        <CardHeader color={headerColor} plain={plainTabs} style={style}>
           {title !== undefined ? (
             <div className={cardTitle}>{title}</div>
           ) : null}
@@ -71,6 +72,7 @@ class CustomTabs extends React.Component {
                     wrapper: classes.tabWrapper
                   }}
                   key={key}
+
                   label={prop.tabName}
                   {...icon}
                 />

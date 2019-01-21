@@ -14,6 +14,7 @@ import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
 import TextField from "@material-ui/core/TextField";
 
+import { roomController } from "variables/general.jsx";
 
 class AddRoom extends React.Component {
   constructor(props){
@@ -57,6 +58,18 @@ class AddRoom extends React.Component {
   })
   };
 
+  handleAdd = () =>{
+      console.log("hello");
+      fetch(roomController.createRoom("", this.state.location, "BIG", this.state.devices ), {
+          credentials: 'include',
+          method:'post'
+      })
+          .then(res => res.json())
+          .then(
+              console.log("success")
+          )
+
+}
   render() {
     const {classes} = this.props;
     return (
@@ -110,7 +123,11 @@ class AddRoom extends React.Component {
 
           <GridItem > &nbsp; </GridItem>
         <GridItem xs={20} sm={20} md={12}>
-            <Button style={{marginLeft:"43%", fontSize:"25px", lineHeight:"60px", background:"#00bcd4"}}>添加会议室</Button>
+            <Button
+                onChange={this.handleAdd}
+                style={{marginLeft:"43%", fontSize:"25px", lineHeight:"60px", background:"#00bcd4"}}>
+                添加会议室
+            </Button>
         </GridItem>
       </GridContainer>
     );

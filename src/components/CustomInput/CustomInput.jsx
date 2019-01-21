@@ -33,39 +33,39 @@ function CustomInput({ ...props }) {
     [classes.underlineSuccess]: success && !error,
     [classes.underline]: true
   });
-  const marginTop = classNames({
+    return (
+        <FormControl
+            {...formControlProps}
+            className={formControlProps.className + " " + classes.formControl}
+        >
+            {labelText !== undefined ? (
+                <InputLabel
+                    className={classes.labelRoot + labelClasses}
+                    htmlFor={id}
+                    {...labelProps}
+                >
+                    {labelText}
+                </InputLabel>
+            ) : null}
+          <Input
+              classes={{
+                  root: marginTop,
+                  disabled: classes.disabled,
+                  underline: underlineClasses
+              }}
+              id={id}
+              {...inputProps}
+          />
+            {error ? (
+                <Clear className={classes.feedback + " " + classes.labelRootError} />
+            ) : success ? (
+                <Check className={classes.feedback + " " + classes.labelRootSuccess} />
+            ) : null}
+        </FormControl>
+    );
+    const marginTop = classNames({
     [classes.marginTop]: labelText === undefined
   });
-  return (
-    <FormControl
-      {...formControlProps}
-      className={formControlProps.className + " " + classes.formControl}
-    >
-      {labelText !== undefined ? (
-        <InputLabel
-          className={classes.labelRoot + labelClasses}
-          htmlFor={id}
-          {...labelProps}
-        >
-          {labelText}
-        </InputLabel>
-      ) : null}
-      <Input
-        classes={{
-          root: marginTop,
-          disabled: classes.disabled,
-          underline: underlineClasses
-        }}
-        id={id}
-        {...inputProps}
-      />
-      {error ? (
-        <Clear className={classes.feedback + " " + classes.labelRootError} />
-      ) : success ? (
-        <Check className={classes.feedback + " " + classes.labelRootSuccess} />
-      ) : null}
-    </FormControl>
-  );
 }
 
 CustomInput.propTypes = {
