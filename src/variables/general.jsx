@@ -1,6 +1,6 @@
 const prefix = "http://";
-const domain = "www.test.com";
-const port = "31003";
+const domain = "129.211.119.51";
+const port = "31000";
 const server = prefix + domain + ":" + port;
 const today = (new Date().toLocaleDateString()).replace(/\//g,'-');
 const roomController = {

@@ -31,6 +31,13 @@ class AddRoom extends React.Component {
     }
   }
 
+  handleLocationChange = (e) => {
+      //console.log(e.target.value);
+      this.setState({
+          location: e.target.value,
+      })
+  };
+
 
   handleCapacityChange = (e) =>{
     this.setState ({
@@ -59,15 +66,45 @@ class AddRoom extends React.Component {
   };
 
   handleAdd = () =>{
-      console.log("hello");
-      fetch(roomController.createRoom("", this.state.location, "BIG", this.state.devices ), {
+      //console.log("hello");
+      let room={
+          "id": "",
+          "location": this.state.location,
+          "size": "BIG",
+          "utils": this.state.devices
+      };
+      console.log(room.id);
+      console.log(room.location);
+      console.log(this.state.devices);
+      fetch(roomController.createRoom()+"/", {
           credentials: 'include',
-          method:'post'
+          method:'post',
+          headers: {
+              'Accept': 'application/json',
+              'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+              "id": "",
+              "location": this.state.location,
+              "size": "BIG",
+              "utils": this.state.devices
+          })
       })
-          .then(res => res.json())
-          .then(
-              console.log("success")
-          )
+          .then(response => {
+              console.log('Request successful', response);
+              return response.json()
+                  .then(result => {
+                      console.log("result:", result.id);
+                      if(response.status === 200)
+                          alert("添加成功");
+                      else
+                          alert("添加失败");
+
+
+                  });
+
+          })
+
 
 }
   render() {
@@ -78,7 +115,7 @@ class AddRoom extends React.Component {
           <GridItem>&nbsp;</GridItem>
         <GridItem classxs={20} sm={20} md={12}>
           <span style={{ marginLeft: "33%", fontSize: "20px", lineHeight:"80px" }}>房间号：</span>
-          <TextField variant="outlined" label="请输入房间号"
+          <TextField variant="outlined" label="请输入房间号" onChange={this.handleLocationChange}
                      style={{width:"20%", fontSize: "20px", lineHeight:"80px", marginLeft:"58px"}} />
         </GridItem>
 
@@ -124,7 +161,7 @@ class AddRoom extends React.Component {
           <GridItem > &nbsp; </GridItem>
         <GridItem xs={20} sm={20} md={12}>
             <Button
-                onChange={this.handleAdd}
+                onClick={this.handleAdd}
                 style={{marginLeft:"43%", fontSize:"25px", lineHeight:"60px", background:"#00bcd4"}}>
                 添加会议室
             </Button>
