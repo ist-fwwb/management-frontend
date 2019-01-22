@@ -2,6 +2,10 @@ import React from "react";
 // @material-ui/core components
 import withStyles from "@material-ui/core/styles/withStyles";
 import InputLabel from "@material-ui/core/InputLabel";
+import CustomTabs from "components/CustomTabs/CustomTabs.jsx";
+import Search from "@material-ui/icons/Search";
+import DeleteOutline from "@material-ui/icons/DeleteOutline";
+import ConfirmationNumber from "@material-ui/icons/ConfirmationNumber";
 // core components
 import GridItem from "components/Grid/GridItem.jsx";
 import GridContainer from "components/Grid/GridContainer.jsx";
@@ -32,146 +36,36 @@ const styles = {
 };
 
 class UserProfile extends React.Component {
-  state = {
-    username: "zzbslayer",
-    email: "zzbslayer@sjtu.edu.cn",
-    firstName: "Oh",
-    lastName: "Whatever",
-    position: "CEO",
-    description: "这个人很懒什么都没有留下",
-  };
-
-  handleChange = (e) => {
-    this.setState({[e.target.name]:e.target.value})
-  }
 
   render(){
-    const { classes } = this.props;
-    const email = this.state.email;
-    const username = this.state.username;
-    const firstName = this.state.firstName;
-    const lastName = this.state.lastName;
-    const description = this.state.description;
-    const position = this.state.position;
     return (
       <div>
         <GridContainer>
-          <GridItem xs={12} sm={12} md={12}>
-            <Card>
-              <CardHeader style={{background:"#212121"}}>
-                <h4 className={classes.cardTitleWhite}>个人信息</h4>
-                <p className={classes.cardCategoryWhite}>完善你的个人信息</p>
-              </CardHeader>
-              <CardBody>
-                <GridContainer>
-                  <GridItem xs={12} sm={12} md={3}>
-                    <CustomInput
-                      labelText="公司"
-                      id="company-disabled"
-                      formControlProps={{
-                        fullWidth: true
-                      }}
-                      inputProps={{
-                        disabled: true,
-                        value: "Whatever Company"
-                      }}
-                    />
-                  </GridItem>
-                  <GridItem xs={12} sm={12} md={3}>
-                    <CustomInput
-                      labelText="用户名"
-                      id="username-disabled"
-                      formControlProps={{
-                        fullWidth: true
-                      }}
-                      inputProps={{
-                        disabled: true,
-                        value: username
-                      }}
-                    />
-                  </GridItem>
-                  <GridItem xs={12} sm={12} md={4}>
-                    <CustomInput
-                      labelText="邮箱地址"
-                      id="email"
-                      formControlProps={{
-                        fullWidth: true
-                      }}
-                      inputProps={{
-                        name: "email",
-                        value: email,
-                        onChange: this.handleChange
-                      }}
-                    />
-                  </GridItem>
-                </GridContainer>
-                <GridContainer>
-                  <GridItem xs={12} sm={12} md={3}>
-                    <CustomInput
-                      labelText="名"
-                      id="firstName"
-                      formControlProps={{
-                        fullWidth: true
-                      }}
-                      inputProps={{
-                        name: "firstName",
-                        value: firstName,
-                        onChange: this.handleChange
-                      }}
-                    />
-                  </GridItem>
-                  <GridItem xs={12} sm={12} md={3}>
-                    <CustomInput
-                      labelText="姓"
-                      id="last-name"
-                      formControlProps={{
-                        fullWidth: true
-                      }}
-                      inputProps={{
-                        name: "lastName",
-                        value: lastName,
-                        onChange: this.handleChange
-                      }}
-                    />
-                  </GridItem>
-                  <GridItem xs={12} sm={12} md={3}>
-                    <CustomInput
-                      labelText="职位"
-                      id="position"
-                      formControlProps={{
-                        fullWidth: true
-                      }}
-                      inputProps={{
-                        name: "position",
-                        value: position,
-                        onChange: this.handleChange
-                      }}
-                    />
-                  </GridItem>
-                </GridContainer>
-                <GridContainer>
-                  <GridItem xs={12} sm={12} md={12}>
-                    <InputLabel style={{ color: "#AAAAAA" }}>个人简介</InputLabel>
-                    <CustomInput
-                      id="about-me"
-                      formControlProps={{
-                        fullWidth: true
-                      }}
-                      inputProps={{
-                        name: "description",
-                        value: description,
-                        onChange: this.handleChange,
-                        multiline: true,
-                        rows: 5
-                      }}
-                    />
-                  </GridItem>
-                </GridContainer>
-              </CardBody>
-              <CardFooter>
-                <Button style={{background:"#00bcd4"}}>确认修改</Button>
-              </CardFooter>
-            </Card>
+          <GridItem xs={12} sm={12} md={15}>
+            <CustomTabs
+                title={null}
+                style={{ background: "#000" }}
+                headerColor="success"
+                tabs={[
+                    {
+                        tabName: "用户激活",
+                        tabIcon: ConfirmationNumber
+                        //tabContent:
+
+                    },
+                    {
+                        tabName: "查询用户",
+                        tabIcon: Search,
+                        //tabContent:
+                    },
+                    {
+                        tabName: "修改用户信息",
+                        tabIcon: DeleteOutline,
+                        //tabContent:
+                    },
+
+                ]}
+            />
           </GridItem>
         </GridContainer>
       </div>
