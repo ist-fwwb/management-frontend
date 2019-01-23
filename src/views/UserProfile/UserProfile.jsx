@@ -5,7 +5,9 @@ import InputLabel from "@material-ui/core/InputLabel";
 import CustomTabs from "components/CustomTabs/CustomTabs.jsx";
 import Search from "@material-ui/icons/Search";
 import DeleteOutline from "@material-ui/icons/DeleteOutline";
+import HowToReg from "@material-ui/icons/HowToReg";
 import ConfirmationNumber from "@material-ui/icons/ConfirmationNumber";
+import ActivateUser from "components/User/ActivateUser.jsx";
 // core components
 import GridItem from "components/Grid/GridItem.jsx";
 import GridContainer from "components/Grid/GridContainer.jsx";
@@ -44,12 +46,18 @@ class UserProfile extends React.Component {
           <GridItem xs={12} sm={12} md={15}>
             <CustomTabs
                 title={null}
-                style={{ background: "#000" }}
+                style={{ background: "#424242" }}
                 headerColor="success"
                 tabs={[
                     {
                         tabName: "用户激活",
-                        tabIcon: ConfirmationNumber
+                        tabIcon: ConfirmationNumber,
+                        tabContent: <ActivateUser/>
+
+                    },
+                    {
+                        tabName: "外宾注册",
+                        tabIcon: HowToReg
                         //tabContent:
 
                     },

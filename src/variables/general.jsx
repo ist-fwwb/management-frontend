@@ -28,6 +28,7 @@ const meetingController = {
 
 const userController = {
   "getUser": () => (server + "/user"),
+    "getUserByType":(type)=>(server + "/user?type="+type),
   "register": () => (server + "/user"), //json params in req body
   "login": (phone, password) => (server + "/user/login?phone=" + phone + "&password=" + password),
   "getUserByUserId": (userId) => (server + "/user/" + userId),

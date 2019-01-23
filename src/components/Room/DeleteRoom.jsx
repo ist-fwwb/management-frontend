@@ -65,13 +65,6 @@ class DeleteRoom extends React.Component {
         }
     }
 
-    handleContentChange = (e) =>{
-        this.setState ({
-            capacity: e.target.value
-        });
-    };
-
-
 
     handleClickOpen = (key) =>{
         console.log(key);
