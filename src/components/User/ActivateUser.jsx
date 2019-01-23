@@ -32,22 +32,24 @@ const CustomTableCell = withStyles(theme => ({
     },
 }))(TableCell);
 
-function createData(company, name, tel, img) {
-    return {company, name, tel, img};
+function createData(enterpriceId, faceFile, featureFile, id, name, password, phone, type ) {
+    return {enterpriceId, faceFile, featureFile, id, name, password, phone, type};
 }
-
-const old_rows = [
-    createData("上海交通大学", "励颖", "18721585465", "")
-];
 
 
 class ActivateUser extends React.Component {
     constructor(props){
         super(props);
         this.state={
+            enterpriceId:"",
+            faceFile:"",
+            featureFile:"",
+            password:"",
+            type:"",
             name:"",
-            tel:"",
+            phone:"",
             face:"",
+            id: "",
             toActivate: -1,
             open: false,
             rows: [],
@@ -68,12 +70,16 @@ class ActivateUser extends React.Component {
                         for(let i=0; i<result.length; i++)
                         {
                             let tmp = result[i];
-                            this.state.rows.push (createData(tmp.enterpriceId, tmp.name, tmp.phone, tmp.faceFile));
+                            this.state.rows.push (createData(tmp.enterpriceId, tmp.faceFile, tmp.featureFile, tmp.id, tmp.name, tmp.password, tmp.phone, tmp.type));
                             this.setState({
+                                enterpriceId: tmp.enterpriceId,
+                                faceFile: tmp.faceFile,
+                                featureFile: tmp.featureFile,
+                                id: tmp.id,
                                 name: tmp.name,
-                                company: tmp.enterpriceId,
+                                password: tmp.password,
                                 phone: tmp.phone,
-                                img: tmp.faceFile,
+                                type: tmp.type
                             });
                         }
                         console.log(this.state.rows.length);
@@ -99,10 +105,12 @@ class ActivateUser extends React.Component {
 
     handleActivate =() => {
         let {toActivate, rows, new_rows} = this.state;
-        console.log("handleActivate");
+        console.log(rows[toActivate].id);
+        console.log(rows[toActivate].password);
         this.setState({
             open: false,
         })
+        
     };
 
     render() {
