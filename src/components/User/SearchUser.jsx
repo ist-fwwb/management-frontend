@@ -74,7 +74,8 @@ class SearchUser extends React.Component {
                         for(let i=0; i<result.length; i++)
                         {
                             let tmp = result[i];
-                            this.state.rows.push (createData(tmp.enterpriceId, tmp.faceFile,  tmp.id, tmp.name, tmp.phone, tmp.type));
+                            console.log(tmp.id);
+                            this.state.rows.push (createData(tmp.enterpriceId, tmp.faceFile, tmp.id, tmp.name, tmp.phone, tmp.type));
                             this.setState({
                                 enterpriceId: tmp.enterpriceId,
                                 faceFile: tmp.faceFile,

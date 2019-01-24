@@ -20,9 +20,8 @@ import Button from "components/CustomButtons/Button";
 import OutlinedInput from "@material-ui/core/OutlinedInput";
 import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
-import InputLabel from '@material-ui/core/InputLabel';
-import FormControl from '@material-ui/core/FormControl';
-import Search from "@material-ui/icons/Search";
+import { userController } from "variables/general.jsx";
+
 
 
 const CustomTableCell = withStyles(theme => ({
@@ -36,8 +35,8 @@ const CustomTableCell = withStyles(theme => ({
     },
 }))(TableCell);
 
-function createData(location, capacity, using, devices, comment) {
-    return { location, capacity, using, devices, comment };
+function createData(enterpriceId, id, name, phone, type ) {
+    return {enterpriceId, id, name, phone, type};
 }
 
 class ModifyUser extends React.Component{
@@ -48,7 +47,9 @@ class ModifyUser extends React.Component{
             toModify: -1,
             rows: [],
             id: "",
-
+            enterpriceId:"",
+            phone:"",
+            name:"",
         }
     }
 
@@ -65,7 +66,41 @@ class ModifyUser extends React.Component{
         })
     };
 
+    handleSearch = () => {
+        const{type, id} = this.state;
+        if ((type === "") && (id === ""))
+            alert("请选择职员类型或输入职员id");
 
+        else if (id !== "")
+        {
+            console.log("id:", id);
+            fetch(userController.getUserByUserId(id), {
+                credentials: 'include',
+                method:'get',
+            })
+                .then(response => {
+                    console.log('Request successful', response);
+                    return response.json()
+                        .then(result => {
+                            console.log("result:", result.name);
+                            this.setState({
+                                rows:[],
+                            });
+                            this.state.rows.push (createData(result.enterpriceId, result.id, result.name, result.phone, result.type));
+                            this.setState({
+                                enterpriceId: result.enterpriceId,
+                                id: result.id,
+                                name: result.name,
+                                phone: result.phone,
+                                type: result.type
+                            });
+                            console.log(this.state.rows.length);
+
+                        });
+                })
+        }
+
+    };
 
     handleClickModify=(key) => {
 
@@ -85,10 +120,11 @@ class ModifyUser extends React.Component{
     render() {
         return (
             <div>
+                <br/>
                 <GridContainer xs={12} sm={12} md={12}>
                     <GridItem xs={12} sm={12} md={12}>&nbsp;</GridItem>
                     <GridItem xs={12} sm={12} md={12}>
-                        <span style={{ marginLeft: "15%", fontSize: "20px", lineHeight:"70px"}}>职员类型：</span>
+                        <span style={{ marginLeft: "18%", fontSize: "20px", lineHeight:"70px"}}>职员类型：</span>
                         <Select
                             value={this.state.type}
                             onChange={this.handleTypeChange}
@@ -101,26 +137,26 @@ class ModifyUser extends React.Component{
                             <MenuItem value={"GUEST"} style={{fontSize:"20px"}}>外宾</MenuItem>
                             <MenuItem value={"ADMINISTOR"} style={{fontSize:"20px"}}>管理员</MenuItem>
                         </Select>
-                        <TextField placeholder="输入用户ID" style={{ width: "20%", lineHeight:"200px", marginLeft:"8%", fontSize:"20px"}}
+                        <TextField placeholder="输入用户ID" style={{ width: "20%", lineHeight:"200px", marginLeft:"7%", fontSize:"20px"}}
                                    onChange={this.handleIdChange}/>
-                        <Button style={{ marginLeft: "8%", background:"#00bcd4", fontSize:"20px", width:"10%"}}
+                        <Button style={{ marginLeft: "7%", background:"#00bcd4", fontSize:"20px", width:"10%"}}
                                 onClick={this.handleSearch}>
                             搜索
                         </Button>
                     </GridItem>
                 </GridContainer>
                 <br/>
-                <GridContainer xs={12} sm={12} md={11}>
-                    <GridItem xs={12} sm={12} md={11}>
-                        <Table className="room page" style={{marginLeft:"10%"}}>
+                <br/>
+                <GridContainer xs={12} sm={12} md={10}>
+                    <GridItem xs={12} sm={12} md={10}>
+                        <Table className="room page" style={{marginLeft:"23%"}}>
                             <TableHead>
                                 <TableRow >
-                                    <CustomTableCell  align="center" style={{width:"13%", fontSize:"20px"}}>房间号</CustomTableCell>
-                                    <CustomTableCell  style={{width:"13%", fontSize:"20px"}}>可容纳人数</CustomTableCell>
-                                    <CustomTableCell  style={{width:"10%", fontSize:"20px"}}>状态</CustomTableCell>
-                                    <CustomTableCell  style={{width:"30%", fontSize:"20px"}}>设备条件</CustomTableCell>
-                                    <CustomTableCell  style={{width:"14%", fontSize:"20px"}}>备注</CustomTableCell>
-                                    <CustomTableCell  style={{width:"20%", fontSize:"20px"}}>操作</CustomTableCell>
+                                    <CustomTableCell style={{width:"22%", fontSize:"18px"}}>公司</CustomTableCell>
+                                    <CustomTableCell style={{width:"17%", fontSize:"20px"}}>姓名</CustomTableCell>
+                                    <CustomTableCell style={{width:"22%", fontSize:"20px"}}>联系电话</CustomTableCell>
+                                    <CustomTableCell style={{width:"17%", fontSize:"20px"}}>职员类型</CustomTableCell>
+                                    <CustomTableCell style={{width:"22%", fontSize:"20px"}}>操作</CustomTableCell>
                                 </TableRow>
                             </TableHead>
                             <TableBody>
@@ -128,16 +164,15 @@ class ModifyUser extends React.Component{
                                     if(this.state.toModify === -1)
                                         return (
                                             <TableRow  key={row.id}>
-                                                <CustomTableCell style={{width:"13%", fontSize:"18px"}}>{row.location}</CustomTableCell>
-                                                <CustomTableCell style={{width:"13%", fontSize:"18px"}}>{row.capacity}</CustomTableCell>
-                                                <CustomTableCell style={{width:"10%", fontSize:"18px"}}>{row.using}</CustomTableCell>
-                                                <CustomTableCell style={{width:"30%", fontSize:"18px"}}>{row.devices}</CustomTableCell>
-                                                <CustomTableCell style={{width:"14%", fontSize:"18px"}}>{row.comment}</CustomTableCell>
+                                                <CustomTableCell style={{width:"22%", fontSize:"18px"}}>{row.enterpriceId}</CustomTableCell>
+                                                <CustomTableCell style={{width:"17%", fontSize:"18px"}}>{row.name}</CustomTableCell>
+                                                <CustomTableCell style={{width:"22%", fontSize:"18px"}}>{row.phone}</CustomTableCell>
+                                                <CustomTableCell style={{width:"17%", fontSize:"18px"}}>{row.type}</CustomTableCell>
                                                 <CustomTableCell>
                                                     <Button style={{width:"20%", fontSize:"18px", background:"#00bcd4"}} onClick={()=>this.handleClickModify(key)}>修改</Button>
                                                 </CustomTableCell>
                                             </TableRow>
-                                        )
+                                        );
                                     else {
                                         if(key !== this.state.toModify)
                                             return (
