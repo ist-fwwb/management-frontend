@@ -9,6 +9,7 @@ import HowToReg from "@material-ui/icons/HowToReg";
 import ConfirmationNumber from "@material-ui/icons/ConfirmationNumber";
 import ActivateUser from "components/User/ActivateUser.jsx";
 import SearchUser from "components/User/SearchUser.jsx";
+import ModifyUser from "components/User/ModifyUser.jsx";
 // core components
 import GridItem from "components/Grid/GridItem.jsx";
 import GridContainer from "components/Grid/GridContainer.jsx";
@@ -70,7 +71,7 @@ class UserProfile extends React.Component {
                     {
                         tabName: "修改用户信息",
                         tabIcon: DeleteOutline,
-                        //tabContent:
+                        tabContent: <ModifyUser/>
                     },
 
                 ]}
