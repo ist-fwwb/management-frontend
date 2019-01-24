@@ -109,8 +109,71 @@ class ActivateUser extends React.Component {
         console.log(rows[toActivate].password);
         this.setState({
             open: false,
+        });
+        fetch(userController.editUserByUserId(rows[toActivate].id), {
+            credentials: 'include',
+            method:'put',
+            headers: {
+                'Accept': "application/json",
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                "enterpriceId":rows[toActivate].enterpriceId,
+                "faceFile":rows[toActivate].faceFile,
+                "featureFile": rows[toActivate].featureFile,
+                "id": rows[toActivate].id,
+                "name": rows[toActivate].name,
+                "password": rows[toActivate].password,
+                "phone": rows[toActivate].phone,
+                "type": "ORDINARY"
+            })
         })
-        
+            .then(response => {
+                console.log('Request successful', response);
+                return response.json()
+                    .then(result => {
+                        console.log("result:", result.id);
+                        if(response.status === 200)
+                        {
+                            alert("激活成功");
+                            fetch(userController.getUserByType("UNACTIVATE"), {
+                                credentials: 'include',
+                                method:'get',
+                            })
+                                .then(response => {
+                                    console.log('Request successful', response);
+                                    return response.json()
+                                        .then(result => {
+                                            console.log("result:", result.length);
+                                            this.setState({
+                                                rows:[],
+                                            });
+                                            for(let i=0; i<result.length; i++)
+                                            {
+                                                let tmp = result[i];
+                                                this.state.rows.push (createData(tmp.enterpriceId, tmp.faceFile, tmp.featureFile, tmp.id, tmp.name, tmp.password, tmp.phone, tmp.type));
+                                                this.setState({
+                                                    enterpriceId: tmp.enterpriceId,
+                                                    faceFile: tmp.faceFile,
+                                                    featureFile: tmp.featureFile,
+                                                    id: tmp.id,
+                                                    name: tmp.name,
+                                                    password: tmp.password,
+                                                    phone: tmp.phone,
+                                                    type: tmp.type
+                                                });
+                                            }
+                                            console.log(this.state.rows.length);
+
+                                        });
+                                })
+                        }
+
+                        else
+                            alert("激活失败");
+                    });
+            })
+
     };
 
     render() {
@@ -143,9 +206,9 @@ class ActivateUser extends React.Component {
                                 {this.state.rows.map((row,key) => {
                                     return (
                                         <TableRow  key={row.id}>
-                                            <CustomTableCell style={{width:"25%", fontSize:"18px"}}>{row.company}</CustomTableCell>
+                                            <CustomTableCell style={{width:"25%", fontSize:"18px"}}>{row.enterpriceId}</CustomTableCell>
                                             <CustomTableCell style={{width:"15%", fontSize:"18px"}}>{row.name}</CustomTableCell>
-                                            <CustomTableCell style={{width:"15%", fontSize:"18px"}}>{row.tel}</CustomTableCell>
+                                            <CustomTableCell style={{width:"15%", fontSize:"18px"}}>{row.phone}</CustomTableCell>
                                             <CustomTableCell style={{width:"25%", fontSize:"18px"}}>
                                                 <img style={{width:"50%", height:"90px"}}></img>
                                             </CustomTableCell>
