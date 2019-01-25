@@ -245,7 +245,6 @@ class ModifyUser extends React.Component{
                             this.state.rows[key].type = this.state.modifyType;
                             alert("修改成功");
                         }
-
                         else
                             alert("修改失败");
                     });
