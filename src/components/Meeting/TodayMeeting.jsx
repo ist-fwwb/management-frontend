@@ -81,7 +81,7 @@ class TodayMeeting extends React.Component {
             attendantNum:"",
             status: "",
             type:"",
-        }
+        };
 
         console.log(getNowFormatDate());
         fetch(meetingController.getMeetingByDate(getNowFormatDate()), {
