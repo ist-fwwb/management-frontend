@@ -108,33 +108,8 @@ class HomePage extends React.Component{
       <div>
         <GridContainer>
 
-          <GridItem xs={12} sm={12} md={6}>
-            <CustomTabs
-              title={null}
-              style={{background:"#000"}}
-              headerColor="danger"
-              tabs={[
-                {
-                  tabName: "今日会议",
-                  tabIcon: Assignment,
-                  tabContent: <TodayMeeting/>
-                },
-                {
-                  tabName: "历史会议",
-                  tabIcon: History,
-                  tabContent: (
-                    ! historyLoaded ? null :
-                    <Table
-                      tableHeaderColor="primary"
-                      tableHead={["会议名称", "会议室", "日期", "时间"]}
-                      tableData={this.JSONToArray(historyMeetings, "history")}
-                    />
-                  )
-                }
-              ]}
-            />
-          </GridItem>
-          <GridItem xs={12} sm={12} md={6}>
+
+          <GridItem xs={12} sm={12} md={12}>
             <CustomTabs
                 title={null}
                 style={{background:"#000"}}

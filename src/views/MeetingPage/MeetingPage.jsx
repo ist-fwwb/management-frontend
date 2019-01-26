@@ -10,6 +10,7 @@ import Table from "components/Table/Table.jsx";
 import Button from "components/CustomButtons/Button.jsx";
 import { Link } from "react-router-dom";
 import TodayMeeting from "../../components/Meeting/TodayMeeting";
+import ConditionSearch from "../../components/Meeting/ConditionSearch";
 
 
 const historyMeetings = [{
@@ -128,13 +129,7 @@ class MeetingPage extends React.Component {
                   {
                       tabName: "条件搜索",
                       tabIcon: LocationSearching,
-                      tabContent: (
-                          <Table
-                              tableHeaderColor="primary"
-                              tableHead={["ID", "发起人", "会议室", "日期", "时间", "操作"]}
-                              tableData={JSONToArray(historyMeetings, "history")}
-                          />
-                      )
+                      tabContent: <ConditionSearch/>
                   }
               ]}
             />
