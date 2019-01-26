@@ -30,19 +30,19 @@ export const dashboardRoutes = [
     component: RoomPage
   },
   {
-    path: "/meeting",
-    sidebarName: "会议管理",
-    navbarName: "会议管理",
-    icon: Today,
-    component: MeetingPage
-  },
-  {
     path: "/user",
     sidebarName: "用户管理",
     navbarName: "用户管理",
     icon: Person,
     component: UserProfile
   },
+    {
+        path: "/meeting",
+        sidebarName: "会议管理",
+        navbarName: "会议管理",
+        icon: Today,
+        component: MeetingPage
+    },
     {
         path: "/message",
         sidebarName: "通知管理",

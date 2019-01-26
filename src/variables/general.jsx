@@ -17,6 +17,7 @@ const timeSliceController = {
 const meetingController = {
   "getMeeting": () => (server + "/meeting"),
   "getMeetingByMeetingId": (meetingId) => (server + "/meeting/" + meetingId),
+  "getMeetingByDate": (date) => (server + "/meeting?date=" + date),
   "createMeeting": () => (server + "/meeting"), // json params in req body
   "editMeetingByMeetingId": (meetingId) => (server + "/meeting/" + meetingId), //json params in req body
   "deleteMeetingByMeetingId": (meetingId) => (server + "/meeting/" + meetingId),

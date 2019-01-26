@@ -17,20 +17,13 @@ import Snackbar from "components/Snackbar/Snackbar.jsx";
 import { meetingController, today } from "variables/general.jsx";
 import { Link } from "react-router-dom";
 import { idToTime } from "variables/general.jsx";
+import TodayMeeting from "../../components/Meeting/TodayMeeting";
 
 const news = [
   ["温州皮革厂倒闭了", "2018-01-20"],
   ["温州皮革厂开业了", "2018-01-21"],
 ];
 
-const notes = [
-  ["Meeting a", "whatever"],
-  ["Meeting b", "whatever"]
-]
-
-const joinButton = (id) => {
-  return <Button color="success" size="sm">加入会议</Button>
-}
 
 class HomePage extends React.Component{
   constructor(props){
@@ -64,7 +57,7 @@ class HomePage extends React.Component{
       if (type === "meeting")
         temp_ele.push(ele.status);
       else if (type === "attend")
-        temp_ele.push([joinButton(ele.id)])
+        temp_ele.push([])
       re.push(temp_ele);
     }
     return re;
@@ -124,7 +117,7 @@ class HomePage extends React.Component{
                 {
                   tabName: "今日会议",
                   tabIcon: Assignment,
-                  //tabContent:
+                  tabContent: <TodayMeeting/>
                 },
                 {
                   tabName: "历史会议",

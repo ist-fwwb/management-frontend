@@ -4,10 +4,12 @@ import GridContainer from "components/Grid/GridContainer.jsx";
 import CustomTabs from "components/CustomTabs/CustomTabs.jsx";
 import Assignment from "@material-ui/icons/Assignment";
 import LibraryAdd from "@material-ui/icons/LibraryAdd";
+import LocationSearching from "@material-ui/icons/LocationSearching";
 import History from "@material-ui/icons/History";
 import Table from "components/Table/Table.jsx";
 import Button from "components/CustomButtons/Button.jsx";
 import { Link } from "react-router-dom";
+import TodayMeeting from "../../components/Meeting/TodayMeeting";
 
 
 const historyMeetings = [{
@@ -104,21 +106,13 @@ class MeetingPage extends React.Component {
         <GridContainer>
           <GridItem xs={12} sm={12} md={12}>
             <CustomTabs
-              title="Tasks:"
               style={{background:"#212121"}}
               headerColor="rose"
               tabs={[
                 {
-                  tabName: "待办会议",
+                  tabName: "今日会议",
                   tabIcon: Assignment,
-                  tabContent: (
-                    <Table
-                      tableHeaderColor="rose"
-                      tableHead={["ID", "发起人", "会议室", "日期", "时间", "操作"]}
-                      tableData={JSONToArray(meetings, "meeting")}
-                      //style={{background:"#212121"}}
-                    />
-                  )
+                  tabContent: <TodayMeeting/>
                 },
                 {
                   tabName: "历史会议",
@@ -130,7 +124,18 @@ class MeetingPage extends React.Component {
                       tableData={JSONToArray(historyMeetings, "history")}
                     />
                   )
-                }
+                },
+                  {
+                      tabName: "条件搜索",
+                      tabIcon: LocationSearching,
+                      tabContent: (
+                          <Table
+                              tableHeaderColor="primary"
+                              tableHead={["ID", "发起人", "会议室", "日期", "时间", "操作"]}
+                              tableData={JSONToArray(historyMeetings, "history")}
+                          />
+                      )
+                  }
               ]}
             />
           </GridItem>
