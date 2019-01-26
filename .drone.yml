@@ -20,9 +20,9 @@ pipeline:
 
   deploy:
     image: appleboy/drone-ssh
-    host: 129.211.119.51
+    host: 47.106.8.44
     secrets: [ssh_username, ssh_password]
     port: 22
     script:
-      - /root/shell/frontend-management-deployment.sh
+      - /root/shell/deploy.sh meetingroom-management-frontend 31003
 
