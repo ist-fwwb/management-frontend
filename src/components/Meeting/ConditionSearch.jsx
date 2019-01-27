@@ -6,6 +6,7 @@ import React from "react";
 import GridItem from "components/Grid/GridItem.jsx";
 import GridContainer from "components/Grid/GridContainer.jsx";
 import Button from "components/CustomButtons/Button";
+import DatePicker from "components/Pickers/DatePicker";
 
 import Search from "@material-ui/icons/Search";
 import TextField from "@material-ui/core/TextField";
@@ -17,6 +18,7 @@ import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
+import InputLabel from '@material-ui/core/InputLabel';
 import Checkbox from '@material-ui/core/Checkbox';
 import { withStyles } from '@material-ui/core/styles';
 import { userController, meetingController } from "variables/general.jsx";
@@ -87,7 +89,7 @@ class ConditionSearch extends React.Component {
             attendants:[],
             needSignIn: false,
             attendantNum:"",
-            status: "",
+            status: "选择状态",
             type:"",
         };
 
@@ -127,21 +129,48 @@ class ConditionSearch extends React.Component {
         return result;
     }
 
+    handleLocationChange =(e) =>{
+        console.log(e.target.value);
+        this.setState({
+            location: e.target.value
+        })
+    };
+
+    handleStatusChange =(e) =>{
+        console.log(e.target.value);
+        this.setState({
+            status: e.target.value
+        })
+    };
+
     render() {
         return (
             <div>
                 <br/>
                 <GridContainer xs={12} sm={12} md={12}>
+
                     <Select
-                        style={{width:"10%", fontSize:"20px", align:"center", marginLeft:"1%"}}
+                        style={{width:"15%", fontSize:"20px", align:"center", marginLeft:"3%"}}
                         value={this.state.location}
-                        onChange={this.handleCapacityChange}
-                        input={
-                            <OutlinedInput  name="capacity" id="outlined-age-simple" />
-                        }>
+                        onChange={this.handleLocationChange}
+                        displayEmpty
+                        >
+                        <MenuItem value="" disabled>选择房间号</MenuItem>
                         <MenuItem value={"Room405"} style={{fontSize:"20px"}}>Room405</MenuItem>
                         <MenuItem value={"Room406"} style={{fontSize:"20px"}}>Room406</MenuItem>
                     </Select>
+                    <Select
+                        style={{width:"15%", fontSize:"20px", align:"center", marginLeft:"2%"}}
+                        value={this.state.location}
+                        onChange={this.handleStatusChange}
+                        displayEmpty
+                        >
+                        <MenuItem value="" disabled>选择状态</MenuItem>
+                        <MenuItem value={"待办"} style={{fontSize:"20px"}}>待办</MenuItem>
+                        <MenuItem value={"进行中"} style={{fontSize:"20px"}}>进行中</MenuItem>
+                        <MenuItem value={"已取消"} style={{fontSize:"20px"}}>已取消</MenuItem>
+                    </Select>
+                    <DatePicker style={{marginLeft:"2%", fontSize:"20px"}}/>
                     <Button style={{width:"5%", background:"#00bcd4", marginLeft:"2%"}}>搜索</Button>
                 </GridContainer>
                 <br/>
