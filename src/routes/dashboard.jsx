@@ -12,6 +12,7 @@ import UpgradeToPro from "views/UpgradeToPro/UpgradeToPro.jsx";
 import RoomSchedule from "views/RoomSchedule/RoomSchedule.jsx";
 import RoomProfile from "views/RoomProfile/RoomProfile.jsx";
 import HomePage from "views/HomePage/HomePage.jsx";
+import MessagePage from "views/MessagePage/MessagePage.jsx";
 
 
 export const dashboardRoutes = [
@@ -48,7 +49,7 @@ export const dashboardRoutes = [
         sidebarName: "通知管理",
         navbarName: "通知管理",
         icon: Mail,
-        component: UserProfile //------------------------------------------------------------
+        component: MessagePage//------------------------------------------------------------
     },
 
   { redirect: true, path: "/", to: "/home", navbarName: "Redirect" }

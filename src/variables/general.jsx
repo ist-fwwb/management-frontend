@@ -18,6 +18,11 @@ const meetingController = {
   "getMeeting": () => (server + "/meeting"),
   "getMeetingByMeetingId": (meetingId) => (server + "/meeting/" + meetingId),
   "getMeetingByDate": (date) => (server + "/meeting?date=" + date),
+  "getMeetingByRoomId": (roomId) => (server + "/meeting?roomId=" + roomId),
+  "getMeetingByStatus": (status) => (server + "/meeting?status=" + status),
+  "getMeetingByRoomIdAndStatus": (roomId, status) => (server + "/meeting?roomId=" + roomId + "&status=" + status),
+  "getMeetingByDateAndRoomId": (date, roomId) => (server + "/meeting?date=" + date + "&roomId=" + roomId),
+  "getMeetingByDateAndStatus": (date, status) => (server + "/meeting?date=" + date + "&status=" + status),
   "createMeeting": () => (server + "/meeting"), // json params in req body
   "editMeetingByMeetingId": (meetingId) => (server + "/meeting/" + meetingId), //json params in req body
   "deleteMeetingByMeetingId": (meetingId) => (server + "/meeting/" + meetingId),

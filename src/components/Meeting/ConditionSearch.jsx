@@ -170,6 +170,29 @@ class ConditionSearch extends React.Component {
     };
 
     handleSearch(){
+        const {date, location, status} = this.state;
+        if ((date === "") && (location === "") && (status === "")){
+            alert("请选择搜索的条件");
+            return;
+        }
+        let route = meetingController.getMeeting() + "?";
+        if(date !== ""){
+            route = route + "date=" + date;
+            if(location !== "")
+                route = route + "&location=" + location;
+            if(status !== "")
+                route = route + "&status=" + status;
+        }
+        else if (location !== ""){
+            route = route + "location=" + location;
+            if(status !== "")
+                route = route + "&status=" + status;
+        }
+        else
+            route = route + "status=" + status;
+
+        //fetch --------------------------------------------------------------------------
+
 
     }
 
@@ -200,7 +223,7 @@ class ConditionSearch extends React.Component {
                         <MenuItem value={"已取消"} style={{fontSize:"20px"}}>已取消</MenuItem>
                     </Select>
                     <DatePicker style={style.picker} handleDateChange={this.handleDateChange.bind(this)}/>
-                    <TimePicker style={style.picker} handleTimeChange={this.handleTimeChange.bind(this)}/>
+
                     <Button style={style.button} onClick={this.handleSearch}>搜索</Button>
                 </GridContainer>
                 <br/>

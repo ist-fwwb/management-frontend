@@ -81,7 +81,7 @@ function roomCardIcon(status) {
   else if (status === 2) return <SentimentVeryDissatisfied />;
 }
 
-class Dashboard extends React.Component {
+class RoomPage extends React.Component {
   render() {
     const { classes } = this.props;
     return (
@@ -167,8 +167,8 @@ class Dashboard extends React.Component {
   }
 }
 
-Dashboard.propTypes = {
+RoomPage.propTypes = {
   classes: PropTypes.object.isRequired
 };
 
-export default withStyles(dashboardStyle)(Dashboard);
+export default withStyles(dashboardStyle)(RoomPage);
