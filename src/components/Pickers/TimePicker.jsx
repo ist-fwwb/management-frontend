@@ -1,5 +1,5 @@
 /**
- * Created by 励颖 on 2019/1/27.
+ * Created by 励颖 on 2019/1/28.
  */
 import React from 'react';
 import PropTypes from 'prop-types';
@@ -16,42 +16,45 @@ const styles = theme => ({
         marginRight: theme.spacing.unit,
         marginTop:55,
         width: 170,
-        height:30
+        height:30,
     },
 });
 
+class TimePicker extends React.Component {
 
-class DatePicker extends React.Component {
-
-    handleChange =(e)=>{
+    handleChange =(e) => {
         console.log(e.target.value);
-        this.props.handleDateChange(e.target.value);
+        this.props.handleTimeChange(e.target.value);
     };
 
-    render()
-    {
+    render() {
         const {style, classes} = this.props;
+
         return (
-            <form className={classes.container} style={style} >
+            <form className={classes.container} style={style} noValidate>
                 <TextField
-                    id="date"
-                    type="date"
-                    style={style}
-                    placeholder="请选择日期"
+                    id="time"
+                    type="time"
                     className={classes.textField}
-                    onChange={this.handleChange}
+                    style={style}
                     InputLabelProps={{
                         shrink: true,
                     }}
-                    margin=""
-                />
+                    inputProps={{
+                        step: 1800, // 15 min
+                    }}
+                    onChange={this.handleChange}
+                >
+                    选择时间
+                </TextField>
             </form>
         );
     }
 }
 
-DatePicker.propTypes = {
+
+TimePicker.propTypes = {
     classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(DatePicker);
+export default withStyles(styles)(TimePicker);

@@ -7,22 +7,35 @@ import GridItem from "components/Grid/GridItem.jsx";
 import GridContainer from "components/Grid/GridContainer.jsx";
 import Button from "components/CustomButtons/Button";
 import DatePicker from "components/Pickers/DatePicker";
-
-import Search from "@material-ui/icons/Search";
-import TextField from "@material-ui/core/TextField";
+import TimePicker from "components/Pickers/TimePicker";
 import Select from "@material-ui/core/Select";
 import MenuItem from "@material-ui/core/MenuItem";
-import OutlinedInput from "@material-ui/core/OutlinedInput";
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
-import InputLabel from '@material-ui/core/InputLabel';
-import Checkbox from '@material-ui/core/Checkbox';
 import { withStyles } from '@material-ui/core/styles';
 import { userController, meetingController } from "variables/general.jsx";
 
+const style = {
+    selector:{
+        width:"15%",
+        fontSize:"15px",
+        marginLeft:"4%",
+        marginTop:"3%"
+    },
+    picker:{
+        marginLeft:"3.5%",
+    },
+    button:{
+        width:"6%",
+        background:"#00bcd4",
+        marginLeft:"5%",
+        height:"2%",
+        marginTop:"1.8%"
+    }
+};
 
 const CustomTableCell = withStyles(theme => ({
     root: {
@@ -89,7 +102,7 @@ class ConditionSearch extends React.Component {
             attendants:[],
             needSignIn: false,
             attendantNum:"",
-            status: "选择状态",
+            status: "",
             type:"",
         };
 
@@ -143,25 +156,41 @@ class ConditionSearch extends React.Component {
         })
     };
 
+    handleDateChange=(val)=>{
+        console.log("hello");
+        console.log(val);
+        this.setState({
+            date: val
+        })
+    };
+
+    handleTimeChange=(val)=>{
+        console.log("bye");
+        console.log(val);
+    };
+
+    handleSearch(){
+
+    }
+
     render() {
         return (
             <div>
                 <br/>
                 <GridContainer xs={12} sm={12} md={12}>
-
                     <Select
-                        style={{width:"15%", fontSize:"20px", align:"center", marginLeft:"3%"}}
+                        style={style.selector}
                         value={this.state.location}
                         onChange={this.handleLocationChange}
                         displayEmpty
                         >
                         <MenuItem value="" disabled>选择房间号</MenuItem>
-                        <MenuItem value={"Room405"} style={{fontSize:"20px"}}>Room405</MenuItem>
-                        <MenuItem value={"Room406"} style={{fontSize:"20px"}}>Room406</MenuItem>
+                        <MenuItem value={"5310"} style={{fontSize:"20px"}}>5310</MenuItem>
+                        <MenuItem value={"5312"} style={{fontSize:"20px"}}>5312</MenuItem>
                     </Select>
                     <Select
-                        style={{width:"15%", fontSize:"20px", align:"center", marginLeft:"2%"}}
-                        value={this.state.location}
+                        style={style.selector}
+                        value={this.state.status}
                         onChange={this.handleStatusChange}
                         displayEmpty
                         >
@@ -170,8 +199,9 @@ class ConditionSearch extends React.Component {
                         <MenuItem value={"进行中"} style={{fontSize:"20px"}}>进行中</MenuItem>
                         <MenuItem value={"已取消"} style={{fontSize:"20px"}}>已取消</MenuItem>
                     </Select>
-                    <DatePicker style={{marginLeft:"2%", fontSize:"20px"}}/>
-                    <Button style={{width:"5%", background:"#00bcd4", marginLeft:"2%"}}>搜索</Button>
+                    <DatePicker style={style.picker} handleDateChange={this.handleDateChange.bind(this)}/>
+                    <TimePicker style={style.picker} handleTimeChange={this.handleTimeChange.bind(this)}/>
+                    <Button style={style.button} onClick={this.handleSearch}>搜索</Button>
                 </GridContainer>
                 <br/>
                 <GridContainer xs={12} sm={12} md={12}>
