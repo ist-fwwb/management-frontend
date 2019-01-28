@@ -18,7 +18,7 @@ const meetingController = {
   "getMeeting": () => (server + "/meeting"),
   "getMeetingByMeetingId": (meetingId) => (server + "/meeting/" + meetingId),
   "getMeetingByDate": (date) => (server + "/meeting?date=" + date),
-  "getMeetingByRoomId": (roomId) => (server + "/meeting?roomId=" + roomId),
+  "getMeetingByLocation": (location) => (server + "/meeting?location=" + location),
   "getMeetingByStatus": (status) => (server + "/meeting?status=" + status),
   "getMeetingByRoomIdAndStatus": (roomId, status) => (server + "/meeting?roomId=" + roomId + "&status=" + status),
   "getMeetingByDateAndRoomId": (date, roomId) => (server + "/meeting?date=" + date + "&roomId=" + roomId),

@@ -84,7 +84,7 @@ class TodayMeeting extends React.Component {
         };
 
         console.log(getNowFormatDate());
-        fetch(meetingController.getMeetingByDate(getNowFormatDate()), {
+        fetch(meetingController.getMeetingByDate("2019-01-30"), {
             credentials: 'include',
             method:'get',
         })

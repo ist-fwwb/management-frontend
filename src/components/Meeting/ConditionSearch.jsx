@@ -48,24 +48,28 @@ const CustomTableCell = withStyles(theme => ({
     },
 }))(TableCell);
 
+function changeStatusToChinese(status){
+    if(status === "Pending")
+        return "待办";
+    else if(status === "Running")
+        return "进行中";
+    else if(status === "Cancelled")
+        return "已取消";
+    else if(status === "Stopped")
+        return "已召开";
+}
 
-function createData(heading, description, date, location, hostId, startTime, endTime, attendants, needSignIn, attendantNum, status, type) {
-    let hostName="";
-    let time="";
-    fetch(userController.getUserByUserId(hostId), {
-        credentials: 'include',
-        method:'get',
-    })
-        .then(response => {
-            console.log('Request successful', response);
-            return response.json()
-                .then(result => {
-                    console.log("result:", result.name);
-                    hostName = result.name;
-                })
-        });
-    return {heading, description, date, location, hostName, time, attendants, needSignIn, attendantNum, status, type};
-};
+function changeStatusToEnglish(status){
+    if(status === "待办")
+        return "Pending";
+    else if(status === "进行中")
+        return "Running";
+    else if(status === "已取消")
+        return "Cancelled";
+    else if(status === "已召开")
+        return "Stopped";
+}
+
 
 function getNowFormatDate() {
     let date = new Date();
@@ -99,38 +103,11 @@ class ConditionSearch extends React.Component {
             hostName:"",
             startTime:"",
             endTime:"",
-            attendants:[],
             needSignIn: false,
             attendantNum:"",
             status: "",
             type:"",
         };
-
-        console.log(getNowFormatDate());
-        fetch(meetingController.getMeetingByDate(getNowFormatDate()), {
-            credentials: 'include',
-            method:'get',
-        })
-            .then(response => {
-                console.log('Request successful', response);
-                return response.json()
-                    .then(result => {
-                        console.log("result:", result.length);
-                        this.setState({
-                            rows:[],
-                        });
-                        for(let i=0; i<result.length; i++)
-                        {
-                            let tmp = result[i];
-                            console.log(tmp.id);
-                            this.state.rows.push (createData(tmp.heading, tmp.description, tmp.date, tmp.location, tmp.hostId,
-                                tmp.startTime, tmp.endTime, tmp.attendants, tmp.needSignIn, tmp.attendantNum, tmp.status, tmp.type));
-
-                        }
-
-
-                    });
-            })
     }
 
     getRoomMenu(){
@@ -141,6 +118,40 @@ class ConditionSearch extends React.Component {
         }
         return result;
     }
+
+    createData = (heading, description, date, location, hostId, startTime, endTime, needSignIn, status, type) =>{
+        let hostname="";
+        let time=endTime - startTime;
+        let signIn = "否";
+        let meetingType = "普通会议"
+        if (needSignIn === true)
+            signIn = "是";
+        if (type !== "COMMON")
+            meetingType = "紧急会议";
+        let statusChinese = changeStatusToChinese(status);
+        fetch(userController.getUserByUserId(hostId), {
+            credentials: 'include',
+            method:'get',
+        })
+            .then(response => {
+                console.log('Request successful', response);
+                return response.json()
+                    .then(result => {
+                        console.log("result:", result.name);
+                        let hostName = result.name;
+                        console.log("hostName1:", hostName);
+                        this.setState({
+                            hostName: hostName
+                        },()=>{
+                            hostname = this.state.hostName;
+                            console.log("hostname:", hostname);
+                        })
+            })
+                console.log("hostname2:", hostname);
+        });
+
+        return {heading, description, date, location, hostname, time, signIn, statusChinese, meetingType};
+    };
 
     handleLocationChange =(e) =>{
         console.log(e.target.value);
@@ -169,32 +180,79 @@ class ConditionSearch extends React.Component {
         console.log(val);
     };
 
-    handleSearch(){
+    handleSearch=()=>{
         const {date, location, status} = this.state;
         if ((date === "") && (location === "") && (status === "")){
             alert("请选择搜索的条件");
             return;
         }
         let route = meetingController.getMeeting() + "?";
+        let statusChinese = changeStatusToEnglish(status);
         if(date !== ""){
             route = route + "date=" + date;
             if(location !== "")
                 route = route + "&location=" + location;
             if(status !== "")
-                route = route + "&status=" + status;
+                route = route + "&status=" + statusChinese;
         }
         else if (location !== ""){
             route = route + "location=" + location;
             if(status !== "")
-                route = route + "&status=" + status;
+                route = route + "&status=" + statusChinese;
         }
         else
-            route = route + "status=" + status;
+            route = route + "status=" + statusChinese;
 
         //fetch --------------------------------------------------------------------------
-
-
-    }
+        console.log("route:",route);
+        fetch(route, {
+            credentials: 'include',
+            method:'get',
+        })
+            .then(response => {
+                console.log('Request successful', response);
+                return response.json()
+                    .then(result => {
+                        console.log("result:", result.length);
+                        this.setState({
+                            rows:[],
+                        });
+                        for(let i=0; i<result.length; i++)
+                        {
+                            let tmp = result[i];
+                            console.log(tmp.id);
+                            this.state.rows.push (this.createData(tmp.heading, tmp.description, tmp.date, tmp.location, tmp.hostId,
+                                                tmp.startTime, tmp.endTime, tmp.needSignIn, tmp.status, tmp.type));
+                            /*this.setState({
+                                heading: tmp.heading,
+                                description: tmp.description,
+                                date: tmp.date,
+                                location: tmp.location,
+                                hostId: tmp.hostId,
+                                startTime: tmp.startTime,
+                                endTime: tmp.endTime,
+                                needSignIn: tmp.needSignIn,
+                                status: tmp.status,
+                                type: tmp.type,
+                            })*/
+                        }
+                        console.log("length:", this.state.rows.length);
+                        this.setState({
+                            heading:"",
+                            description:"",
+                            date:"",
+                            location:"",
+                            hostId:"",
+                            hostName:"",
+                            startTime:"",
+                            endTime:"",
+                            needSignIn: false,
+                            status: "",
+                            type:"",
+                        })
+                    })
+            })
+    };
 
     render() {
         return (
@@ -237,26 +295,24 @@ class ConditionSearch extends React.Component {
                                     <CustomTableCell  style={{width:"10%", fontSize:"140%"}}>时间</CustomTableCell>
                                     <CustomTableCell  style={{width:"8%", fontSize:"140%"}}>地点</CustomTableCell>
                                     <CustomTableCell  style={{width:"10%", fontSize:"140%"}}>发起者</CustomTableCell>
-                                    <CustomTableCell  style={{width:"18%", fontSize:"140%"}}>与会人员</CustomTableCell>
                                     <CustomTableCell  style={{width:"8%", fontSize:"140%"}}>是否签到</CustomTableCell>
                                     <CustomTableCell  style={{width:"8%", fontSize:"140%"}}>类型</CustomTableCell>
                                     <CustomTableCell  style={{width:"8%", fontSize:"140%"}}>状态</CustomTableCell>
-                                    <CustomTableCell  style={{width:"20%", fontSize:"140%"}}>验证码</CustomTableCell>
                                 </TableRow>
                             </TableHead>
                             <TableBody>
                                 {this.state.rows.map(row => (
-                                    <TableRow  key={row.id}>
-                                        <CustomTableCell style={{width:"10%", fontSize:"18px"}}>{row.heading}</CustomTableCell>
+                                    <TableRow >
+                                        <CustomTableCell style={{width:"20%", fontSize:"18px"}}>{row.heading}</CustomTableCell>
                                         <CustomTableCell style={{width:"13%", fontSize:"18px"}}>{row.description}</CustomTableCell>
-                                        <CustomTableCell style={{width:"10%", fontSize:"18px"}}>{row.date}</CustomTableCell>
+                                        <CustomTableCell style={{width:"18%", fontSize:"18px"}}>{row.date}</CustomTableCell>
                                         <CustomTableCell style={{width:"8%", fontSize:"18px"}}>{row.location}</CustomTableCell>
-                                        <CustomTableCell style={{width:"10%", fontSize:"18px"}}>{row.hostName}</CustomTableCell>
-                                        <CustomTableCell style={{width:"18%", fontSize:"18px"}}>{row.attendants}</CustomTableCell>
-                                        <CustomTableCell style={{width:"8%", fontSize:"18px"}}>{row.needSignIn}</CustomTableCell>
-                                        <CustomTableCell style={{width:"8%", fontSize:"18px"}}>{row.type}</CustomTableCell>
-                                        <CustomTableCell style={{width:"8%", fontSize:"18px"}}>{row.status}</CustomTableCell>
-                                        <CustomTableCell style={{width:"20%", fontSize:"18px"}}>{row.attendantNum}</CustomTableCell>
+                                        <CustomTableCell style={{width:"10%", fontSize:"18px"}}>{row.hostname}</CustomTableCell>
+
+                                        <CustomTableCell style={{width:"8%", fontSize:"18px"}}>{row.signIn}</CustomTableCell>
+                                        <CustomTableCell style={{width:"13%", fontSize:"18px"}}>{row.meetingType}</CustomTableCell>
+                                        <CustomTableCell style={{width:"8%", fontSize:"18px"}}>{row.statusChinese}</CustomTableCell>
+
                                     </TableRow>
                                 ))}
                             </TableBody>
