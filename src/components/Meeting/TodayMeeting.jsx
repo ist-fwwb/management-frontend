@@ -15,6 +15,12 @@ import Checkbox from '@material-ui/core/Checkbox';
 import { withStyles } from '@material-ui/core/styles';
 import { userController, meetingController } from "variables/general.jsx";
 
+const timetable = [ "00:00", "00:30", "01:00", "01:30", "02:00", "02:30", "03:00", "03:30",
+    "04:00", "04:30", "05:00", "05:30", "06:00", "06:30", "07:00", "07:30",
+    "08:00", "08:30", "09:00", "09:30", "10:00", "10:30", "11:00", "11:30",
+    "12:00", "12:30", "13:00", "13:30", "14:00", "14:30", "15:00", "15:30",
+    "16:00", "16:30", "17:00", "17:30", "18:00", "18:30", "19:00", "19:30",
+    "20:00", "20:30", "21:00", "21:30", "22:00", "22:30", "23:00", "23:30",]
 
 const CustomTableCell = withStyles(theme => ({
     root: {
@@ -27,24 +33,16 @@ const CustomTableCell = withStyles(theme => ({
     },
 }))(TableCell);
 
-
-function createData(heading, description, date, location, hostId, startTime, endTime, attendants, needSignIn, attendantNum, status, type) {
-        let hostName="";
-        let time="";
-        fetch(userController.getUserByUserId(hostId), {
-            credentials: 'include',
-            method:'get',
-        })
-        .then(response => {
-            console.log('Request successful', response);
-            return response.json()
-                .then(result => {
-                    console.log("result:", result.name);
-                    hostName = result.name;
-                })
-        });
-    return {heading, description, date, location, hostName, time, attendants, needSignIn, attendantNum, status, type};
-};
+function changeStatusToChinese(status){
+    if(status === "Pending")
+        return "待办";
+    else if(status === "Running")
+        return "进行中";
+    else if(status === "Cancelled")
+        return "已取消";
+    else if(status === "Stopped")
+        return "已召开";
+}
 
 function getNowFormatDate() {
     let date = new Date();
@@ -84,7 +82,7 @@ class TodayMeeting extends React.Component {
         };
 
         console.log(getNowFormatDate());
-        fetch(meetingController.getMeetingByDate("2019-01-30"), {
+        fetch(meetingController.getMeetingByDate(getNowFormatDate()), {
             credentials: 'include',
             method:'get',
         })
@@ -100,15 +98,36 @@ class TodayMeeting extends React.Component {
                         {
                             let tmp = result[i];
                             console.log(tmp.id);
-                            this.state.rows.push (createData(tmp.heading, tmp.description, tmp.date, tmp.location, tmp.hostId,
-                                tmp.startTime, tmp.endTime, tmp.attendants, tmp.needSignIn, tmp.attendantNum, tmp.status, tmp.type));
+                            this.state.rows.push (this.createData(tmp.heading, tmp.description, tmp.date, tmp.location,
+                                tmp.startTime, tmp.endTime, tmp.needSignIn, tmp.status, tmp.type));
 
                         }
-
-
+                        console.log("length:", this.state.rows.length);
+                        this.setState({
+                            heading:"",
+                            description:"",
+                            hostId:"",
+                            hostName:"",
+                            startTime:"",
+                            endTime:"",
+                            needSignIn: false,
+                            type:"",
+                        })
                     });
             })
     }
+
+    createData = (heading, description, date, location, startTime, endTime, needSignIn, status, type) =>{
+        let time = date + "  " + timetable[startTime] + "-" + timetable[endTime];
+        let signIn = "否";
+        let meetingType = "普通";
+        if (needSignIn === true)
+            signIn = "是";
+        if (type !== "COMMON")
+            meetingType = "紧急";
+        let statusChinese = changeStatusToChinese(status);
+        return {heading, description, date, location, time, signIn, statusChinese, meetingType};
+    };
 
     render() {
         return (
@@ -119,31 +138,26 @@ class TodayMeeting extends React.Component {
                         <Table className="room page" >
                             <TableHead>
                                 <TableRow >
-                                    <CustomTableCell  align="center" style={{width:"10%", fontSize:"140%"}}>标题</CustomTableCell>
-                                    <CustomTableCell  style={{width:"13%", fontSize:"140%"}}>描述</CustomTableCell>
-                                    <CustomTableCell  style={{width:"10%", fontSize:"140%"}}>时间</CustomTableCell>
-                                    <CustomTableCell  style={{width:"8%", fontSize:"140%"}}>地点</CustomTableCell>
-                                    <CustomTableCell  style={{width:"10%", fontSize:"140%"}}>发起者</CustomTableCell>
-                                    <CustomTableCell  style={{width:"18%", fontSize:"140%"}}>与会人员</CustomTableCell>
-                                    <CustomTableCell  style={{width:"8%", fontSize:"140%"}}>是否签到</CustomTableCell>
-                                    <CustomTableCell  style={{width:"8%", fontSize:"140%"}}>类型</CustomTableCell>
-                                    <CustomTableCell  style={{width:"8%", fontSize:"140%"}}>状态</CustomTableCell>
-                                    <CustomTableCell  style={{width:"20%", fontSize:"140%"}}>验证码</CustomTableCell>
+                                    <CustomTableCell  align="center" style={{width:"23%", fontSize:"140%"}}>标题</CustomTableCell>
+                                    <CustomTableCell  style={{width:"15%", fontSize:"140%"}}>描述</CustomTableCell>
+                                    <CustomTableCell  style={{width:"24%", fontSize:"140%"}}>时间</CustomTableCell>
+                                    <CustomTableCell  style={{width:"10%", fontSize:"140%"}}>地点</CustomTableCell>
+                                    <CustomTableCell  style={{width:"10%", fontSize:"140%"}}>是否签到</CustomTableCell>
+                                    <CustomTableCell  style={{width:"10%", fontSize:"140%"}}>类型</CustomTableCell>
+                                    <CustomTableCell  style={{width:"10%", fontSize:"140%"}}>状态</CustomTableCell>
                                 </TableRow>
                             </TableHead>
                             <TableBody>
                                 {this.state.rows.map(row => (
-                                    <TableRow  key={row.id}>
-                                        <CustomTableCell style={{width:"10%", fontSize:"18px"}}>{row.heading}</CustomTableCell>
-                                        <CustomTableCell style={{width:"13%", fontSize:"18px"}}>{row.description}</CustomTableCell>
-                                        <CustomTableCell style={{width:"10%", fontSize:"18px"}}>{row.date}</CustomTableCell>
-                                        <CustomTableCell style={{width:"8%", fontSize:"18px"}}>{row.location}</CustomTableCell>
-                                        <CustomTableCell style={{width:"10%", fontSize:"18px"}}>{row.hostName}</CustomTableCell>
-                                        <CustomTableCell style={{width:"18%", fontSize:"18px"}}>{row.attendants}</CustomTableCell>
-                                        <CustomTableCell style={{width:"8%", fontSize:"18px"}}>{row.needSignIn}</CustomTableCell>
-                                        <CustomTableCell style={{width:"8%", fontSize:"18px"}}>{row.type}</CustomTableCell>
-                                        <CustomTableCell style={{width:"8%", fontSize:"18px"}}>{row.status}</CustomTableCell>
-                                        <CustomTableCell style={{width:"20%", fontSize:"18px"}}>{row.attendantNum}</CustomTableCell>
+                                    <TableRow >
+                                        <CustomTableCell style={{width:"23%", fontSize:"18px"}}>{row.heading}</CustomTableCell>
+                                        <CustomTableCell style={{width:"15%", fontSize:"18px"}}>{row.description}</CustomTableCell>
+                                        <CustomTableCell style={{width:"24%", fontSize:"18px"}}>{row.time}</CustomTableCell>
+                                        <CustomTableCell style={{width:"10%", fontSize:"18px"}}>{row.location}</CustomTableCell>
+                                        <CustomTableCell style={{width:"10%", fontSize:"18px"}}>{row.signIn}</CustomTableCell>
+                                        <CustomTableCell style={{width:"10%", fontSize:"18px"}}>{row.meetingType}</CustomTableCell>
+                                        <CustomTableCell style={{width:"10%", fontSize:"18px"}}>{row.statusChinese}</CustomTableCell>
+
                                     </TableRow>
                                 ))}
                             </TableBody>
