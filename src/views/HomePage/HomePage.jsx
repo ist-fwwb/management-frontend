@@ -1,11 +1,18 @@
 import React from "react";
 import GridItem from "components/Grid/GridItem.jsx";
 import GridContainer from "components/Grid/GridContainer.jsx";
+import Snackbar from "components/Snackbar/Snackbar.jsx";
+
+import Table from '@material-ui/core/Table';
+import TableBody from '@material-ui/core/TableBody';
+import TableCell from '@material-ui/core/TableCell';
+import TableHead from '@material-ui/core/TableHead';
+import TableRow from '@material-ui/core/TableRow';
 import ErrorOutline from "@material-ui/icons/ErrorOutline";
 import Done from "@material-ui/icons/Done";
 import Slider from "react-slick";
-import Table from "components/Table/Table.jsx";
-import Snackbar from "components/Snackbar/Snackbar.jsx";
+import { withStyles } from '@material-ui/core/styles';
+
 import { meetingController, idToTime, today } from "variables/general.jsx";
 import { Link } from "react-router-dom";
 
@@ -19,22 +26,36 @@ const slidesSettings = {
     slidesToScroll: 1
 };
 
-const news = [
-    ["温州皮革厂倒闭了", "2018-01-20"],
-    ["温州皮革厂开业了", "2018-01-21"],
-];
+
+const CustomTableCell = withStyles(theme => ({
+    root: {
+        width: '100%',
+        marginTop: theme.spacing.unit * 3,
+        overflowX: 'auto',
+    },
+    table: {
+        minWidth: 700,
+    },
+}))(TableCell);
 
 class HomePage extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
+            rows:[],
             br: false,
             notificationMessage: "null",
             notificationType: null,
 
             error: false
         };
+        this.state.rows.push(this.createData("新增会议室6301", "2019-01-28"));
+        this.state.rows.push(this.createData("会议室5312的投影仪损坏", "2019-01-21"));
     }
+
+    createData=(heading, date)=>{
+        return {heading, date};
+    };
 
 
 
@@ -97,7 +118,7 @@ class HomePage extends React.Component {
                                         "https://images.pexels.com/photos/459225/pexels-photo-459225.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940"
                                     }
                                 />
-                                <h5 style={{align:"center"}}>{news[0][1]}  {news[0][0]}</h5>
+                                <h5 style={{align:"center"}}>{this.state.rows[0].date}  {this.state.rows[0].heading}</h5>
                             </div>
                             <div
                                 style={{
@@ -115,16 +136,28 @@ class HomePage extends React.Component {
                                         "https://images.pexels.com/photos/248797/pexels-photo-248797.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940"
                                     }
                                 />
-                                <h5 style={{align:"center"}}>{news[1][1]}  {news[1][0]}</h5>
+                                <h5 style={{align:"center"}}>{this.state.rows[1].date}  {this.state.rows[1].heading}</h5>
                             </div>
                         </Slider>
                     </GridItem>
                         <GridItem xs={12} sm={12} md={4}>
-                            <Table
-                                tableHeaderColor="primary"
-                                tableHead={["标题", "日期"]}
-                                tableData={news}
-                            />
+                            <Table className="room page" >
+                                <TableHead>
+                                    <TableRow >
+                                        <CustomTableCell  style={{width:"70%", color:"#ab47bc", fontSize:"18px"}}>标题</CustomTableCell>
+                                        <CustomTableCell  style={{width:"30%", color:"#ab47bc", fontSize:"18px"}}>日期</CustomTableCell>
+                                    </TableRow>
+                                </TableHead>
+                                <TableBody>
+                                    {this.state.rows.map(row => (
+                                        <TableRow >
+                                            <CustomTableCell style={{width:"70%", fontSize:"16px"}}>{row.heading}</CustomTableCell>
+                                            <CustomTableCell style={{width:"30%", fontSize:"15px"}}>{row.date}</CustomTableCell>
+
+                                        </TableRow>
+                                    ))}
+                                </TableBody>
+                            </Table>
                         </GridItem>
                 </GridContainer>
 
