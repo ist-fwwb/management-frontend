@@ -123,14 +123,7 @@ class HomePage extends React.Component{
     render(){
         if (this.state.error)
             return <h2>Network Error</h2>
-        let { meetings, attendMeetings, historyCancelledMeetings, historyStoppedMeetings } = this.state;
-        let historyMeetings = historyCancelledMeetings;
-        console.log(historyMeetings)
-        let historyLoaded = false;
-        if ( historyCancelledMeetings && historyStoppedMeetings){
-            historyLoaded = true;
-            historyMeetings = historyMeetings.concat(historyStoppedMeetings);
-        }
+
         return(
             <div>
                 <GridContainer xs={12} sm={12} md={12}>
