@@ -17,6 +17,7 @@ import { Link } from "react-router-dom";
 import { idToTime } from "variables/general.jsx";
 import Slider from "react-slick";
 import { withStyles } from '@material-ui/core/styles';
+import PrimarySearchAppBar from "components/AppBar/AppBar.jsx";
 import TodayMeeting from "../../components/Meeting/TodayMeeting";
 
 
@@ -126,6 +127,7 @@ class HomePage extends React.Component{
 
         return(
             <div>
+
                 <GridContainer xs={12} sm={12} md={12}>
                     <GridItem xs={12} sm={12} md={8}>
                         <Slider {...slidesSettings} style={{width:"50%"}}>

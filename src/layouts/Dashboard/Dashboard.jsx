@@ -11,6 +11,7 @@ import withStyles from "@material-ui/core/styles/withStyles";
 import Header from "components/Header/Header.jsx";
 import Footer from "components/Footer/Footer.jsx";
 import Sidebar from "components/Sidebar/Sidebar.jsx";
+import PrimarySearchAppBar from "components/AppBar/AppBar.jsx";
 import LoginPage from "views/LoginPage/LoginPage.jsx";
 import Cookies from 'universal-cookie';
 import { dashboardRoutes, deepRoutes } from "routes/dashboard.jsx";
@@ -113,12 +114,7 @@ class App extends React.Component {
           {...rest}
         />
         <div className={classes.mainPanel} ref="mainPanel">
-          <Header
-            routes={dashboardRoutes}
-            handleDrawerToggle={this.handleDrawerToggle}
-            userId={userId}
-            {...rest}
-          />
+          <PrimarySearchAppBar color="transparent"/>
           <div className={classes.content}>
             <div className={classes.container}>
               <Switch>
