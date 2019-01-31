@@ -13,7 +13,6 @@ import Done from "@material-ui/icons/Done";
 import Slider from "react-slick";
 import { withStyles } from '@material-ui/core/styles';
 
-import { meetingController, idToTime, today } from "variables/general.jsx";
 import { Link } from "react-router-dom";
 
 const slidesSettings = {
