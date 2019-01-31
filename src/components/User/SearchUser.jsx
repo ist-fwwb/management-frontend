@@ -11,13 +11,12 @@ import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
-
-import { withStyles } from '@material-ui/core/styles';
-import { userController } from "variables/general.jsx";
-import OutlinedInput from "@material-ui/core/OutlinedInput";
 import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
-import Search from "@material-ui/icons/Search";
+import { withStyles } from '@material-ui/core/styles';
+import OutlinedInput from "@material-ui/core/OutlinedInput";
+import { userController } from "variables/general.jsx";
+
 
 
 const CustomTableCell = withStyles(theme => ({

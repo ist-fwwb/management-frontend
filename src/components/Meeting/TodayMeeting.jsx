@@ -2,18 +2,15 @@ import React from "react";
 
 import GridItem from "components/Grid/GridItem.jsx";
 import GridContainer from "components/Grid/GridContainer.jsx";
-import Button from "components/CustomButtons/Button";
 
-import Search from "@material-ui/icons/Search";
-import TextField from "@material-ui/core/TextField";
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
-import Checkbox from '@material-ui/core/Checkbox';
 import { withStyles } from '@material-ui/core/styles';
-import { userController, meetingController } from "variables/general.jsx";
+
+import { meetingController } from "variables/general.jsx";
 
 const timetable = [ "00:00", "00:30", "01:00", "01:30", "02:00", "02:30", "03:00", "03:30",
     "04:00", "04:30", "05:00", "05:30", "06:00", "06:30", "07:00", "07:30",

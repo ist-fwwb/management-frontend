@@ -8,10 +8,8 @@ import GridItem from "components/Grid/GridItem.jsx";
 import GridContainer from "components/Grid/GridContainer.jsx";
 import Button from "components/CustomButtons/Button.jsx";
 
-import Search from "@material-ui/icons/Search";
-import DeleteIcon from "@material-ui/icons/Delete";
 
-import TextField from "@material-ui/core/TextField";
+import DeleteIcon from "@material-ui/icons/Delete";
 import IconButton from "@material-ui/core/IconButton";
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';

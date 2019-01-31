@@ -7,7 +7,7 @@ import GridItem from "components/Grid/GridItem.jsx";
 import GridContainer from "components/Grid/GridContainer.jsx";
 import Button from "components/CustomButtons/Button";
 import DatePicker from "components/Pickers/DatePicker";
-import TimePicker from "components/Pickers/TimePicker";
+
 import Select from "@material-ui/core/Select";
 import MenuItem from "@material-ui/core/MenuItem";
 import Table from '@material-ui/core/Table';
@@ -16,7 +16,7 @@ import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import { withStyles } from '@material-ui/core/styles';
-import { userController, meetingController } from "variables/general.jsx";
+import { meetingController } from "variables/general.jsx";
 
 const style = {
     selector:{

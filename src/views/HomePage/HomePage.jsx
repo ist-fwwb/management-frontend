@@ -1,19 +1,24 @@
 import React from "react";
 import GridItem from "components/Grid/GridItem.jsx";
 import GridContainer from "components/Grid/GridContainer.jsx";
-import Snackbar from "components/Snackbar/Snackbar.jsx";
+
+import ErrorOutline from "@material-ui/icons/ErrorOutline";
+import Done from "@material-ui/icons/Done";
 
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
-import ErrorOutline from "@material-ui/icons/ErrorOutline";
-import Done from "@material-ui/icons/Done";
+
+import Snackbar from "components/Snackbar/Snackbar.jsx";
+import { meetingController, today } from "variables/general.jsx";
+import { Link } from "react-router-dom";
+import { idToTime } from "variables/general.jsx";
 import Slider from "react-slick";
 import { withStyles } from '@material-ui/core/styles';
+import TodayMeeting from "../../components/Meeting/TodayMeeting";
 
-import { Link } from "react-router-dom";
 
 const slidesSettings = {
     dots: true,
@@ -24,7 +29,6 @@ const slidesSettings = {
     slidesToShow: 1,
     slidesToScroll: 1
 };
-
 
 const CustomTableCell = withStyles(theme => ({
     root: {
@@ -37,17 +41,19 @@ const CustomTableCell = withStyles(theme => ({
     },
 }))(TableCell);
 
-class HomePage extends React.Component {
-    constructor(props) {
+
+
+
+class HomePage extends React.Component{
+    constructor(props){
         super(props);
         this.state = {
-            rows:[],
             br: false,
             notificationMessage: "null",
             notificationType: null,
-
-            error: false
-        };
+            rows:[],
+            meetings: null,
+        }
         this.state.rows.push(this.createData("新增会议室6301", "2019-01-28"));
         this.state.rows.push(this.createData("会议室5312的投影仪损坏", "2019-01-21"));
     }
@@ -58,7 +64,34 @@ class HomePage extends React.Component {
 
 
 
-    showNotification = place => {
+    JSONToArray = (jsonArray, type) => {
+        let re = [];
+        for (let i in jsonArray){
+            let ele = jsonArray[i];
+            if (type === "meeting" && ele.date !== today)
+                continue;
+            if (type === "meeting" && !(ele.status === "Pending" || ele.status === "Running"))
+                continue;
+            if (type === "attend" && (ele.status !== "Pending" || ele.hostId === this.props.userId))
+                continue;
+            let temp_ele = [];
+
+            temp_ele.push(<Link to={"/meeting/"+ele.id+"/profile"}>{ele.heading}</Link>)
+            temp_ele.push(<Link to={"/room/"+ele.id+"/profile"}>{ele.location}</Link>);
+            if (type !== "meeting")
+                temp_ele.push(ele.date);
+            temp_ele.push(idToTime(ele.startTime) + "~" + idToTime(ele.endTime));
+            if (type === "meeting")
+                temp_ele.push(ele.status);
+            else if (type === "attend")
+                temp_ele.push([])
+            re.push(temp_ele);
+        }
+        return re;
+    }
+
+
+    showNotification = (place) => {
         let x = [];
         x[place] = true;
         this.setState(x);
@@ -69,34 +102,36 @@ class HomePage extends React.Component {
             }.bind(this),
             6000
         );
-    };
+    }
 
-    typeToIcon = type => {
-        if (type === "success") return Done;
-        if (type === "danger") return ErrorOutline;
+    typeToIcon = (type) => {
+        if (type === "success")
+            return Done;
+        if (type === "danger")
+            return ErrorOutline;
         return null;
-    };
+    }
 
-    warning = msg => {
+    warning = (msg) => {
         this.setState({
             notificationType: "danger",
             notificationMessage: msg
-        });
+        })
         this.showNotification("br");
-    };
+    }
 
-    success = msg => {
-        this.setState({
-            notificationType: "success",
-            notificationMessage: msg
-        });
-        this.showNotification("br");
-    };
-
-
-    render() {
-        if (this.state.error) return <h2>Network Error</h2>;
-        return (
+    render(){
+        if (this.state.error)
+            return <h2>Network Error</h2>
+        let { meetings, attendMeetings, historyCancelledMeetings, historyStoppedMeetings } = this.state;
+        let historyMeetings = historyCancelledMeetings;
+        console.log(historyMeetings)
+        let historyLoaded = false;
+        if ( historyCancelledMeetings && historyStoppedMeetings){
+            historyLoaded = true;
+            historyMeetings = historyMeetings.concat(historyStoppedMeetings);
+        }
+        return(
             <div>
                 <GridContainer xs={12} sm={12} md={12}>
                     <GridItem xs={12} sm={12} md={8}>
@@ -139,25 +174,25 @@ class HomePage extends React.Component {
                             </div>
                         </Slider>
                     </GridItem>
-                        <GridItem xs={12} sm={12} md={4}>
-                            <Table className="room page" >
-                                <TableHead>
+                    <GridItem xs={12} sm={12} md={4}>
+                        <Table className="room page" >
+                            <TableHead>
+                                <TableRow >
+                                    <CustomTableCell  style={{width:"70%", color:"#ab47bc", fontSize:"18px"}}>标题</CustomTableCell>
+                                    <CustomTableCell  style={{width:"30%", color:"#ab47bc", fontSize:"18px"}}>日期</CustomTableCell>
+                                </TableRow>
+                            </TableHead>
+                            <TableBody>
+                                {this.state.rows.map(row => (
                                     <TableRow >
-                                        <CustomTableCell  style={{width:"70%", color:"#ab47bc", fontSize:"18px"}}>标题</CustomTableCell>
-                                        <CustomTableCell  style={{width:"30%", color:"#ab47bc", fontSize:"18px"}}>日期</CustomTableCell>
-                                    </TableRow>
-                                </TableHead>
-                                <TableBody>
-                                    {this.state.rows.map(row => (
-                                        <TableRow >
-                                            <CustomTableCell style={{width:"70%", fontSize:"16px"}}>{row.heading}</CustomTableCell>
-                                            <CustomTableCell style={{width:"30%", fontSize:"15px"}}>{row.date}</CustomTableCell>
+                                        <CustomTableCell style={{width:"70%", fontSize:"16px"}}>{row.heading}</CustomTableCell>
+                                        <CustomTableCell style={{width:"30%", fontSize:"15px"}}>{row.date}</CustomTableCell>
 
-                                        </TableRow>
-                                    ))}
-                                </TableBody>
-                            </Table>
-                        </GridItem>
+                                    </TableRow>
+                                ))}
+                            </TableBody>
+                        </Table>
+                    </GridItem>
                 </GridContainer>
 
                 <Snackbar
@@ -170,7 +205,8 @@ class HomePage extends React.Component {
                     close
                 />
             </div>
-        );
+
+        )
     }
 }
 export default HomePage;

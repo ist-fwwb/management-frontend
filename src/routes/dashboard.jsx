@@ -8,7 +8,6 @@ import Home from "@material-ui/icons/Home";
 import RoomPage from "views/RoomPage/RoomPage.jsx";
 import MeetingPage from "views/MeetingPage/MeetingPage.jsx";
 import UserProfile from "views/UserProfile/UserProfile.jsx";
-import UpgradeToPro from "views/UpgradeToPro/UpgradeToPro.jsx";
 import RoomSchedule from "views/RoomSchedule/RoomSchedule.jsx";
 import RoomProfile from "views/RoomProfile/RoomProfile.jsx";
 import HomePage from "views/HomePage/HomePage.jsx";

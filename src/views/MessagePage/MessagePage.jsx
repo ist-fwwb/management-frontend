@@ -2,7 +2,6 @@
  * Created by 励颖 on 2019/1/28.
  */
 import React from "react";
-import PropTypes from "prop-types";
 import CustomTabs from "components/CustomTabs/CustomTabs.jsx";
 import GridItem from "components/Grid/GridItem.jsx";
 import GridContainer from "components/Grid/GridContainer.jsx";
