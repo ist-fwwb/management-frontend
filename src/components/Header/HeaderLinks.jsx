@@ -2,6 +2,7 @@ import React from "react";
 import classNames from "classnames";
 // @material-ui/core components
 import withStyles from "@material-ui/core/styles/withStyles";
+import Menu from "@material-ui/core/Menu";
 import MenuItem from "@material-ui/core/MenuItem";
 import MenuList from "@material-ui/core/MenuList";
 import Grow from "@material-ui/core/Grow";
@@ -22,7 +23,7 @@ import headerLinksStyle from "assets/jss/material-dashboard-react/components/hea
 
 class HeaderLinks extends React.Component {
   state = {
-    open: false
+    open: false,
   };
   handleToggle = () => {
     this.setState(state => ({ open: !state.open }));
@@ -36,9 +37,15 @@ class HeaderLinks extends React.Component {
     this.setState({ open: false });
   };
 
+  handlePerson =() =>{
+      console.log("hello person")
+  }
+
   render() {
     const { classes } = this.props;
-    const { open } = this.state;
+    const { open, } = this.state;
+
+
     return (
       <div>
         <div className={classes.searchWrapper}>
@@ -156,13 +163,16 @@ class HeaderLinks extends React.Component {
           simple={!(window.innerWidth > 959)}
           aria-label="Person"
           className={classes.buttonLink}
+          onClick={this.handlePerson}
         >
           <Person className={classes.icons} />
           <Hidden mdUp implementation="css">
             <p className={classes.linkText}>Profile</p>
           </Hidden>
         </Button>
+
       </div>
+
     );
   }
 }

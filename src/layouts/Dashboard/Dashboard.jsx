@@ -37,6 +37,7 @@ class App extends React.Component {
 
 
   handleDrawerToggle = () => {
+      console.log("hello");
     this.setState({ mobileOpen: !this.state.mobileOpen });
   };
 
@@ -114,8 +115,9 @@ class App extends React.Component {
           {...rest}
         />
         <div className={classes.mainPanel} ref="mainPanel">
-          <PrimarySearchAppBar color="transparent"/>
-          <div className={classes.content}>
+            <PrimarySearchAppBar color="transparent"/>
+
+            <div className={classes.content}>
             <div className={classes.container}>
               <Switch>
                   {

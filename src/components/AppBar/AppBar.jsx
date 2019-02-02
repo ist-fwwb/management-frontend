@@ -123,12 +123,13 @@ class PrimarySearchAppBar extends React.Component {
 
     handleLogout = ()=>{
         cookies.removeChangeListener();
-        cookies.set("login",false);
-        cookies.set("userId", null);
-        console.log("logout:", cookies.get("userId"));
-
+        console.log("name:", cookies.get("name"));
+        cookies.remove("login",true,  { path: "/" });
+        cookies.remove("userId", cookies.get("userId"), { path: "/" });
+        window.location.href = "/";
+        //console.log("logout id:", cookies.get("userId"));
     };
-    
+
 
     render() {
         const { anchorEl, mobileMoreAnchorEl } = this.state;

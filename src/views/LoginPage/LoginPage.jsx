@@ -77,7 +77,11 @@ class LoginPage extends React.Component {
     console.log("hello");
     console.log(this.state.username);
       console.log(this.state.password);
-    if(this.state.username === "root" && this.state.password === "123456")
+    if(this.state.username !== "root")
+        alert("用户名不正确");
+    else if(this.state.password !== "123456")
+        alert("密码错误");
+    else
     {
       console.log("success");
       alert("登陆成功");
