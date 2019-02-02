@@ -3,6 +3,14 @@ const domain = "47.106.8.44";
 const port = "31000";
 const server = prefix + domain + ":" + port;
 const today = (new Date().toLocaleDateString()).replace(/\//g,'-');
+
+const idToTime = (id) => {
+    if (id % 2 === 0)
+        return String(id / 2) + ":00";
+    else
+        return String((id - 1 ) / 2) + ":30";
+}
+
 const roomController = {
   "getRoom": () => (server + "/meetingroom" ),
   "getRoomByRoomId": (roomId) => (server + "/meetingroom/" + roomId),
@@ -10,8 +18,10 @@ const roomController = {
   "editRoomByRoomId": (roomId) => (server + "/meetingroom/" + roomId), // json params in req body
   "deleteRoomByRoomId": (roomId) => (server + "/meetingroom/" + roomId),
 };
+
 const timeSliceController = {
-  "getTimeSilce": (date, roomId) => (server + "/timeSlice?date=" + date + "&roomId=" + roomId),
+    "getTimeSilceByDateAndRoomId": (date, roomId) => (server + "/timeSlice?date=" + date + "&roomId=" + roomId),
+    "getTimeSilceByRoomId": (roomId) => (server + "/timeSlice?roomId=" + roomId),
 };
 
 const meetingController = {
@@ -41,11 +51,45 @@ const userController = {
   "editUserByUserId": (userId) => (server + "/user/" + userId),
 };
 
+function ScheduleDataToRows(data){
+    let re = [];
+    for (let i in data){
+        let ele = data[i];
+        let nameMap = ele.meetingNames;
+        let day = (new Date(ele.date).getDay());
+        if (day === 6 || day === 0)
+            continue;
+        let timeSlice = ele.timeSlice;
+        for (let j in timeSlice){
+            if (!re[j])
+                re[j] = [0,0,0,0,0];
+            if (!re[j][day-1])
+                re[j][day-1] = {};
+            if (timeSlice[j]===null){
+                re[j][day-1]["occupied"] = false;
+                re[j][day-1]["meetingid"] = null;
+            }
+            else {
+                re[j][day-1]["occupied"] = true;
+                re[j][day-1]["meetingid"] = timeSlice[j];
+                re[j][day-1]["name"] = nameMap[timeSlice[j]];
+            }
+            re[j][day-1]["date"] = ele.date;
+            re[j][day-1]["click"] = false;
+            re[j][day-1]["between"] = false;
+            re[j][day-1]["original"] = false;
+        }
+    }
+    return re;
+}
+
 module.exports = {
   server,
   today,
+  idToTime,
   roomController,
   timeSliceController,
   meetingController,
   userController,
+  ScheduleDataToRows
 };

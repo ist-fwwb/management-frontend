@@ -16,7 +16,7 @@ import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import { withStyles } from '@material-ui/core/styles';
-import { meetingController } from "variables/general.jsx";
+import { meetingController, idToTime } from "variables/general.jsx";
 
 const style = {
     selector:{
@@ -37,12 +37,6 @@ const style = {
     }
 };
 
-const timetable = [ "00:00", "00:30", "01:00", "01:30", "02:00", "02:30", "03:00", "03:30",
-                    "04:00", "04:30", "05:00", "05:30", "06:00", "06:30", "07:00", "07:30",
-                    "08:00", "08:30", "09:00", "09:30", "10:00", "10:30", "11:00", "11:30",
-                    "12:00", "12:30", "13:00", "13:30", "14:00", "14:30", "15:00", "15:30",
-                    "16:00", "16:30", "17:00", "17:30", "18:00", "18:30", "19:00", "19:30",
-                    "20:00", "20:30", "21:00", "21:30", "22:00", "22:30", "23:00", "23:30",]
 
 const CustomTableCell = withStyles(theme => ({
     root: {
@@ -99,7 +93,7 @@ class ConditionSearch extends React.Component {
     }
 
     createData = (heading, description, date, location, startTime, endTime, needSignIn, status, type) =>{
-        let time = date + "  " + timetable[startTime] + "-" + timetable[endTime];
+        let time = date + "  " + idToTime(startTime) + "-" + idToTime(endTime);
         let signIn = "否";
         let meetingType = "普通";
         if (needSignIn === true)

@@ -84,8 +84,9 @@ class LoginPage extends React.Component {
     else
     {
       console.log("success");
-      alert("登陆成功");
+      alert("登录成功");
       cookies.set("login", true, { path: "/" });
+      cookies.set("username", this.state.username, { path: "/" });
       cookies.set("userId", "0001", { path: "/" });
       window.location.href = "/";
     }

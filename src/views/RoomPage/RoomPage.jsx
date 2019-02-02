@@ -27,6 +27,7 @@ import AddRoom from "../../components/Room/AddRoom";
 import SearchRoom from "../../components/Room/SearchRoom";
 import DeleteRoom from "../../components/Room/DeleteRoom";
 import ModifyRoom from "../../components/Room/ModifyRoom";
+import NowStatus from "../../components/Room/NowStatus";
 
 let rooms = [
   { location: "410", capacity: 10, status: 2, device: "是", others: "无" },
@@ -92,47 +93,7 @@ class RoomPage extends React.Component {
                 {
                   tabName: "当前使用情况",
                   tabIcon: Assignment,
-                  tabContent: rooms.map(room => {
-                    if (room.status == 2)
-                      //只显示正在开会的会议室
-                      return (
-                        <GridContainer>
-                          <GridItem xs={12} sm={8} md={11}>
-                            <Card>
-                              <CardHeader
-                                color={roomCardColor(room.status)}
-                                stats
-                                icon
-                              >
-                                <CardIcon color={roomCardColor(room.status)}>
-                                  {roomCardIcon(room.status)}
-                                </CardIcon>
-                                <p className={classes.cardCategory}>
-                                  {roomStatus(room.status)}
-                                </p>
-                                <h3 className={classes.cardTitle}>
-                                  <Link
-                                    to={"/room/" + room.location + "/schedule"}
-                                  >
-                                    {roomCategory(room.capacity) +
-                                      " " +
-                                      room.location}
-                                  </Link>{" "}
-                                  <br />{" "}
-                                  <small>{"容量:" + room.capacity}</small>
-                                </h3>
-                              </CardHeader>
-                              <CardFooter stats>
-                                <div className={classes.stats}>
-                                  <Update />
-                                  Just Updated
-                                </div>
-                              </CardFooter>
-                            </Card>
-                          </GridItem>
-                        </GridContainer>
-                      );
-                  })
+                  tabContent: <NowStatus />
                 },
                 {
                   tabName: "查询会议室",

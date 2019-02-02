@@ -123,11 +123,10 @@ class PrimarySearchAppBar extends React.Component {
 
     handleLogout = ()=>{
         cookies.removeChangeListener();
-        console.log("name:", cookies.get("name"));
-        cookies.remove("login",true,  { path: "/" });
+        cookies.remove("login",true, { path: "/" });
+        cookies.remove("username", cookies.get("username"),{ path: "/" } );
         cookies.remove("userId", cookies.get("userId"), { path: "/" });
         window.location.href = "/";
-        //console.log("logout id:", cookies.get("userId"));
     };
 
 
@@ -145,7 +144,7 @@ class PrimarySearchAppBar extends React.Component {
                 open={isMenuOpen}
                 onClose={this.handleMenuClose}
             >
-                <MenuItem onClick={this.handleMenuClose}>Profile</MenuItem>
+                <MenuItem >修改个人资料</MenuItem>
                 <MenuItem onClick={this.handleLogout}>退出登录</MenuItem>
             </Menu>
         );

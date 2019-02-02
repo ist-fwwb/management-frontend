@@ -8,8 +8,8 @@ import Home from "@material-ui/icons/Home";
 import RoomPage from "views/RoomPage/RoomPage.jsx";
 import MeetingPage from "views/MeetingPage/MeetingPage.jsx";
 import UserProfile from "views/UserProfile/UserProfile.jsx";
-import RoomSchedule from "views/RoomSchedule/RoomSchedule.jsx";
-import RoomProfile from "views/RoomProfile/RoomProfile.jsx";
+import RoomProfile from "components/Room/RoomProfile.jsx";
+import RoomSchedulePage from "views/RoomSchedulePage/RoomSchedulePage.jsx";
 import HomePage from "views/HomePage/HomePage.jsx";
 import MessagePage from "views/MessagePage/MessagePage.jsx";
 
@@ -55,14 +55,14 @@ export const dashboardRoutes = [
 ];
 
 let routesNotInSideBar = [
-  {
-    path: "/room/:roomid/schedule",
-    component: RoomSchedule
-  },
-  {
-    path: "/room/:roomid/profile",
-    component: RoomProfile
-  }
+      {
+        path: "/room/:roomId/:roomLocation/schedule",
+        component: RoomSchedulePage
+      },
+      {
+        path: "/room/:roomId/profile",
+        component: RoomProfile
+      },
 ];
 
 export const deepRoutes = routesNotInSideBar.concat(dashboardRoutes);
