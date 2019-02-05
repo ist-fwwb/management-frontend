@@ -7,6 +7,7 @@ import GridItem from "components/Grid/GridItem.jsx";
 import GridContainer from "components/Grid/GridContainer.jsx";
 import AddCircleOutline from "@material-ui/icons/AddCircleOutline";
 import PanTool from "@material-ui/icons/PanTool";
+import AddMessage from "../../components/Message/AddMessage";
 
 class MessagePage extends React.Component {
     render() {
@@ -19,12 +20,12 @@ class MessagePage extends React.Component {
                             headerColor="rose"
                             tabs={[
                                 {
-                                    tabName: "发布消息",
+                                    tabName: "发布新闻",
                                     tabIcon: AddCircleOutline,
-                                    //tabContent:
+                                    tabContent: <AddMessage/>
                                 },
                                 {
-                                    tabName: "修改消息", //状态
+                                    tabName: "修改新闻", //状态
                                     tabIcon: PanTool,
                                     //tabContent:
                                 },

@@ -1,4 +1,5 @@
 import React from "react";
+import "App.css";
 import GridItem from "components/Grid/GridItem.jsx";
 import GridContainer from "components/Grid/GridContainer.jsx";
 
@@ -13,12 +14,11 @@ import TableRow from '@material-ui/core/TableRow';
 
 import Snackbar from "components/Snackbar/Snackbar.jsx";
 import { meetingController, today } from "variables/general.jsx";
-import { Link } from "react-router-dom";
+
 import { idToTime } from "variables/general.jsx";
 import Slider from "react-slick";
 import { withStyles } from '@material-ui/core/styles';
-import PrimarySearchAppBar from "components/AppBar/AppBar.jsx";
-import TodayMeeting from "../../components/Meeting/TodayMeeting";
+
 
 
 const slidesSettings = {
@@ -54,7 +54,7 @@ class HomePage extends React.Component{
             notificationType: null,
             rows:[],
             meetings: null,
-        }
+        };
         this.state.rows.push(this.createData("新增会议室6301", "2019-01-28"));
         this.state.rows.push(this.createData("会议室5312的投影仪损坏", "2019-01-21"));
     }
@@ -62,34 +62,6 @@ class HomePage extends React.Component{
     createData=(heading, date)=>{
         return {heading, date};
     };
-
-
-
-    JSONToArray = (jsonArray, type) => {
-        let re = [];
-        for (let i in jsonArray){
-            let ele = jsonArray[i];
-            if (type === "meeting" && ele.date !== today)
-                continue;
-            if (type === "meeting" && !(ele.status === "Pending" || ele.status === "Running"))
-                continue;
-            if (type === "attend" && (ele.status !== "Pending" || ele.hostId === this.props.userId))
-                continue;
-            let temp_ele = [];
-
-            temp_ele.push(<Link to={"/meeting/"+ele.id+"/profile"}>{ele.heading}</Link>)
-            temp_ele.push(<Link to={"/room/"+ele.id+"/profile"}>{ele.location}</Link>);
-            if (type !== "meeting")
-                temp_ele.push(ele.date);
-            temp_ele.push(idToTime(ele.startTime) + "~" + idToTime(ele.endTime));
-            if (type === "meeting")
-                temp_ele.push(ele.status);
-            else if (type === "attend")
-                temp_ele.push([])
-            re.push(temp_ele);
-        }
-        return re;
-    }
 
 
     showNotification = (place) => {
@@ -103,7 +75,7 @@ class HomePage extends React.Component{
             }.bind(this),
             6000
         );
-    }
+    };
 
     typeToIcon = (type) => {
         if (type === "success")
@@ -111,23 +83,22 @@ class HomePage extends React.Component{
         if (type === "danger")
             return ErrorOutline;
         return null;
-    }
+    };
 
     warning = (msg) => {
         this.setState({
             notificationType: "danger",
             notificationMessage: msg
-        })
+        });
         this.showNotification("br");
-    }
+    };
 
     render(){
         if (this.state.error)
             return <h2>Network Error</h2>
 
         return(
-            <div>
-
+            <div id="Background">
                 <GridContainer xs={12} sm={12} md={12}>
                     <GridItem xs={12} sm={12} md={8}>
                         <Slider {...slidesSettings} style={{width:"50%"}}>

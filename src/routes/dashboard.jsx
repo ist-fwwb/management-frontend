@@ -45,8 +45,8 @@ export const dashboardRoutes = [
     },
     {
         path: "/message",
-        sidebarName: "通知管理",
-        navbarName: "通知管理",
+        sidebarName: "新闻管理",
+        navbarName: "新闻管理",
         icon: Mail,
         component: MessagePage//------------------------------------------------------------
     },

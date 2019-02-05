@@ -80,7 +80,6 @@ function roomCardIcon(status) {
 
 class RoomPage extends React.Component {
   render() {
-    const { classes } = this.props;
     return (
       <div>
         <GridContainer>

@@ -15,6 +15,7 @@ import PrimarySearchAppBar from "components/AppBar/AppBar.jsx";
 import LoginPage from "views/LoginPage/LoginPage.jsx";
 import Cookies from 'universal-cookie';
 import { dashboardRoutes, deepRoutes } from "routes/dashboard.jsx";
+import "App.css";
 
 import dashboardStyle from "assets/jss/material-dashboard-react/layouts/dashboardStyle.jsx";
 
@@ -102,7 +103,7 @@ class App extends React.Component {
         return <LoginPage handleLogin={this.handleLogin}/>;
     }
     return (
-        <div className={classes.wrapper} ref={this.setPsRef}>
+        <div className={classes.wrapper} ref={this.setPsRef} >
         <Sidebar
           userId={userId}
           routes={dashboardRoutes}
@@ -114,12 +115,12 @@ class App extends React.Component {
           color="blue"
           {...rest}
         />
-        <div className={classes.mainPanel} ref="mainPanel">
+        <div className={classes.mainPanel} ref="mainPanel" >
             <PrimarySearchAppBar color="transparent"/>
 
             <div className={classes.content}>
             <div className={classes.container}>
-              <Switch>
+              <Switch >
                   {
                       deepRoutes.map((prop, key) => {
                           if (prop.redirect)
