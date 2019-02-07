@@ -21,7 +21,7 @@ const Sidebar = ({ ...props }) => {
   function activeRoute(routeName) {
     return props.location.pathname.indexOf(routeName) > -1 ? true : false;
   }
-  const { classes, color, logo, image, logoText, routes } = props;
+  const { classes, color, logo, image, logoText, routes, style} = props;
   var links = (
     <List className={classes.list}>
       {routes.map((prop, key) => {
@@ -48,7 +48,7 @@ const Sidebar = ({ ...props }) => {
             activeClassName="active"
             key={key}
           >
-            <ListItem button className={classes.itemLink + listItemClasses}>
+            <ListItem button className={classes.itemLink + listItemClasses} style={style}>
               <ListItemIcon className={classes.itemIcon + whiteFontClasses}>
                 {typeof prop.icon === "string" ? (
                   <Icon>{prop.icon}</Icon>

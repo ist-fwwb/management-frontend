@@ -106,7 +106,7 @@ class MeetingPage extends React.Component {
         <GridContainer>
           <GridItem xs={12} sm={12} md={12}>
             <CustomTabs
-              style={{background:"#212121"}}
+              style={{ background: "linear-gradient(45deg, #0277bd 30%, #4fc3f7 90%)"}}
               headerColor="rose"
               tabs={[
                 {

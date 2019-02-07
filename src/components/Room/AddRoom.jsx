@@ -159,7 +159,7 @@ class AddRoom extends React.Component {
         <GridItem xs={20} sm={20} md={12}>
             <Button
                 onClick={this.handleAdd}
-                style={{marginLeft:"43%", fontSize:"25px", lineHeight:"60px", background:"#00bcd4"}}>
+                style={{marginLeft:"43%", fontSize:"25px", lineHeight:"60px", background:"#29b6f6", color:"white"}}>
                 添加会议室
             </Button>
         </GridItem>

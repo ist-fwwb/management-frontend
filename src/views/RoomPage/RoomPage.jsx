@@ -86,7 +86,7 @@ class RoomPage extends React.Component {
           <GridItem xs={12} sm={12} md={15}>
             <CustomTabs
               title={null}
-              style={{ background: "#000" }}
+              style={{ background: "linear-gradient(45deg, #0277bd 30%, #4fc3f7 90%)"}}
               headerColor="success"
               tabs={[
                 {

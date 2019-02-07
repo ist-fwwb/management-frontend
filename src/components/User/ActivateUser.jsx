@@ -21,13 +21,13 @@ import { userController } from "variables/general.jsx";
 
 
 const CustomTableCell = withStyles(theme => ({
-    head: {
-        // backgroundColor: theme.palette.common.black,
-        backgroundColor:"#212121",
-        color: theme.palette.common.white,
+    root: {
+        width: '100%',
+        marginTop: theme.spacing.unit * 3,
+        overflowX: 'auto',
     },
-    body: {
-        fontSize: 14,
+    table: {
+        minWidth: 700,
     },
 }))(TableCell);
 
@@ -182,7 +182,7 @@ class ActivateUser extends React.Component {
                 <br/>
                 <GridContainer xs={12} sm={12} md={12}>
                     <GridItem xs={12} sm={12} md={12}>
-                        <span style={{fontSize:"30px", fontWeight:"700", marginLeft:"45%"}}>
+                        <span style={{fontSize:"30px", fontWeight:"700", marginLeft:"45%", color:"#0288d1"}}>
                         待激活用户
                         </span>
                     </GridItem>
@@ -194,11 +194,11 @@ class ActivateUser extends React.Component {
                         <Table className="ActivateUser" style={{marginLeft:"23%"}}>
                             <TableHead>
                                 <TableRow >
-                                    <CustomTableCell style={{width:"25%", fontSize:"18px"}}>公司</CustomTableCell>
-                                    <CustomTableCell  align="center" style={{width:"15%", fontSize:"20px"}}>姓名</CustomTableCell>
-                                    <CustomTableCell  style={{width:"15%", fontSize:"20px"}}>联系电话</CustomTableCell>
-                                    <CustomTableCell  style={{width:"50%", fontSize:"20px"}}>人脸图像</CustomTableCell>
-                                    <CustomTableCell  style={{width:"20%", fontSize:"20px"}}>操作</CustomTableCell>
+                                    <CustomTableCell style={{width:"25%", fontSize:"18px", fontWeight:"700", color:"#ba68c8"}}>公司</CustomTableCell>
+                                    <CustomTableCell  align="center" style={{width:"15%", fontSize:"20px", fontWeight:"700", color:"#ba68c8"}}>姓名</CustomTableCell>
+                                    <CustomTableCell  style={{width:"15%", fontSize:"20px", fontWeight:"700", color:"#ba68c8"}}>联系电话</CustomTableCell>
+                                    <CustomTableCell  style={{width:"50%", fontSize:"20px", fontWeight:"700", color:"#ba68c8"}}>人脸图像</CustomTableCell>
+                                    <CustomTableCell  style={{width:"20%", fontSize:"20px", fontWeight:"700", color:"#ba68c8"}}>操作</CustomTableCell>
                                 </TableRow>
                             </TableHead>
                             <TableBody>
@@ -212,7 +212,7 @@ class ActivateUser extends React.Component {
                                                 <img style={{width:"50%", height:"90px"}}></img>
                                             </CustomTableCell>
                                             <CustomTableCell>
-                                                <Button style={{width: "20%", fontSize: "18px", background: "#00bcd4"}}
+                                                <Button style={{width: "20%", fontSize: "18px", background: "#29b6f6"}}
                                                         onClick={()=>this.handleClickOpen(key)}>激活</Button>
                                             </CustomTableCell>
                                         </TableRow>
@@ -225,10 +225,10 @@ class ActivateUser extends React.Component {
                                 >
                                     <DialogTitle >{"确认激活" +"?"}</DialogTitle>
                                     <DialogActions>
-                                        <Button onClick={this.handleClose} style={{background:"#00bcd4"}}>
+                                        <Button onClick={this.handleClose} style={{background:"#29b6f6"}}>
                                             取消
                                         </Button>
-                                        <Button onClick={this.handleActivate} style={{background:"#00bcd4"}}>
+                                        <Button onClick={this.handleActivate} style={{background:"#29b6f6"}}>
                                             激活
                                         </Button>
                                     </DialogActions>

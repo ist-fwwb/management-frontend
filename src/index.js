@@ -13,6 +13,7 @@ serviceWorker.unregister();*/
 
 import React from "react";
 import ReactDOM from "react-dom";
+import { install } from '@material-ui/styles';
 import { createBrowserHistory } from "history";
 import { Router, Route, Switch } from "react-router-dom";
 
@@ -22,6 +23,7 @@ import indexRoutes from "routes/index.jsx";
 
 const hist = createBrowserHistory();
 
+install();
 ReactDOM.render(
     <Router history={hist}>
         <Switch>

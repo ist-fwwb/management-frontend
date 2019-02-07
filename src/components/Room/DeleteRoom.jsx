@@ -22,13 +22,13 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import { withStyles } from '@material-ui/core/styles';
 
 const CustomTableCell = withStyles(theme => ({
-    head: {
-        // backgroundColor: theme.palette.common.black,
-        backgroundColor:"#212121",
-        color: theme.palette.common.white,
+    root: {
+        width: '100%',
+        marginTop: theme.spacing.unit * 3,
+        overflowX: 'auto',
     },
-    body: {
-        fontSize: 14,
+    table: {
+        minWidth: 700,
     },
 }))(TableCell);
 
@@ -105,7 +105,7 @@ class DeleteRoom extends React.Component {
                 <GridContainer xs={12} sm={12} md={12}>
                     <GridItem xs={12} sm={12} md={12}>&nbsp;</GridItem>
                     <GridItem xs={12} sm={12} md={12}>
-                        <Button color="black" style={{fontSize:"20px", background:"#00bcd4", marginLeft:"8%"}}>显示所有会议室</Button>
+                        <Button color="black" style={{fontSize:"20px", background:"#29b6f6", marginLeft:"8%", color:"white"}}>显示所有会议室</Button>
                     </GridItem>
                 </GridContainer>
                 <br/>
@@ -114,12 +114,12 @@ class DeleteRoom extends React.Component {
                         <Table className="room page" style={{marginLeft:"10%"}}>
                             <TableHead>
                                 <TableRow >
-                                    <CustomTableCell  align="center" style={{width:"13%", fontSize:"20px"}}>房间号</CustomTableCell>
-                                    <CustomTableCell  style={{width:"13%", fontSize:"20px"}}>可容纳人数</CustomTableCell>
-                                    <CustomTableCell  style={{width:"10%", fontSize:"20px"}}>状态</CustomTableCell>
-                                    <CustomTableCell  style={{width:"30%", fontSize:"20px"}}>设备条件</CustomTableCell>
-                                    <CustomTableCell  style={{width:"16%", fontSize:"20px"}}>备注</CustomTableCell>
-                                    <CustomTableCell  style={{width:"18%", fontSize:"20px"}}>操作</CustomTableCell>
+                                    <CustomTableCell  align="center" style={{width:"13%", fontSize:"20px", fontWeight:"700", color:"#ba68c8"}}>房间号</CustomTableCell>
+                                    <CustomTableCell  style={{width:"13%", fontSize:"20px", fontWeight:"700", color:"#ba68c8"}}>可容纳人数</CustomTableCell>
+                                    <CustomTableCell  style={{width:"10%", fontSize:"20px", fontWeight:"700", color:"#ba68c8"}}>状态</CustomTableCell>
+                                    <CustomTableCell  style={{width:"30%", fontSize:"20px", fontWeight:"700", color:"#ba68c8"}}>设备条件</CustomTableCell>
+                                    <CustomTableCell  style={{width:"16%", fontSize:"20px", fontWeight:"700", color:"#ba68c8"}}>备注</CustomTableCell>
+                                    <CustomTableCell  style={{width:"18%", fontSize:"20px", fontWeight:"700", color:"#ba68c8"}}>操作</CustomTableCell>
                                 </TableRow>
                             </TableHead>
                             <TableBody>
@@ -146,10 +146,10 @@ class DeleteRoom extends React.Component {
                             >
                                 <DialogTitle >{"确认删除" +"?"}</DialogTitle>
                                 <DialogActions>
-                                    <Button onClick={this.handleClose} style={{background:"#00bcd4"}}>
+                                    <Button onClick={this.handleClose} style={{background:"#29b6f6", color:"white"}}>
                                         取消
                                     </Button>
-                                    <Button onClick={this.handleDelete} style={{background:"#00bcd4"}}>
+                                    <Button onClick={this.handleDelete} style={{background:"#29b6f6", color:"white"}}>
                                         删除
                                     </Button>
                                 </DialogActions>

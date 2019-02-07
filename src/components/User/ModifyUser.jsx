@@ -24,13 +24,13 @@ import { userController } from "variables/general.jsx";
 
 
 const CustomTableCell = withStyles(theme => ({
-    head: {
-        // backgroundColor: theme.palette.common.black,
-        backgroundColor:"#212121",
-        color: theme.palette.common.white,
+    root: {
+        width: '100%',
+        marginTop: theme.spacing.unit * 3,
+        overflowX: 'auto',
     },
-    body: {
-        fontSize: 14,
+    table: {
+        minWidth: 700,
     },
 }))(TableCell);
 
@@ -299,7 +299,7 @@ class ModifyUser extends React.Component{
                         </Select>
                         <TextField placeholder="输入用户ID" style={{ width: "20%", lineHeight:"200px", marginLeft:"7%", fontSize:"20px"}}
                                    onChange={this.handleSearchIdChange}/>
-                        <Button style={{ marginLeft: "7%", background:"#00bcd4", fontSize:"20px", width:"10%"}}
+                        <Button style={{ marginLeft: "7%", background:"#29b6f6", fontSize:"20px", width:"10%"}}
                                 onClick={this.handleSearch}>
                             搜索
                         </Button>
@@ -312,11 +312,11 @@ class ModifyUser extends React.Component{
                         <Table className="room page" style={{marginLeft:"23%"}}>
                             <TableHead>
                                 <TableRow >
-                                    <CustomTableCell style={{width:"20%", fontSize:"18px"}}>公司</CustomTableCell>
-                                    <CustomTableCell style={{width:"17%", fontSize:"20px"}}>姓名</CustomTableCell>
-                                    <CustomTableCell style={{width:"22%", fontSize:"20px"}}>联系电话</CustomTableCell>
-                                    <CustomTableCell style={{width:"17%", fontSize:"20px"}}>职员类型</CustomTableCell>
-                                    <CustomTableCell style={{width:"22%", fontSize:"20px"}}>操作</CustomTableCell>
+                                    <CustomTableCell style={{width:"20%", fontSize:"18px", fontWeight:"700", color:"#ba68c8"}}>公司</CustomTableCell>
+                                    <CustomTableCell style={{width:"17%", fontSize:"20px", fontWeight:"700", color:"#ba68c8"}}>姓名</CustomTableCell>
+                                    <CustomTableCell style={{width:"22%", fontSize:"20px", fontWeight:"700", color:"#ba68c8"}}>联系电话</CustomTableCell>
+                                    <CustomTableCell style={{width:"17%", fontSize:"20px", fontWeight:"700", color:"#ba68c8"}}>职员类型</CustomTableCell>
+                                    <CustomTableCell style={{width:"22%", fontSize:"20px", fontWeight:"700", color:"#ba68c8"}}>操作</CustomTableCell>
                                 </TableRow>
                             </TableHead>
                             <TableBody>
@@ -329,7 +329,7 @@ class ModifyUser extends React.Component{
                                                 <CustomTableCell style={{width:"22%", fontSize:"18px"}}>{row.phone}</CustomTableCell>
                                                 <CustomTableCell style={{width:"17%", fontSize:"18px"}}>{row.type}</CustomTableCell>
                                                 <CustomTableCell>
-                                                    <Button style={{width:"20%", fontSize:"18px", background:"#00bcd4"}} onClick={()=>this.handleClickModify(key)}>修改</Button>
+                                                    <Button style={{width:"20%", fontSize:"18px", background:"#29b6f6"}} onClick={()=>this.handleClickModify(key)}>修改</Button>
                                                 </CustomTableCell>
                                             </TableRow>
                                         );
@@ -342,7 +342,7 @@ class ModifyUser extends React.Component{
                                                     <CustomTableCell style={{width:"22%", fontSize:"18px"}}>{row.phone}</CustomTableCell>
                                                     <CustomTableCell style={{width:"17%", fontSize:"18px"}}>{row.type}</CustomTableCell>
                                                     <CustomTableCell>
-                                                        <Button style={{width: "18%", fontSize: "18px", background: "#00bcd4"}}>修改</Button>
+                                                        <Button style={{width: "18%", fontSize: "18px", background: "#29b6f6"}}>修改</Button>
                                                     </CustomTableCell>
                                                 </TableRow>
                                             )
@@ -374,7 +374,7 @@ class ModifyUser extends React.Component{
                                                         </Select>
                                                     </CustomTableCell>
                                                     <CustomTableCell>
-                                                        <Button style={{width: "40%", fontSize: "18px", background: "#00bcd4"}} onClick={()=>this.handleConfirmModify(key)}>确认</Button>
+                                                        <Button style={{width: "40%", fontSize: "18px", background: "#29b6f6"}} onClick={()=>this.handleConfirmModify(key)}>确认</Button>
                                                         &nbsp;&nbsp;&nbsp;
                                                         <Button style={{width: "40%", fontSize: "18px", background: "#b0bec5"}} onClick={this.handleCancelModify}>取消</Button>
                                                     </CustomTableCell>

@@ -3,10 +3,10 @@
  */
 
 import React from "react";
-
+import { styled } from '@material-ui/styles';
 import GridItem from "components/Grid/GridItem.jsx";
 import GridContainer from "components/Grid/GridContainer.jsx";
-import Button from "components/CustomButtons/Button";
+import Button from '@material-ui/core/Button';
 
 import Search from "@material-ui/icons/Search";
 import Table from '@material-ui/core/Table';
@@ -18,7 +18,7 @@ import Checkbox from '@material-ui/core/Checkbox';
 import { withStyles } from '@material-ui/core/styles';
 
 
-const CustomTableCell = withStyles(theme => ({
+/*const CustomTableCell = withStyles(theme => ({
     head: {
        // backgroundColor: theme.palette.common.black,
         backgroundColor:"#212121",
@@ -27,7 +27,21 @@ const CustomTableCell = withStyles(theme => ({
     body: {
         fontSize: 14,
     },
+    background: 'linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%)',
+}))(TableCell);*/
+
+const CustomTableCell = withStyles(theme => ({
+    root: {
+        width: '100%',
+        marginTop: theme.spacing.unit * 3,
+        overflowX: 'auto',
+    },
+    table: {
+        minWidth: 700,
+    },
 }))(TableCell);
+
+
 
 
 let id = 0;
@@ -88,10 +102,11 @@ class SearchRoom extends React.Component {
     render() {
         return (
             <div>
+                <br/>
             <GridContainer xs={12} sm={12} md={12}>
                 <GridItem xs={12} sm={12} md={12}>&nbsp;</GridItem>
                 <GridItem xs={12} sm={12} md={12}>
-                    <Button color="black" style={{fontSize:"20px", background:"#00bcd4", marginLeft:"8%"}}>显示所有会议室</Button>
+                    <Button  style={{fontSize:"20px",  marginLeft:"8%", background:"#29b6f6", color:"white"}}>显示所有会议室</Button>
                     <span style={{fontSize:"20px", marginLeft:"8%"}}> 设备条件：</span>
                     <Checkbox style={{marginLeft:"1%"}} checked={this.state.AirConditioner} onChange={this.handleDeviceChange('AirConditioner')} value="AirConditioner" />
                     <span style={{fontSize: "20px" }}>空调</span>
@@ -110,16 +125,17 @@ class SearchRoom extends React.Component {
                 </GridItem>
             </GridContainer>
                 <br/>
+                <br/>
             <GridContainer xs={12} sm={12} md={11}>
                 <GridItem xs={12} sm={12} md={11}>
                     <Table className="room page" style={{marginLeft:"10%"}}>
                         <TableHead>
                             <TableRow >
-                                <CustomTableCell  align="center" style={{width:"13%", fontSize:"20px"}}>房间号</CustomTableCell>
-                                <CustomTableCell  style={{width:"15%", fontSize:"20px"}}>可容纳人数</CustomTableCell>
-                                <CustomTableCell  style={{width:"10%", fontSize:"20px"}}>状态</CustomTableCell>
-                                <CustomTableCell  style={{width:"30%", fontSize:"20px"}}>设备条件</CustomTableCell>
-                                <CustomTableCell  style={{width:"20%", fontSize:"20px"}}>备注</CustomTableCell>
+                                <CustomTableCell  align="center" style={{width:"13%", color:"#ba68c8",fontSize:"20px", fontWeight:"700"}}>房间号</CustomTableCell>
+                                <CustomTableCell  style={{width:"15%",color:"#ba68c8", fontSize:"20px", fontWeight:"700"}}>可容纳人数</CustomTableCell>
+                                <CustomTableCell  style={{width:"10%",color:"#ba68c8", fontSize:"20px", fontWeight:"700"}}>状态</CustomTableCell>
+                                <CustomTableCell  style={{width:"30%",color:"#ba68c8", fontSize:"20px", fontWeight:"700"}}>设备条件</CustomTableCell>
+                                <CustomTableCell  style={{width:"20%",color:"#ba68c8", fontSize:"20px", fontWeight:"700"}}>备注</CustomTableCell>
                             </TableRow>
                         </TableHead>
                         <TableBody>

@@ -18,15 +18,14 @@ import OutlinedInput from "@material-ui/core/OutlinedInput";
 import { userController } from "variables/general.jsx";
 
 
-
 const CustomTableCell = withStyles(theme => ({
-    head: {
-        // backgroundColor: theme.palette.common.black,
-        backgroundColor:"#212121",
-        color: theme.palette.common.white,
+    root: {
+        width: '100%',
+        marginTop: theme.spacing.unit * 3,
+        overflowX: 'auto',
     },
-    body: {
-        fontSize: 14,
+    table: {
+        minWidth: 700,
     },
 }))(TableCell);
 
@@ -112,7 +111,7 @@ class SearchUser extends React.Component {
                             <MenuItem value={"GUEST"} style={{fontSize:"20px"}}>外宾</MenuItem>
                             <MenuItem value={"ADMINISTOR"} style={{fontSize:"20px"}}>管理员</MenuItem>
                         </Select>
-                        <Button style={{ marginLeft: "3%", background:"#00bcd4", fontSize:"20px"}}
+                        <Button style={{ marginLeft: "3%", background:"#29b6f6", fontSize:"20px"}}
                                 onClick={this.handleSearch}>
                             搜索
                         </Button>
@@ -125,11 +124,11 @@ class SearchUser extends React.Component {
                         <Table className="ActivateUser" style={{marginLeft:"23%"}}>
                             <TableHead>
                                 <TableRow >
-                                    <CustomTableCell style={{width:"20%", fontSize:"18px"}}>公司</CustomTableCell>
-                                    <CustomTableCell style={{width:"15%", fontSize:"20px"}}>姓名</CustomTableCell>
-                                    <CustomTableCell style={{width:"15%", fontSize:"20px"}}>联系电话</CustomTableCell>
-                                    <CustomTableCell style={{width:"15%", fontSize:"20px"}}>职员类型</CustomTableCell>
-                                    <CustomTableCell style={{width:"35%", fontSize:"20px"}}>人脸图像</CustomTableCell>
+                                    <CustomTableCell style={{width:"20%", fontSize:"18px", fontWeight:"700", color:"#ba68c8"}}>公司</CustomTableCell>
+                                    <CustomTableCell style={{width:"15%", fontSize:"20px", fontWeight:"700", color:"#ba68c8"}}>姓名</CustomTableCell>
+                                    <CustomTableCell style={{width:"15%", fontSize:"20px", fontWeight:"700", color:"#ba68c8"}}>联系电话</CustomTableCell>
+                                    <CustomTableCell style={{width:"15%", fontSize:"20px", fontWeight:"700", color:"#ba68c8"}}>职员类型</CustomTableCell>
+                                    <CustomTableCell style={{width:"35%", fontSize:"20px", fontWeight:"700", color:"#ba68c8"}}>人脸图像</CustomTableCell>
 
                                 </TableRow>
                             </TableHead>

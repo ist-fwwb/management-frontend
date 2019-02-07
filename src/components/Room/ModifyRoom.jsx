@@ -19,13 +19,13 @@ import Search from "@material-ui/icons/Search";
 
 
 const CustomTableCell = withStyles(theme => ({
-    head: {
-        // backgroundColor: theme.palette.common.black,
-        backgroundColor:"#212121",
-        color: theme.palette.common.white,
+    root: {
+        width: '100%',
+        marginTop: theme.spacing.unit * 3,
+        overflowX: 'auto',
     },
-    body: {
-        fontSize: 14,
+    table: {
+        minWidth: 700,
     },
 }))(TableCell);
 
@@ -167,7 +167,7 @@ class ModifyRoom extends React.Component{
                 <GridContainer xs={12} sm={12} md={12}>
                     <GridItem xs={12} sm={12} md={12}>&nbsp;</GridItem>
                     <GridItem xs={12} sm={12} md={12}>
-                        <Button color="black" style={{fontSize:"20px", background:"#00bcd4", marginLeft:"8%"}}>显示所有会议室</Button>
+                        <Button color="black" style={{fontSize:"20px", background:"#29b6f6", marginLeft:"8%", color:"white"}}>显示所有会议室</Button>
                         <TextField placeholder="输入与会议室相关信息" style={{ width: "40%", lineHeight:"200px", marginLeft:"15%"}} />
                         <Button color="white"   aria-label="edit" justIcon round>
                             <Search />
@@ -180,12 +180,12 @@ class ModifyRoom extends React.Component{
                         <Table className="room page" style={{marginLeft:"10%"}}>
                             <TableHead>
                                 <TableRow >
-                                    <CustomTableCell  align="center" style={{width:"13%", fontSize:"20px"}}>房间号</CustomTableCell>
-                                    <CustomTableCell  style={{width:"13%", fontSize:"20px"}}>可容纳人数</CustomTableCell>
-                                    <CustomTableCell  style={{width:"10%", fontSize:"20px"}}>状态</CustomTableCell>
-                                    <CustomTableCell  style={{width:"30%", fontSize:"20px"}}>设备条件</CustomTableCell>
-                                    <CustomTableCell  style={{width:"14%", fontSize:"20px"}}>备注</CustomTableCell>
-                                    <CustomTableCell  style={{width:"20%", fontSize:"20px"}}>操作</CustomTableCell>
+                                    <CustomTableCell  align="center" style={{width:"13%", fontSize:"20px", fontWeight:"700", color:"#ba68c8"}}>房间号</CustomTableCell>
+                                    <CustomTableCell  style={{width:"13%", fontSize:"20px", fontWeight:"700", color:"#ba68c8"}}>可容纳人数</CustomTableCell>
+                                    <CustomTableCell  style={{width:"10%", fontSize:"20px", fontWeight:"700", color:"#ba68c8"}}>状态</CustomTableCell>
+                                    <CustomTableCell  style={{width:"30%", fontSize:"20px", fontWeight:"700", color:"#ba68c8"}}>设备条件</CustomTableCell>
+                                    <CustomTableCell  style={{width:"14%", fontSize:"20px", fontWeight:"700", color:"#ba68c8"}}>备注</CustomTableCell>
+                                    <CustomTableCell  style={{width:"20%", fontSize:"20px", fontWeight:"700", color:"#ba68c8"}}>操作</CustomTableCell>
                                 </TableRow>
                             </TableHead>
                             <TableBody>
@@ -199,7 +199,7 @@ class ModifyRoom extends React.Component{
                                             <CustomTableCell style={{width:"30%", fontSize:"18px"}}>{row.devices}</CustomTableCell>
                                             <CustomTableCell style={{width:"14%", fontSize:"18px"}}>{row.comment}</CustomTableCell>
                                             <CustomTableCell>
-                                                <Button style={{width:"20%", fontSize:"18px", background:"#00bcd4"}} onClick={()=>this.handleClickModify(key)}>修改</Button>
+                                                <Button style={{width:"20%", fontSize:"18px", background:"#29b6f6", color:"white"}} onClick={()=>this.handleClickModify(key)}>修改</Button>
                                             </CustomTableCell>
                                         </TableRow>
                                         )
@@ -213,7 +213,7 @@ class ModifyRoom extends React.Component{
                                                     <CustomTableCell style={{width: "30%", fontSize: "18px"}}>{row.devices}</CustomTableCell>
                                                     <CustomTableCell style={{width: "20%", fontSize: "18px"}}>{row.comment}</CustomTableCell>
                                                     <CustomTableCell>
-                                                        <Button style={{width: "18%", fontSize: "18px", background: "#00bcd4"}}>修改</Button>
+                                                        <Button style={{width: "18%", fontSize: "18px", background: "#29b6f6", color:"white"}}>修改</Button>
                                                     </CustomTableCell>
                                                 </TableRow>
                                             )
@@ -249,7 +249,7 @@ class ModifyRoom extends React.Component{
                                                         <TextField  value={this.state.tmp_comment} onChange={this.handleCommentChange} style={{ fontSize: "18px", lineHeight:"80px"}} />
                                                     </CustomTableCell>
                                                     <CustomTableCell>
-                                                        <Button style={{width: "40%", fontSize: "18px", background: "#00bcd4"}} onClick={()=>this.handleConfirmModify(key)}>确认</Button>
+                                                        <Button style={{width: "40%", fontSize: "18px", background: "#29b6f6", color:"white"}} onClick={()=>this.handleConfirmModify(key)}>确认</Button>
                                                         &nbsp;&nbsp;&nbsp;
                                                         <Button style={{width: "40%", fontSize: "18px", background: "#b0bec5"}} onClick={this.handleCancelModify}>取消</Button>
                                                     </CustomTableCell>

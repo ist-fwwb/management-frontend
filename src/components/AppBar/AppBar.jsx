@@ -186,7 +186,7 @@ class PrimarySearchAppBar extends React.Component {
         return (
             <div className={classes.root}>
                 <AppBar position="static" >
-                    <Toolbar  style={{background:"#424242"}}>
+                    <Toolbar  style={{background:"#212121"}}>
                         <div className={classes.search} style={{marginLeft:"65%"}}>
                             <div className={classes.searchIcon}>
                                 <SearchIcon />

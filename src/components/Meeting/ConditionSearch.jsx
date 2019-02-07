@@ -30,7 +30,7 @@ const style = {
     },
     button:{
         width:"6%",
-        background:"#00bcd4",
+        background:"#29b6f6",
         marginLeft:"5%",
         height:"2%",
         marginTop:"1.8%"
@@ -231,13 +231,13 @@ class ConditionSearch extends React.Component {
                         <Table className="room page" >
                             <TableHead>
                                 <TableRow >
-                                    <CustomTableCell  align="center" style={{width:"23%", fontSize:"140%"}}>标题</CustomTableCell>
-                                    <CustomTableCell  style={{width:"15%", fontSize:"140%"}}>描述</CustomTableCell>
-                                    <CustomTableCell  style={{width:"24%", fontSize:"140%"}}>时间</CustomTableCell>
-                                    <CustomTableCell  style={{width:"10%", fontSize:"140%"}}>地点</CustomTableCell>
-                                    <CustomTableCell  style={{width:"10%", fontSize:"140%"}}>是否签到</CustomTableCell>
-                                    <CustomTableCell  style={{width:"10%", fontSize:"140%"}}>类型</CustomTableCell>
-                                    <CustomTableCell  style={{width:"10%", fontSize:"140%"}}>状态</CustomTableCell>
+                                    <CustomTableCell  align="center" style={{width:"23%", fontSize:"140%", fontWeight:"700", color:"#ba68c8"}}>标题</CustomTableCell>
+                                    <CustomTableCell  style={{width:"15%", fontSize:"140%", fontWeight:"700", color:"#ba68c8"}}>描述</CustomTableCell>
+                                    <CustomTableCell  style={{width:"24%", fontSize:"140%", fontWeight:"700", color:"#ba68c8"}}>时间</CustomTableCell>
+                                    <CustomTableCell  style={{width:"10%", fontSize:"140%", fontWeight:"700", color:"#ba68c8"}}>地点</CustomTableCell>
+                                    <CustomTableCell  style={{width:"10%", fontSize:"140%", fontWeight:"700", color:"#ba68c8"}}>是否签到</CustomTableCell>
+                                    <CustomTableCell  style={{width:"10%", fontSize:"140%", fontWeight:"700", color:"#ba68c8"}}>类型</CustomTableCell>
+                                    <CustomTableCell  style={{width:"10%", fontSize:"140%", fontWeight:"700", color:"#ba68c8"}}>状态</CustomTableCell>
                                 </TableRow>
                             </TableHead>
                             <TableBody>
