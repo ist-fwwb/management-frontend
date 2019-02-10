@@ -15,13 +15,13 @@ import MessagePage from "views/MessagePage/MessagePage.jsx";
 
 
 export const dashboardRoutes = [
-    {
-        path: "/home",
-        sidebarName: "首页",
-        navbarName: "首页",
-        icon: Home,
-        component: HomePage
-    },
+  {
+    path: "/home",
+    sidebarName: "首页",
+    navbarName: "首页",
+    icon: Home,
+    component: HomePage
+  },
   {
     path: "/room",
     sidebarName: "会议室管理",
@@ -36,20 +36,20 @@ export const dashboardRoutes = [
     icon: Person,
     component: UserProfile
   },
-    {
-        path: "/meeting",
-        sidebarName: "会议管理",
-        navbarName: "会议管理",
-        icon: Today,
-        component: MeetingPage
-    },
-    {
-        path: "/message",
-        sidebarName: "新闻管理",
-        navbarName: "新闻管理",
-        icon: Mail,
-        component: MessagePage//------------------------------------------------------------
-    },
+  {
+    path: "/meeting",
+    sidebarName: "会议管理",
+    navbarName: "会议管理",
+    icon: Today,
+    component: MeetingPage
+  },
+  {
+    path: "/message",
+    sidebarName: "新闻管理",
+    navbarName: "新闻管理",
+    icon: Mail,
+    component: MessagePage//------------------------------------------------------------
+  },
 
   { redirect: true, path: "/", to: "/home", navbarName: "Redirect" }
 ];

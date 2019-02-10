@@ -5,6 +5,7 @@ import PropTypes from "prop-types";
 
 import { withStyles } from '@material-ui/core/styles';
 import Update from "@material-ui/icons/Update";
+import Button from "@material-ui/core/Button";
 import SentimentVeryDissatisfied from "@material-ui/icons/SentimentVeryDissatisfied";
 import SentimentDissatisfied from "@material-ui/icons/SentimentDissatisfied";
 import SentimentVerySatisfied from "@material-ui/icons/SentimentVerySatisfied";
@@ -17,10 +18,7 @@ import PanTool from "@material-ui/icons/PanTool";
 // core components
 import GridItem from "components/Grid/GridItem.jsx";
 import GridContainer from "components/Grid/GridContainer.jsx";
-import Card from "components/Card/Card.jsx";
-import CardHeader from "components/Card/CardHeader.jsx";
-import CardIcon from "components/Card/CardIcon.jsx";
-import CardFooter from "components/Card/CardFooter.jsx";
+
 import CustomTabs from "components/CustomTabs/CustomTabs.jsx";
 import dashboardStyle from "assets/jss/material-dashboard-react/views/dashboardStyle.jsx";
 import AddRoom from "../../components/Room/AddRoom";
@@ -79,25 +77,52 @@ function roomCardIcon(status) {
 }
 
 class RoomPage extends React.Component {
+  constructor(props){
+  super(props);
+  this.state={
+    first:"会议室管理",
+    second: "当前状态",
+  }
+}
+
+  handleSecondNavbar=(value)=>{
+    console.log(value);
+    this.setState({
+      second: value
+    })
+  };
+
+  handleExit=()=>{
+    this.setState({
+      second:"当前状态"
+    })
+    window.location.reload();
+  };
+
   render() {
+    const{first, second} = this.state;
+
     return (
       <div>
         <GridContainer>
+          <GridItem xs={12} sm={12} md={10} >
+            <Button style={{fontSize:"20px", color:"#878787"}} onClick={this.handleExit}>{first}</Button>
+            <span style={{fontSize:"20px", color:"#878787"}}>></span>
+            <Button style={{fontSize:"20px", color:"#878787"}}>{second}</Button>
+          </GridItem>
+        </GridContainer>
+
+        <GridContainer>
           <GridItem xs={12} sm={12} md={15}>
             <CustomTabs
-              title={null}
               style={{ background: "linear-gradient(45deg, #0277bd 30%, #4fc3f7 90%)"}}
               headerColor="success"
+              handleSecondNavbar={this.handleSecondNavbar.bind(this)}
               tabs={[
                 {
                   tabName: "当前使用情况",
                   tabIcon: Assignment,
                   tabContent: <NowStatus />
-                },
-                {
-                  tabName: "查询会议室",
-                  tabIcon: Search,
-                  tabContent: <SearchRoom />
                 },
                 {
                   tabName: "添加会议室",

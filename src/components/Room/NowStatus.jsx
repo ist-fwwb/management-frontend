@@ -30,6 +30,7 @@ import SearchBar from "components/SearchBar/SearchBar.jsx";
 import { roomController } from "variables/general.jsx";
 
 import dashboardStyle from "assets/jss/material-dashboard-react/views/dashboardStyle.jsx";
+import Button from "@material-ui/core/Button";
 
 function roomCategory(eng){
     if (eng === "SMALL")

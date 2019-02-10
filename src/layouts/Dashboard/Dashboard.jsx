@@ -118,7 +118,7 @@ class App extends React.Component {
           {...rest}
         />
         <div className={classes.mainPanel}  >
-            <PrimarySearchAppBar  color="transparent"/>
+            <PrimarySearchAppBar style={{boxShadow:"0px 0px 0px #e0e0e0"}} color="transparent"/>
 
             <div className={classes.content}>
             <div className={classes.container}>

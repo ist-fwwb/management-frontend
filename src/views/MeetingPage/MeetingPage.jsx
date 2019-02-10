@@ -6,7 +6,7 @@ import Assignment from "@material-ui/icons/Assignment";
 import LocationSearching from "@material-ui/icons/LocationSearching";
 import History from "@material-ui/icons/History";
 import Table from "components/Table/Table.jsx";
-import Button from "components/CustomButtons/Button.jsx";
+import Button from "@material-ui/core/Button";
 import { Link } from "react-router-dom";
 import TodayMeeting from "../../components/Meeting/TodayMeeting";
 import ConditionSearch from "../../components/Meeting/ConditionSearch";
@@ -74,9 +74,6 @@ const checkButtons = (id) => {
   return <Button color="info" size="sm">查看详情 </Button>
 };
 
-function handleExit(id) {
-  return;
-}
 
 function JSONToArray(jsonArray, type){
   let re = [];
@@ -100,14 +97,46 @@ function JSONToArray(jsonArray, type){
 }
 
 class MeetingPage extends React.Component {
+  constructor(props){
+    super(props);
+    this.state={
+      first:"会议管理",
+      second: "今日会议",
+    }
+  }
+
+  handleSecondNavbar=(value)=>{
+    console.log(value);
+    this.setState({
+      second: value
+    })
+  };
+
+  handleExit=()=>{
+    this.setState({
+      second:"当前状态"
+    });
+    window.location.reload();
+  };
+
   render() {
+    const{first, second} = this.state;
     return (
       <div>
+        <GridContainer>
+          <GridItem xs={12} sm={12} md={10} >
+            <Button style={{fontSize:"20px", color:"#878787"}} onClick={this.handleExit}>{first}</Button>
+            <span style={{fontSize:"20px", color:"#878787"}}>></span>
+            <Button style={{fontSize:"20px", color:"#878787"}}>{second}</Button>
+          </GridItem>
+        </GridContainer>
+
         <GridContainer>
           <GridItem xs={12} sm={12} md={12}>
             <CustomTabs
               style={{ background: "linear-gradient(45deg, #0277bd 30%, #4fc3f7 90%)"}}
               headerColor="rose"
+              handleSecondNavbar={this.handleSecondNavbar.bind(this)}
               tabs={[
                 {
                   tabName: "今日会议",

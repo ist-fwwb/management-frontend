@@ -22,6 +22,8 @@ class CustomTabs extends React.Component {
 
   handleChange = (event, value) => {
     this.setState({ value });
+    //console.log(this.props.tabs[value].tabName);
+    this.props.handleSecondNavbar(this.props.tabs[value].tabName);
   };
 
   render() {
@@ -39,7 +41,7 @@ class CustomTabs extends React.Component {
       [classes.cardTitleRTL]: rtlActive
     });
     return (
-      <Card plain={plainTabs}>
+      <Card plain={plainTabs} >
         <CardHeader color={headerColor} plain={plainTabs} style={style}>
           {title !== undefined ? (
             <div className={cardTitle}>{title}</div>
