@@ -106,7 +106,7 @@ class RoomPage extends React.Component {
       <div>
         <GridContainer>
           <GridItem xs={12} sm={12} md={10} >
-            <Button style={{fontSize:"20px", color:"#878787"}} onClick={this.handleExit}>{first}</Button>
+            <Button style={{fontSize:"20px", color:"#878787", marginLeft:"3%"}} onClick={this.handleExit}>{first}</Button>
             <span style={{fontSize:"20px", color:"#878787"}}>></span>
             <Button style={{fontSize:"20px", color:"#878787"}}>{second}</Button>
           </GridItem>
@@ -115,7 +115,7 @@ class RoomPage extends React.Component {
         <GridContainer>
           <GridItem xs={12} sm={12} md={15}>
             <CustomTabs
-              style={{ background: "linear-gradient(45deg, #0277bd 30%, #4fc3f7 90%)"}}
+              style={{ background: "#6d4c41"}}
               headerColor="success"
               handleSecondNavbar={this.handleSecondNavbar.bind(this)}
               tabs={[
