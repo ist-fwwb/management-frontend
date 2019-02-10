@@ -5,13 +5,24 @@ const server = prefix + domain + ":" + port;
 const today = (new Date().toLocaleDateString()).replace(/\//g,'-');
 
 const idToTime = (id) => {
-    if (id % 2 === 0)
-        return String(id / 2) + ":00";
-    else
-        return String((id - 1 ) / 2) + ":30";
-}
+  if (id % 2 === 0)
+    return String(id / 2) + ":00";
+  else
+    return String((id - 1 ) / 2) + ":30";
+};
 
 const roomController = {
+  "searchRoomByLocationAndSizeAndUtils":(location, size, utils) => {
+    let locationStr = location ? "location="+location+"&" : "";
+    let sizeStr = size ? "size="+size+"&" : "";
+    let utilsStr = "";
+    for (let i in utils){
+        utilsStr += ("utils=" + utils[i] + "&");
+    }
+    let api = server+"/meetingroom?"+locationStr+sizeStr+utilsStr;
+    api = api.substring(0, api.length-1);
+    return api;
+  },
   "getRoom": () => (server + "/meetingroom" ),
   "getRoomByRoomId": (roomId) => (server + "/meetingroom/" + roomId),
   "createRoom": () => (server + "/meetingroom"), // json params in req body
@@ -20,8 +31,8 @@ const roomController = {
 };
 
 const timeSliceController = {
-    "getTimeSilceByDateAndRoomId": (date, roomId) => (server + "/timeSlice?date=" + date + "&roomId=" + roomId),
-    "getTimeSilceByRoomId": (roomId) => (server + "/timeSlice?roomId=" + roomId),
+  "getTimeSilceByDateAndRoomId": (date, roomId) => (server + "/timeSlice?date=" + date + "&roomId=" + roomId),
+  "getTimeSilceByRoomId": (roomId) => (server + "/timeSlice?roomId=" + roomId),
 };
 
 const meetingController = {
@@ -49,6 +60,17 @@ const userController = {
   "login": (phone, password) => (server + "/user/login?phone=" + phone + "&password=" + password),
   "getUserByUserId": (userId) => (server + "/user/" + userId),
   "editUserByUserId": (userId) => (server + "/user/" + userId),
+};
+
+const utils_list = {
+  tv: "TV",
+  airconditioner: "AIRCONDITIONER",
+  blackboard: "BLACKBOARD",
+  table: "TABLE",
+  wifi: "WIFI",
+  network: "NETWORK",
+  projector: "PROJECTOR",
+  power: "POWERSUPPLY"
 };
 
 function ScheduleDataToRows(data){
@@ -91,5 +113,6 @@ module.exports = {
   timeSliceController,
   meetingController,
   userController,
+  utils_list,
   ScheduleDataToRows
 };

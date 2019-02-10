@@ -11,16 +11,19 @@ import InputBase from '@material-ui/core/InputBase';
 import Badge from '@material-ui/core/Badge';
 import MenuItem from '@material-ui/core/MenuItem';
 import Menu from '@material-ui/core/Menu';
+import TextField from '@material-ui/core/TextField';
+import Grid from '@material-ui/core/Grid';
 import { fade } from '@material-ui/core/styles/colorManipulator';
 import { withStyles } from '@material-ui/core/styles';
 
 import Cookies from 'universal-cookie';
-import SearchIcon from '@material-ui/icons/Search';
+import Search from '@material-ui/icons/Search';
 import Person from '@material-ui/icons/Person';
 import AccountCircle from '@material-ui/icons/AccountCircle';
 import MailIcon from '@material-ui/icons/Mail';
 import NotificationsIcon from '@material-ui/icons/Notifications';
 import MoreIcon from '@material-ui/icons/MoreVert';
+
 
 const styles = theme => ({
     root: {
@@ -60,8 +63,8 @@ const styles = theme => ({
         position: 'absolute',
         pointerEvents: 'none',
         display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
+        //alignItems: 'center',
+        //justifyContent: 'center',
     },
     inputRoot: {
         color: 'inherit',
@@ -185,28 +188,27 @@ class PrimarySearchAppBar extends React.Component {
 
         return (
             <div className={classes.root}>
-                <AppBar position="static" >
-                    <Toolbar  style={{background:"#212121"}}>
-                        <div className={classes.search} style={{marginLeft:"65%"}}>
-                            <div className={classes.searchIcon}>
-                                <SearchIcon />
-                            </div>
-                            <InputBase
-                                placeholder="Search…"
-                                classes={{
-                                    root: classes.inputRoot,
-                                    input: classes.inputInput,
-                                }}
-                            />
+                <AppBar position="static" style={{boxShadow:"0px 0px 0px #f5f5f5"}} >
+                    <Toolbar  style={{background:"#eeeeee"}}>
+                        <div className={classes.search} style={{marginLeft:"71%" }}>
+                          <Grid container spacing={8} alignItems="flex-end" style={{background:"#eeeeee"}}>
+                            <Grid item >
+                              <TextField  placeholder="Search..." margin="normal" />
+                            </Grid>
+
+                            <Grid item >
+                              <IconButton> <Search style={{color:"#757575"}} /></IconButton>
+                            </Grid>
+                            </Grid>
                         </div>
                         <div className={classes.grow} />
                         <div className={classes.sectionDesktop}>
-                            <IconButton color="inherit">
+                            <IconButton color="#bdbdbd">
                                 <Badge badgeContent={4} color="secondary">
                                     <MailIcon />
                                 </Badge>
                             </IconButton>
-                            <IconButton color="inherit">
+                            <IconButton color="#bdbdbd">
                                 <Badge badgeContent={17} color="secondary">
                                     <NotificationsIcon />
                                 </Badge>
@@ -215,7 +217,7 @@ class PrimarySearchAppBar extends React.Component {
                                 aria-owns={isMenuOpen ? 'material-appbar' : undefined}
                                 aria-haspopup="true"
                                 onClick={this.handleProfileMenuOpen}
-                                color="inherit"
+                                color="#bdbdbd"
                             >
                                 <Person />
                             </IconButton>
