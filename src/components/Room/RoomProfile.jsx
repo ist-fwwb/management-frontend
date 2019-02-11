@@ -58,7 +58,7 @@ class RoomProfile extends React.Component {
       notificationMessage: "null",
       notificationType: null,
       updating: false,
-
+      modifying: false,
 
       airConditioned: false,
       blackBoard: false,
@@ -79,7 +79,6 @@ class RoomProfile extends React.Component {
       tmp_tv: false,
     };
   }
-
 
   componentDidMount(){
     let roomId = this.props.match.params.roomId;
