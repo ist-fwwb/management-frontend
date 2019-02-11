@@ -17,6 +17,8 @@ import ErrorOutline from "@material-ui/icons/ErrorOutline";
 import Done from "@material-ui/icons/Done";
 
 import Icon from "@material-ui/core/Icon";
+import Button from "@material-ui/core/Button";
+import IconButton from "@material-ui/core/IconButton";
 
 import dashboardStyle from "assets/jss/material-dashboard-react/layouts/dashboardStyle.jsx";
 import airConditionerIcon from "assets/icon/airConditioner.svg";
@@ -36,9 +38,8 @@ import wireNetworkIcon0 from "assets/icon/wireNetwork0.svg";
 import tvIcon from "assets/icon/tv.svg";
 import tvIcon0 from "assets/icon/tv0.svg";
 import { roomController } from "variables/general.jsx";
-
 import { Link } from "react-router-dom";
-import Button from "components/CustomButtons/Button.jsx";
+
 
 function roomCategory(eng){
   if (eng === "SMALL")
@@ -49,31 +50,58 @@ function roomCategory(eng){
 }
 
 class RoomProfile extends React.Component {
-  state = {
-    br: false,
-    notificationMessage: "null",
-    notificationType: null,
+  constructor(props) {
+    super(props);
+    this.state = {
+      room: null,
+      br: false,
+      notificationMessage: "null",
+      notificationType: null,
+      updating: false,
 
-    airConditioned: false,
-    blackBoard: false,
-    desk: false,
-    projector: false,
-    power: false,
-    wifi: false,
-    wireNetwork: false,
-    tv: false,
-  };
+
+      airConditioned: false,
+      blackBoard: false,
+      desk: false,
+      projector: false,
+      power: false,
+      wifi: false,
+      wireNetwork: false,
+      tv: false,
+
+      tmp_airConditioned: false,
+      tmp_blackBoard: false,
+      tmp_desk: false,
+      tmp_projector: false,
+      tmp_power: false,
+      tmp_wifi: false,
+      tmp_wireNetwork: false,
+      tmp_tv: false,
+    };
+  }
 
 
   componentDidMount(){
-    let roomId = this.props.match.params.roomId
+    let roomId = this.props.match.params.roomId;
     fetch(roomController.getRoomByRoomId(roomId), {
       credentials: 'include',
       method:'get'
     })
     .then(res => res.json())
     .then((data) => {
-      this.setState({room: data});
+      //console.log(data);
+      const devices = data.utils;
+      this.setState({
+        room: data,
+        airConditioned: devices.includes("AIRCONDITIONER"),
+        blackBoard: devices.includes("BLACKBOARD"),
+        desk: devices.includes("DESK"),
+        projector: devices.includes("PROJECTOR"),
+        power: devices.includes("POWER"),
+        wifi: devices.includes("WIFI"),
+        wireNetwork: devices.includes("WIRENETWORK"),
+        tv: devices.includes("TV"),
+      });
     })
     .catch(error => {
       console.log(error);
@@ -106,8 +134,79 @@ class RoomProfile extends React.Component {
     this.setState({
       notificationType: "danger",
       notificationMessage: msg
-    })
+    });
     this.showNotification("br");
+  };
+
+  handleChangeDevice=(value)=>{
+    console.log(value);
+    if(value === "airconditioner")
+      this.setState({
+        airConditioned: !this.state.airConditioned
+      });
+    else if(value === "blackboard")
+      this.setState({
+        blackBoard: !this.state.blackBoard
+      });
+    else if(value === "desk")
+      this.setState({
+        desk: !this.state.desk
+      });
+    else if(value === "projector")
+      this.setState({
+        projector: !this.state.projector
+      });
+    else if(value === "power")
+      this.setState({
+        power: !this.state.power
+      });
+    else if(value === "wifi")
+      this.setState({
+        wifi: !this.state.wifi
+      });
+    else if(value === "wirenetwork")
+      this.setState({
+        wireNetwork: !this.state.wireNetwork
+      });
+    else if(value === "tv")
+      this.setState({
+        tv: !this.state.tv
+      });
+  };
+
+  handleClickUpdate=()=>{
+    this.setState({
+      updating: true,
+      tmp_airConditioned: this.state.airConditioned,
+      tmp_blackBoard: this.state.blackBoard,
+      tmp_desk: this.state.desk,
+      tmp_projector: this.state.projector,
+      tmp_power: this.state.power,
+      tmp_wifi: this.state.wifi,
+      tmp_wireNetwork: this.state.wireNetwork,
+      tmp_tv: this.state.tv,
+    })
+  };
+
+  handleCancelUpdate=()=>{
+    this.setState({
+      updating: false,
+      ariConditioned: this.state.tmp_airConditioned,
+      blackBoard: this.state.tmp_blackBoard,
+      desk: this.state.tmp_desk,
+      projector: this.state.tmp_projector,
+      power: this.state.tmp_power,
+      wifi: this.state.tmp_wifi,
+      wireNetwork: this.state.tmp_wireNetwork,
+      tv: this.state.tmp_tv,
+    })
+  };
+
+  handleConfirmUpdate=()=>{
+    this.setState({
+      updating: false
+    });
+    //-----------------------------------------------------------------fetch
   };
 
   render(){
@@ -116,52 +215,40 @@ class RoomProfile extends React.Component {
     }
     const { classes } = this.props;
     //const roomId = this.props.match.params.roomId
-    const room = this.state.room;
-    let airConditioned = false;
-    let blackBoard = false;
-    let desk = false;
-    let projector = false;
-    let power = false;
-    let wifi = false;
-    let wireNetwork = false;
-    let tv = false;
-    if (room){
-      const devices = this.state.room.utils;
-      airConditioned = devices.includes("AIRCONDITIONER");
-      blackBoard = devices.includes("BLACKBOARD");
-      desk = devices.includes("DESK");
-      projector = devices.includes("PROJECTOR");
-      power = devices.includes("POWER");
-      wifi = devices.includes("WIFI");
-      wireNetwork = devices.includes("WIRENETWORK");
-      tv = devices.includes("TV");
-    }
-    
+    const {room, updating} = this.state;
+    const {airConditioned, blackBoard, desk, projector, power, wifi, wireNetwork, tv} = this.state;
+
     return (
       <div>
-        <GridContainer>
+        <GridContainer >
           <GridItem xs={12} sm={12} md={12}>
             <Card>
+              <CardHeader style={{background:"#795548"}}>
+              </CardHeader>
               <CardBody>
                 {
                   room ? <div>
                     <div>
-                      <h3>
-                          {room.location}
+                      <h2>
+                        {room.location}
+                        <Button  style={{marginLeft:"72%", background:"#b0120a", fontSize:"16px", color:"white", height:"50px"}}>删除会议室</Button>
+                        &nbsp;&nbsp;
                         <Link to={"/room/"} >
-                          <Button style={{marginLeft:"80%", background:"#00bcd4", fontSize:"16px"}}>返回</Button>
+                          <Button style={{ background:"#795548", fontSize:"16px", color:"white", height:"50px"}}>返回</Button>
                         </Link>
-                      </h3>
-                      <small>{roomCategory(room.size)}</small>
+                      </h2>
                     </div>
                     <div>
                       <Link to={"/room/"+this.props.match.params.roomId+"/"+room.location+"/schedule"}>
-                        会议日程
+                        <div style={{fontSize:"20px"}}>
+                          会议日程
+                        </div>
                       </Link>
                     </div>
                     </div>
                     : <h3>{this.props.match.params.roomId}</h3>
                 }
+                <br/>
               
               <GridContainer>
                 <GridItem xs={12} sm={6} md={4}>
@@ -177,85 +264,176 @@ class RoomProfile extends React.Component {
                       <table>
                         <tbody>
                         <tr>
-                          <td>
+                          <td width="25%">
+                            {
+                              <IconButton
+                                  onClick={()=>this.handleChangeDevice("airconditioner")}
+                                  style={{background:"#ffffff"}}
+                                  disableRipple={true}
+                                  disabled={!updating}
+                              >
+                                <img width="70%" src={airConditioned?airConditionerIcon:airConditionerIcon0} alt="icon"/>
+                              </IconButton>
+                            }
+                          </td>
+                          <td width="25%">
                           {
-                            airConditioned?<img width={"60%"} src={airConditionerIcon} alt="icon"/>:<img width={"60%"} src={airConditionerIcon0} alt="icon"/>
+                            <IconButton
+                                onClick={()=>this.handleChangeDevice("blackboard")}
+                                style={{background:"#ffffff"}}
+                                disableRipple={true}
+                                disabled={!updating}
+                            >
+                              <img width="70%" src={blackBoard?blackBoardIcon:blackBoardIcon0} alt="icon"/>
+                            </IconButton>
                           }
                           </td>
-                          <td>
+                          <td width="25%">
                           {
-                            blackBoard?<img width={"60%"} src={blackBoardIcon} alt="icon"/>:<img width={"60%"} src={blackBoardIcon0} alt="icon"/>
+                            <IconButton
+                                onClick={()=>this.handleChangeDevice("desk")}
+                                style={{background:"#ffffff"}}
+                                disableRipple={true}
+                                disabled={!updating}
+                            >
+                              <img width="70%" src={desk?deskIcon:deskIcon0} alt="icon"/>
+                            </IconButton>
                           }
                           </td>
-                          <td>
+                          <td width="25%">
                           {
-                            desk?<img width={"60%"} src={deskIcon} alt="icon"/>:<img width={"60%"} src={deskIcon0} alt="icon"/>
-                          }
-                          </td>
-                          <td>
-                          {
-                            projector?<img width={"60%"} src={projectorIcon} alt="icon"/>:<img width={"60%"} src={projectorIcon0} alt="icon"/>
-                          }
-                          </td>
-                        </tr>
-                        <tr>
-                          <td>
-                            空调
-                          </td>
-                          <td>
-                            黑板
-                          </td>
-                          <td>
-                            桌子
-                          </td>
-                          <td>
-                            投影仪
-                          </td>
-                        </tr>
-                        <tr>
-                          <td>
-                          {
-                            power?<img width={"60%"} src={powerIcon} alt="icon"/>:<img width={"60%"} src={powerIcon0} alt="icon"/>
-                          }
-                          </td>
-                          <td>
-                          {
-                            wifi?<img width={"60%"} src={wifiIcon} alt="icon"/>:<img width={"60%"} src={wifiIcon0} alt="icon"/>
-                          }
-                          </td>
-                          <td>
-                          {
-                            wireNetwork?<img width={"60%"} src={wireNetworkIcon} alt="icon"/>:<img width={"60%"} src={wireNetworkIcon0} alt="icon"/>
-                          }
-                          </td>
-                          <td>
-                          {
-                            tv?<img width={"60%"} src={tvIcon} alt="icon"/>:<img width={"60%"} src={tvIcon0} alt="icon"/>
+                            <IconButton
+                                onClick={()=>this.handleChangeDevice("projector")}
+                                style={{background:"#ffffff", marginLeft:"20%"}}
+                                disableRipple={true}
+                                disabled={!updating}
+                            >
+                              <img width="100%" src={projector?projectorIcon:projectorIcon0} alt="icon"/>
+                            </IconButton>
                           }
                           </td>
                         </tr>
+                        <tr style={{fontSize:"16px"}}>
+                          <td >
+                            <div style={{marginLeft:"32%"}}>
+                              空调
+                            </div>
+                          </td>
+                          <td>
+                            <div style={{marginLeft:"32%"}}>
+                              黑板
+                            </div>
+                          </td>
+                          <td>
+                            <div style={{marginLeft:"32%"}}>
+                              桌子
+                            </div>
+                          </td>
+                          <td>
+                            <div style={{marginLeft:"32%"}}>
+                              投影仪
+                            </div>
+                          </td>
+                        </tr>
                         <tr>
+                          <td width="25%">
+                          {
+                            <IconButton
+                                onClick={()=>this.handleChangeDevice("power")}
+                                style={{background:"#ffffff", marginLeft:"10%"}}
+                                disableRipple={true}
+                                disabled={!updating}
+                            >
+                              <img width="80%" src={power?powerIcon:powerIcon0} alt="icon"/>
+                            </IconButton>
+                          }
+                          </td>
+                          <td width="25%">
+                            {
+                              <IconButton
+                                  onClick={() => this.handleChangeDevice("wifi")}
+                                  style={{background: "#ffffff", }}
+                                  disableRipple={true}
+                                  disabled={!updating}
+                              >
+                                <img width="60%" src={wifi ? wifiIcon : wifiIcon0} alt="icon"/>
+                              </IconButton>
+                            }
+                          </td>
+                          <td width="25%">
+                          {
+                            <IconButton
+                                onClick={() => this.handleChangeDevice("wirenetwork")}
+                                style={{background: "#ffffff", marginLeft: "5%"}}
+                                disableRipple={true}
+                                disabled={!updating}
+                            >
+                              <img width="70%" src={wireNetwork ? wireNetworkIcon : wireNetworkIcon0} alt="icon"/>
+                            </IconButton>
+                          }
+                          </td>
+                          <td width="25%">
+                          {
+                            <IconButton
+                                onClick={() => this.handleChangeDevice("tv")}
+                                style={{background: "#ffffff", marginLeft: "15%"}}
+                                disableRipple={true}
+                                disabled={!updating}
+                            >
+                              <img width="75%" src={tv ? tvIcon : tvIcon0} alt="icon"/>
+                            </IconButton>
+                          }
+                          </td>
+                        </tr>
+                        <tr style={{fontSize:"16px"}}>
                           <td>
-                            电源
+                            <div style={{marginLeft:"32%"}}>
+                              电源
+                            </div>
                           </td>
                           <td>
-                            WiFi
+                            <div style={{marginLeft:"32%"}}>
+                              WiFi
+                            </div>
                           </td>
                           <td>
-                            网线
+                            <div style={{marginLeft:"32%"}}>
+                              网线
+                            </div>
                           </td>
                           <td>
-                            电视
+                            <div style={{marginLeft:"40%"}}>
+                              电视
+                            </div>
                           </td>
                         </tr>
                         </tbody>
                       </table>
                     </CardBody>
                     <CardFooter stats>
-                      <div className={classes.stats}>
-                        <Update />
-                        Just Updated
-                      </div>
+                      {
+                        !updating ?
+                          <div className={classes.stats} style={{marginLeft:"80%"}}>
+                            <Button size="small"
+                                    style={{background:"#8bc34a", color:"white", fontSize:"16px", }}
+                                    onClick={this.handleClickUpdate}
+                            >
+                              更新
+                            </Button>
+                          </div>
+                          :
+                          <div style={{marginLeft:"65%"}}>
+                            <Button size="small" onClick={this.handleConfirmUpdate}
+                                    style={{background:"#8bc34a", color:"white", fontSize:"16px" }}>
+                              确认
+                            </Button>
+                            &nbsp;&nbsp;
+                            <Button size="small" onClick={this.handleCancelUpdate}
+                                    style={{background:"#9e9e9e", color:"white", fontSize:"16px" }}>
+                              取消
+                            </Button>
+                          </div>
+                      }
                     </CardFooter>
                   </Card>
                 </GridItem>
@@ -272,9 +450,10 @@ class RoomProfile extends React.Component {
                       <h3>10 人</h3>
                     </CardBody>
                     <CardFooter stats>
-                        <div className={classes.stats}>
-                          <Update />
-                          Just Updated
+                        <div className={classes.stats} style={{marginLeft:"75%"}}>
+                          <Button size="small" style={{background:"#8bc34a", color:"white", fontSize:"16px"}}>
+                            修改
+                          </Button>
                         </div>
                     </CardFooter>
                   </Card>

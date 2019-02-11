@@ -6,8 +6,6 @@ import PropTypes from "prop-types";
 // @material-ui/core
 import withStyles from "@material-ui/core/styles/withStyles";
 // @material-ui/icons
-
-import Update from "@material-ui/icons/Update";
 //import SentimentVeryDissatisfied from "@material-ui/icons/SentimentVeryDissatisfied";
 //import SentimentDissatisfied from "@material-ui/icons/SentimentDissatisfied";
 import SentimentVerySatisfied from "@material-ui/icons/SentimentVerySatisfied";
@@ -15,7 +13,7 @@ import Info from "@material-ui/icons/Info";
 import Schedule from "assets/icon/schedule.svg";
 import ErrorOutline from "@material-ui/icons/ErrorOutline";
 import Done from "@material-ui/icons/Done";
-
+import Update from "@material-ui/icons/Update";
 import { Link } from "react-router-dom";
 // core components
 import GridItem from "components/Grid/GridItem.jsx";
@@ -30,7 +28,6 @@ import SearchBar from "components/SearchBar/SearchBar.jsx";
 import { roomController } from "variables/general.jsx";
 
 import dashboardStyle from "assets/jss/material-dashboard-react/views/dashboardStyle.jsx";
-import Button from "@material-ui/core/Button";
 
 function roomCategory(eng){
     if (eng === "SMALL")
@@ -112,9 +109,9 @@ class NowStatus extends React.Component {
         this.setState({
             notificationType: "success",
             notificationMessage: msg
-        })
+        });
         this.showNotification("br");
-    }
+    };
 
     componentDidMount(){
         fetch(roomController.getRoom()+"/",{
@@ -129,6 +126,11 @@ class NowStatus extends React.Component {
                     this.setState({rooms: data})
             });
     }
+
+  handleSearchChange = (data) => {
+    this.setState({rooms: data});
+    this.success("搜索成功");
+  };
 
     render() {
         const { classes } = this.props;

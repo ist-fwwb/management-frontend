@@ -134,11 +134,6 @@ class RoomPage extends React.Component {
                   tabIcon: DeleteOutline,
                   tabContent:<DeleteRoom />
                 },
-                {
-                  tabName: "修改会议室",
-                  tabIcon: PanTool,
-                  tabContent:<ModifyRoom />
-                }
               ]}
             />
           </GridItem>

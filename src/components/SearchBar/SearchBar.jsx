@@ -66,7 +66,6 @@ const styles = theme => ({
 class SearchBar extends Component{
   constructor(props){
     super(props);
-
     this.state={
       location: null,
       size: "null",
@@ -100,6 +99,7 @@ class SearchBar extends Component{
     })
     .catch(e => console.log(e))
   };
+
 
   handleChange = (e) => {
     this.setState({[e.target.name]:e.target.value})
