@@ -1,5 +1,6 @@
 import React from "react";
 
+import TextField from "@material-ui/core/TextField";
 import GridItem from "components/Grid/GridItem.jsx";
 import GridContainer from "components/Grid/GridContainer.jsx";
 import withStyles from "@material-ui/core/styles/withStyles";
@@ -60,6 +61,9 @@ class RoomProfile extends React.Component {
       updating: false,
       modifying: false,
 
+      capacity: 10,
+      tmp_capacity: 10,
+
       airConditioned: false,
       blackBoard: false,
       desk: false,
@@ -88,7 +92,7 @@ class RoomProfile extends React.Component {
     })
     .then(res => res.json())
     .then((data) => {
-      //console.log(data);
+      console.log(data);
       const devices = data.utils;
       this.setState({
         room: data,
@@ -187,6 +191,19 @@ class RoomProfile extends React.Component {
     })
   };
 
+  handleClickModify=()=>{
+    this.setState({
+      modifying: true,
+    })
+  };
+
+  handleCapacityChange = (e) => {
+    this.setState({
+      tmp_capacity:e.target.value
+    });
+    console.log(e.target.value)
+  };
+
   handleCancelUpdate=()=>{
     this.setState({
       updating: false,
@@ -201,9 +218,24 @@ class RoomProfile extends React.Component {
     })
   };
 
+  handleCancelModify=()=>{
+    this.setState({
+      modifying: false,
+      tmp_capacity: this.state.capacity
+    })
+  };
+
   handleConfirmUpdate=()=>{
     this.setState({
       updating: false
+    });
+    //-----------------------------------------------------------------fetch
+  };
+
+  handleConfirmModify=()=>{
+    this.setState({
+      modifying: false,
+      capacity: this.state.tmp_capacity
     });
     //-----------------------------------------------------------------fetch
   };
@@ -214,7 +246,7 @@ class RoomProfile extends React.Component {
     }
     const { classes } = this.props;
     //const roomId = this.props.match.params.roomId
-    const {room, updating} = this.state;
+    const {room, updating, modifying} = this.state;
     const {airConditioned, blackBoard, desk, projector, power, wifi, wireNetwork, tv} = this.state;
 
     return (
@@ -446,14 +478,48 @@ class RoomProfile extends React.Component {
                       <h2 className={classes.cardCategory} style={{color: "black"}}>容量</h2>
                     </CardHeader>
                     <CardBody>
-                      <h3>10 人</h3>
+                      {
+                        !modifying ?
+                            <h3>{this.state.capacity} 人</h3>
+                            :
+                            <div>
+                              <TextField
+                                  type="number"
+                                  value={this.state.tmp_capacity}
+                                  onChange={this.handleCapacityChange}
+                                  style={{width: "25%"}}
+                                  InputLabelProps={{
+                                    shrink: true,
+                                  }}
+                              />
+                              &nbsp;
+                              <span style={{fontSize:"24px"}}>人</span>
+                            </div>
+                      }
                     </CardBody>
                     <CardFooter stats>
-                        <div className={classes.stats} style={{marginLeft:"75%"}}>
-                          <Button size="small" style={{background:"#8bc34a", color:"white", fontSize:"16px"}}>
-                            修改
-                          </Button>
-                        </div>
+                      {
+                        !modifying ?
+                            <div className={classes.stats} style={{marginLeft:"75%"}}>
+                              <Button size="small" onClick={this.handleClickModify}
+                                      style={{background:"#8bc34a", color:"white", fontSize:"16px"}}>
+                                修改
+                              </Button>
+                            </div>
+                            :
+                            <div style={{marginLeft:"50%"}}>
+                              <Button size="small" onClick={this.handleConfirmModify}
+                                      style={{background:"#8bc34a", color:"white", fontSize:"16px"}}>
+                                确认
+                              </Button>
+                              &nbsp;&nbsp;
+                              <Button size="small" onClick={this.handleCancelModify}
+                                      style={{background:"#9e9e9e", color:"white", fontSize:"16px"}}>
+                                取消
+                              </Button>
+                            </div>
+                      }
+
                     </CardFooter>
                   </Card>
                 </GridItem>
