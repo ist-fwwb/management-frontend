@@ -261,11 +261,11 @@ class RoomProfile extends React.Component {
                   room ? <div>
                     <div>
                       <h2>
-                        {room.location}
-                        <Button  style={{marginLeft:"72%", background:"#b0120a", fontSize:"16px", color:"white", height:"50px"}}>删除会议室</Button>
+                          {room.location}
+                        <Button  style={{marginLeft:"70%", background:"#b0120a", fontSize:"16px", color:"white", height:"50px"}}>禁用该会议室</Button>
                         &nbsp;&nbsp;
                         <Link to={"/room/"} >
-                          <Button style={{ background:"#795548", fontSize:"16px", color:"white", height:"50px"}}>返回</Button>
+                          <Button style={{ background:"#795548", fontSize:"16px", color:"white", height:"50px", width:"7%"}}>返回</Button>
                         </Link>
                       </h2>
                     </div>

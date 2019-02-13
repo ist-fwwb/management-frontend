@@ -129,11 +129,7 @@ class RoomPage extends React.Component {
                   tabIcon: AddCircleOutline,
                   tabContent: <AddRoom />
                 },
-                {
-                  tabName: "删除会议室",
-                  tabIcon: DeleteOutline,
-                  tabContent:<DeleteRoom />
-                },
+
               ]}
             />
           </GridItem>

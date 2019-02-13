@@ -105,15 +105,17 @@ class RoomSchedulePage extends React.Component{
         <GridContainer>
           <GridItem xs={12} sm={12} md={12}>
             <Card>
-              <CardHeader>
+              <CardHeader style={{background:"#795548"}}>
+              </CardHeader>
+              <CardBody>
                 <h2>
                     {roomLocation}
                   <Link to={"/room/"} >
-                    <Button style={{marginLeft:"80%", background:"#00bcd4", fontSize:"16px"}}>返回</Button>
+                    <Button style={{marginLeft:"80%", background:"#795548", fontSize:"16px"}}>返回</Button>
                   </Link>
                 </h2>
-              </CardHeader>
-              <CardBody>
+
+
                 <Paper>
                   {
                     ! this.state.scheduleData ? null :
