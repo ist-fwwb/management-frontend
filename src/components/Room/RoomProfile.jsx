@@ -261,28 +261,38 @@ class RoomProfile extends React.Component {
               <CardBody>
                 {
                   room ? <div>
-                    <div>
-                      <h2>
-                          {room.location}
-                        <Button  style={{marginLeft:"73%", background:"#b0120a", fontSize:"16px", color:"white", height:"50px", width:"7%"}}>
-                          禁用
-                        </Button>
-                        &nbsp;&nbsp;
-                        <Link to={"/room/"} >
-                          <Button style={{ background:"#795548", fontSize:"16px", color:"white", height:"50px", width:"7%"}}>
-                            返回
+
+                      <GridContainer>
+                        <GridItem xs={12} sm={12} md={9}>
+                          <div style={{fontSize:"42px", margin:"normal"}}>
+                            {room.location}
+                          </div>
+                        </GridItem>
+                        <GridItem xs={12} sm={12} md={3}>
+                          <Button  style={{marginRight:"2%", margin:"normal", background:"#b0120a", fontSize:"16px", color:"white", height:"50px", width:"8%"}}>
+                            禁用
                           </Button>
-                        </Link>
-                      </h2>
-                    </div>
-                    <div>
+                          &nbsp;&nbsp;
+                          <Link to={"/room/"} >
+                            <Button style={{ marginRight:"5%", background:"#795548", fontSize:"16px", color:"white", height:"50px", width:"7%"}}>
+                              返回
+                            </Button>
+                          </Link>
+                        </GridItem>
+                      </GridContainer>
+                    <br/>
+                    <GridContainer>
+                      <GridItem xs={12} sm={12} md={9}>
                       <Link to={"/room/"+this.props.match.params.roomId+"/"+room.location+"/schedule"}>
-                        <div style={{fontSize:"20px"}}>
+                        <div style={{fontSize:"20px", marginLeft:"1%"}}>
                           会议日程
                         </div>
                       </Link>
+                      </GridItem>
+
+                    </GridContainer>
                     </div>
-                    </div>
+
                     : <h3>{this.props.match.params.roomId}</h3>
                 }
                 <br/>
@@ -295,7 +305,7 @@ class RoomProfile extends React.Component {
                         <Icon>devices</Icon>
                       </CardIcon>
                       <br/>
-                      <h2 className={classes.cardCategory} style={{color: "black"}}>设备情况</h2>
+                      <h2 className={classes.cardCategory} style={{color: "black", fontWeight:"300"}}>设备情况</h2>
                     </CardHeader>
                     <CardBody>
                       <table>
@@ -481,12 +491,12 @@ class RoomProfile extends React.Component {
                         <Icon>content_copy</Icon>
                       </CardIcon>
                       <br/>
-                      <h2 className={classes.cardCategory} style={{color: "black"}}>容量</h2>
+                      <h2 className={classes.cardCategory} style={{color: "black", fontWeight:"300"}}>容量</h2>
                     </CardHeader>
                     <CardBody>
                       {
                         !modifying ?
-                            <h3>{this.state.capacity} 人</h3>
+                            <h3 style={{fontWeight:"300"}}>{this.state.capacity} 人</h3>
                             :
                             <div>
                               <TextField
@@ -499,7 +509,7 @@ class RoomProfile extends React.Component {
                                   }}
                               />
                               &nbsp;
-                              <span style={{fontSize:"24px"}}>人</span>
+                              <span style={{fontSize:"24px", fontWeight:"300"}}>人</span>
                             </div>
                       }
                     </CardBody>

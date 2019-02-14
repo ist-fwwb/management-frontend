@@ -102,20 +102,27 @@ class RoomSchedulePage extends React.Component{
     let { roomId, roomLocation} = this.props.match.params;
     return(
       <div>
+        <h6>&nbsp;</h6>
         <GridContainer>
           <GridItem xs={12} sm={12} md={12}>
             <Card>
               <CardHeader style={{background:"#795548"}}>
               </CardHeader>
               <CardBody>
-                <h2>
+                <GridContainer>
+                  <GridItem xs={12} sm={12} md={8}>
+                    <div style={{fontSize:"40px", marginLeft:"8%"}}>
                     {roomLocation}
+                    </div>
+                  </GridItem>
+                  <GridItem xs={12} sm={12} md={2}>
                   <Link to={"/room/"} >
                     <Button style={{marginLeft:"80%", background:"#795548", fontSize:"16px"}}>返回</Button>
                   </Link>
-                </h2>
-
-
+                  </GridItem>
+                </GridContainer>
+                <br />
+                <br />
                 <Paper>
                   {
                     ! this.state.scheduleData ? null :
