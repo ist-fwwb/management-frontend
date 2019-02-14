@@ -16,6 +16,8 @@ import Snackbar from "components/Snackbar/Snackbar.jsx";
 import Update from "@material-ui/icons/Update";
 import ErrorOutline from "@material-ui/icons/ErrorOutline";
 import Done from "@material-ui/icons/Done";
+import Block from "@material-ui/icons/Block";
+import Undo from "@material-ui/icons/Undo";
 
 import Icon from "@material-ui/core/Icon";
 import Button from "@material-ui/core/Button";
@@ -262,10 +264,14 @@ class RoomProfile extends React.Component {
                     <div>
                       <h2>
                           {room.location}
-                        <Button  style={{marginLeft:"70%", background:"#b0120a", fontSize:"16px", color:"white", height:"50px"}}>禁用该会议室</Button>
+                        <Button  style={{marginLeft:"73%", background:"#b0120a", fontSize:"16px", color:"white", height:"50px", width:"7%"}}>
+                          禁用
+                        </Button>
                         &nbsp;&nbsp;
                         <Link to={"/room/"} >
-                          <Button style={{ background:"#795548", fontSize:"16px", color:"white", height:"50px", width:"7%"}}>返回</Button>
+                          <Button style={{ background:"#795548", fontSize:"16px", color:"white", height:"50px", width:"7%"}}>
+                            返回
+                          </Button>
                         </Link>
                       </h2>
                     </div>

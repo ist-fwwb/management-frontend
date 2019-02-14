@@ -150,9 +150,9 @@ class PrimarySearchAppBar extends React.Component {
       return (
         <div className={classes.root}>
               <AppBar position="absolute" style={{boxShadow:"0px 0px 0px #f5f5f5"}} >
-                  <Toolbar  style={{background:"#eeeeee"}}>
+                  <Toolbar  style={{background:"#ffffff"}}>
                       <div className={classes.search} style={{marginLeft:"71%" }}>
-                        <Grid container spacing={8} alignItems="flex-end" style={{background:"#eeeeee"}}>
+                        <Grid container spacing={8} alignItems="flex-end" style={{background:"#ffffff"}}>
                           <Grid item >
                             <TextField  placeholder="Search..." margin="normal" />
                           </Grid>

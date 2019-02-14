@@ -3,46 +3,83 @@
  */
 
 import React from "react";
-
+import CloseIcon from '@material-ui/icons/Close';
+import { withStyles } from '@material-ui/core/styles';
 import GridItem from "components/Grid/GridItem.jsx";
 import GridContainer from "components/Grid/GridContainer.jsx";
 import Button from "components/CustomButtons/Button.jsx";
-
-import OutlinedInput from "@material-ui/core/OutlinedInput";
+import Card from "components/Card/Card.jsx";
+import CardHeader from "components/Card/CardHeader.jsx";
+import CardBody from "components/Card/CardBody.jsx";
+import IconButton from '@material-ui/core/IconButton';
+import FormControl from '@material-ui/core/FormControl';
+import FormGroup from '@material-ui/core/FormGroup';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
-import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
 import TextField from "@material-ui/core/TextField";
+import Dialog from '@material-ui/core/Dialog';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContent from '@material-ui/core/DialogContent';
+import { roomController, utils_list } from "variables/general.jsx";
+import {Upload, Icon,} from 'antd';
+import 'antd/lib/upload/style/css';
 
-import { roomController } from "variables/general.jsx";
+const styles = theme => ({
+  container: {
+    display: 'flex',
+    flexWrap: 'wrap',
+  },
+  textField: {
+    marginLeft: theme.spacing.unit,
+    marginRight: theme.spacing.unit,
+  },
+  upload:{
+    width: "20px",
+    height: "10%",
+    color: "#999",
+  }
+});
+
 
 class AddRoom extends React.Component {
   constructor(props){
     super(props);
     this.state={
-        capacity: 5,
-        location: "",
-        AirConditioner: false,
-        BlockBoard: false,
-        Table: false,
-        Projector: false,
-        PowerSupply: false,
-        devices:[]
+      size: "MIDDLE",
+      location: "软件学院3510",
+      AirConditioner: false,
+      BlockBoard: false,
+      Table: false,
+      Projector: false,
+      PowerSupply: false,
+      devices:[],
+      utils: [],
+      previewVisible: false,
+      previewImage: '',
+      fileList: [{
+        uid: '-1',
+        name: 'xxx.png',
+        status: 'done',
+        url: 'http://img007.hc360.cn/m3/M02/0F/73/wKhQ51SahQqEbJIGAAAAAC3XqsA148.jpg',
+      }],
     }
   }
 
-  handleLocationChange = (e) => {
-      //console.log(e.target.value);
-      this.setState({
-          location: e.target.value,
-      })
+  handleCancel = () => this.setState({ previewVisible: false })
+
+  handlePreview = (file) => {
+    this.setState({
+      previewImage: file.url || file.thumbUrl,
+      previewVisible: true,
+    });
   };
 
+  handlePictureChange = ({ fileList }) => this.setState({ fileList })
 
-  handleCapacityChange = (e) =>{
-    this.setState ({
-      capacity: e.target.value
-    });
+  handleChange = (e) => {
+    e.preventDefault();
+    this.setState({[e.target.name]:e.target.value});
   };
 
   handleDeviceChange = name => event => {
@@ -65,6 +102,18 @@ class AddRoom extends React.Component {
   })
   };
 
+  handleChangeCheckBox = event => {
+    event.preventDefault();
+    let { utils } = this.state;
+    if (event.target.checked){
+      utils.push(event.target.name);
+    }
+    else{
+      utils.splice(utils.indexOf(event.target.name), 1);
+    }
+    this.setState({ utils });
+  };
+
   handleAdd = () =>{
       //console.log("hello");
       let room={
@@ -76,7 +125,7 @@ class AddRoom extends React.Component {
       console.log(room.id);
       console.log(room.location);
       console.log(this.state.devices);
-      fetch(roomController.createRoom()+"/", {
+      /*fetch(roomController.createRoom()+"/", {
           credentials: 'include',
           method:'post',
           headers: {
@@ -100,73 +149,233 @@ class AddRoom extends React.Component {
                       else
                           alert("添加失败");
                   });
-          })
+          })*/
 };
 
 
   render() {
     const {classes} = this.props;
+    const {location, size, utils} = this.state;
+    const { previewVisible, previewImage, fileList } = this.state;
+    const uploadButton = (
+        <div>
+          <Icon type="plus" />
+          <div className="ant-upload-text">Upload</div>
+        </div>
+    );
+
     return (
-      <GridContainer xs={20} sm={20} md={12}>
-         <GridItem>&nbsp;</GridItem>
-          <GridItem>&nbsp;</GridItem>
-        <GridItem classxs={20} sm={20} md={12}>
-          <span style={{ marginLeft: "33%", fontSize: "20px", lineHeight:"80px" }}>房间号：</span>
-          <TextField variant="outlined" label="请输入房间号" onChange={this.handleLocationChange}
-                     style={{width:"20%", fontSize: "20px", lineHeight:"80px", marginLeft:"58px"}} />
-        </GridItem>
+      <div>
+        <GridContainer >
+          <GridItem xs={12} sm={12} md={6}>
+            <Card>
+              <CardHeader style={{fontSize:"20px", color:"#757575", fontWeight:"700"}}>
+                基本信息
+              </CardHeader>
+              <CardBody>
+                <TextField
+                    label="场所"
+                    name="location"
+                    fullWidth
+                    onChange={this.handleChange}
+                    className={classes.textField}
+                    value={location}
+                    margin="normal"
+                    variant="outlined"
+                    style={{width:"50%"}}
+                />
+                &nbsp;&nbsp;
+                <TextField
+                    select
+                    fullWidth
+                    name="size"
+                    label="会议室大小"
+                    className={classes.textField}
+                    value={size}
+                    onChange={this.handleChange}
+                    SelectProps={{
+                      MenuProps: {
+                        className: classes.menu,
+                      },
+                    }}
+                    margin="normal"
+                    variant="outlined"
+                    style={{width:"40%"}}
+                >
+                  <MenuItem key={"BIG"} value={"BIG"}>
+                    大会议室
+                  </MenuItem>
+                  <MenuItem key={"MIDDLE"} value={"MIDDLE"}>
+                    中会议室
+                  </MenuItem>
+                  <MenuItem key={"SMALL"} value={"SMALL"}>
+                    小会议室
+                  </MenuItem>
+                </TextField>
+              </CardBody>
+            </Card>
+          </GridItem>
+          <GridItem xs={12} sm={12} md={6}>
+            <Card>
+              <CardHeader style={{fontSize:"20px", color:"#757575", fontWeight:"700"}}>
+                设备要求
+              </CardHeader>
+              <CardBody>
+                <FormControl component="fieldset" className={classes.formControl}>
+                  <FormGroup row>
+                    <FormControlLabel
+                        control={
+                          <Checkbox
+                              name={utils_list.airconditioner}
+                              checked={utils.includes(utils_list.airconditioner)}
+                              onChange={this.handleChangeCheckBox}
+                              color="primary"
+                          />
+                        }
+                        label="空调"
+                    />
+                    <FormControlLabel
+                        control={
+                          <Checkbox
+                              name={utils_list.blackboard}
+                              checked={utils.includes(utils_list.blackboard)}
+                              onChange={this.handleChangeCheckBox}
+                              color="primary"
+                          />
+                        }
+                        label="黑板"
+                    />
+                    <FormControlLabel
+                        control={
+                          <Checkbox
+                              name={utils_list.table}
+                              checked={utils.includes(utils_list.table)}
+                              onChange={this.handleChangeCheckBox}
+                              color="primary"
+                          />
+                        }
+                        label="桌子"
+                    />
+                    <FormControlLabel
+                        control={
+                          <Checkbox
+                              name={utils_list.network}
+                              checked={utils.includes(utils_list.network)}
+                              onChange={this.handleChangeCheckBox}
+                              color="primary"
+                          />
+                        }
+                        label="有线网络"
+                    />
 
-        <GridItem xs={20} sm={20} md={12}>
-          <span style={{ marginLeft: "33%", fontSize: "20px", lineHeight:"70px"}}>可容纳人数：</span>
-          <Select
-              style={{width:"20%", fontSize:"20px", align:"center", marginLeft:"1%"}}
-              value={this.state.capacity}
-              onChange={this.handleCapacityChange}
-              input={
-                  <OutlinedInput  name="capacity" id="outlined-age-simple" />
-              }>
-              <MenuItem value={5} style={{fontSize:"20px"}}>5</MenuItem>
-              <MenuItem value={10} style={{fontSize:"20px"}}>10</MenuItem>
-              <MenuItem value={15} style={{fontSize:"20px"}}>15</MenuItem>
-              <MenuItem value={20} style={{fontSize:"20px"}}>20</MenuItem>
-              <MenuItem value={25} style={{fontSize:"20px"}}>25</MenuItem>
-              <MenuItem value={30} style={{fontSize:"20px"}}>30</MenuItem>
-          </Select>
-        </GridItem>
+                  </FormGroup>
+                </FormControl>
+                <FormControl component="fieldset" className={classes.formControl}>
+                  <FormGroup row>
+                    <FormControlLabel
+                        control={
+                          <Checkbox
+                              name={utils_list.power}
+                              checked={utils.includes(utils_list.power)}
+                              onChange={this.handleChangeCheckBox}
+                              color="primary"
+                          />
+                        }
+                        label="电源"
+                    />
+                    <FormControlLabel
+                        control={
+                          <Checkbox
+                              name={utils_list.tv}
+                              checked={utils.includes(utils_list.tv)}
+                              onChange={this.handleChangeCheckBox}
+                              color="primary"
+                          />
+                        }
+                        label="电视"
+                    />
+                    <FormControlLabel
+                        control={
+                          <Checkbox
+                              name={utils_list.wifi}
+                              checked={utils.includes(utils_list.wifi)}
+                              onChange={this.handleChangeCheckBox}
+                              color="primary"
+                          />
+                        }
+                        label="Wi-Fi"
+                    />
+                    <FormControlLabel
+                        control={
+                          <Checkbox
+                              name={utils_list.projector}
+                              checked={utils.includes(utils_list.projector)}
+                              onChange={this.handleChangeCheckBox}
+                              color="primary"
+                          />
+                        }
+                        label="投影仪"
+                    />
+                  </FormGroup>
+                </FormControl>
+              </CardBody>
+            </Card>
+          </GridItem>
+        </GridContainer>
+        <GridContainer>
+          <GridItem xs={12} sm={12} md={6}>
+            <Card>
+              <CardHeader style={{fontSize:"20px", color:"#757575", fontWeight:"700"}}>
+                相关图片
+              </CardHeader>
+              <CardBody >
+                <Upload
+                    action="//jsonplaceholder.typicode.com/posts/"
+                    listType="picture-card"
+                    fileList={fileList}
+                    onPreview={this.handlePreview}
+                    onChange={this.handlePictureChange}
+                >
+                  {fileList.length >= 3 ? null : uploadButton}
+                </Upload>
+                <Dialog open={previewVisible} onClose={this.handleCancel}>
+                  <DialogActions>
+                    <IconButton  onClick={this.handleCancel}>
+                      <CloseIcon />
+                    </IconButton>
+                  </DialogActions>
+                  <DialogContent>
+                    <img src={previewImage} style={{ width: '100%' }}/>
+                  </DialogContent>
 
-        <GridItem xs={20} sm={20} md={12}>
-            <span style={{ marginLeft: "33%", fontSize: "20px", lineHeight:"70px" }}>设备：</span>
-            <Checkbox style={{marginLeft:"3.6%"}} checked={this.state.AirConditioner} onChange={this.handleDeviceChange('AirConditioner')} value="AirConditioner" />
-            <span style={{fontSize: "20px" }}>空调</span>
-            <Checkbox  style={{ marginLeft: "2.8%"}} checked={this.state.BlockBoard} onChange={this.handleDeviceChange('BlockBoard')} value="BlockBoard" />
-            <span style={{fontSize: "20px" }}>白板</span>
-            <Checkbox style={{ marginLeft: "2.8%"}} checked={this.state.Table} onChange={this.handleDeviceChange('Table')} value="Table"/>
-            <span style={{fontSize: "20px" }}>桌子</span>
-            <br/>
-            <Checkbox style={{ marginLeft: "40%"}} checked={this.state.Projector} onChange={this.handleDeviceChange('Projector')} value="Projector"/>
-            <span style={{fontSize: "20px" }}>投影仪</span>
-            <Checkbox style={{ marginLeft: "1.7%"}} checked={this.state.PowerSupply} onChange={this.handleDeviceChange('PowerSupply')} value="PowerSupply"/>
-            <span style={{fontSize: "20px" }}>电源</span>
-        </GridItem>
+                </Dialog>
+              </CardBody>
+            </Card>
+          </GridItem>
 
-        <GridItem xs={20} sm={20} md={12}>
-            <span style={{ marginLeft: "33%", fontSize: "20px", lineHeight:"80px" }}>备注：</span>
-            <TextField placeholder= "请输入备注信息" variant="outlined"
-                       style={{width:"20%", lineHeight:"80px", marginLeft:"73px"}}/>
-        </GridItem>
 
-          <GridItem > &nbsp; </GridItem>
-        <GridItem xs={20} sm={20} md={12}>
+          <GridItem xs={20} sm={20} md={6}>
+            <h1>&nbsp;</h1>
+            <h1>&nbsp;</h1>
             <Button
                 onClick={this.handleAdd}
-                style={{marginLeft:"43%", fontSize:"25px", lineHeight:"60px", background:"#29b6f6", color:"white"}}>
-                添加会议室
+                style={{marginLeft:"70%", fontSize:"18px", lineHeight:"20px", background:"#303f9f", color:"white"}}>
+              确认添加
             </Button>
-        </GridItem>
-      </GridContainer>
+          </GridItem>
+        </GridContainer>
+
+
+
+
+        </div>
     );
   }
+
+
 }
 
 
-export default AddRoom;
+
+
+export default withStyles(styles)(AddRoom);

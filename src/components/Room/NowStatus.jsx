@@ -4,6 +4,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 // @material-ui/core
+import Button from "@material-ui/core/Button";
 import withStyles from "@material-ui/core/styles/withStyles";
 // @material-ui/icons
 //import SentimentVeryDissatisfied from "@material-ui/icons/SentimentVeryDissatisfied";
@@ -139,10 +140,10 @@ class NowStatus extends React.Component {
             return null;
         return (
             <div>
-                <GridContainer>
-                    <GridItem xs={12} sm={12} md={10}>
-                        <SearchBar handleSearchChange={this.handleSearchChange} handleError={this.warning}/>
-                    </GridItem>
+              <GridContainer>
+                <GridItem xs={12} sm={12} md={10}>
+                  <SearchBar handleSearchChange={this.handleSearchChange} handleError={this.warning}/>
+                </GridItem>
                     {
                         rooms.map((room) => {
                             return (
