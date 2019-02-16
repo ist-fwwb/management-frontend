@@ -73,7 +73,7 @@ class ActivateUser extends React.Component {
                             this.setState({
                                 enterpriceId: tmp.enterpriceId,
                                 faceFile: tmp.faceFile,
-                                featureFile: tmp.featureFile,
+                                featureFile: "http://face-file.oss-cn-shanghai.aliyuncs.com/0118317126628.jpg",
                                 id: tmp.id,
                                 name: tmp.name,
                                 password: tmp.password,
@@ -100,6 +100,10 @@ class ActivateUser extends React.Component {
             open: false,
             toActivate: -1
         })
+    };
+
+    handleDetail = () =>{
+
     };
 
     handleActivate =() => {
@@ -153,7 +157,7 @@ class ActivateUser extends React.Component {
                                                 this.state.rows.push (createData(tmp.enterpriceId, tmp.faceFile, tmp.featureFile, tmp.id, tmp.name, tmp.password, tmp.phone, tmp.type));
                                                 this.setState({
                                                     enterpriceId: tmp.enterpriceId,
-                                                    faceFile: tmp.faceFile,
+                                                    faceFile: "http://face-file.oss-cn-shanghai.aliyuncs.com/0118317126628.jpg",
                                                     featureFile: tmp.featureFile,
                                                     id: tmp.id,
                                                     name: tmp.name,
@@ -163,6 +167,7 @@ class ActivateUser extends React.Component {
                                                 });
                                             }
                                             console.log(this.state.rows.length);
+                                            console.log(this.state.faceFile);
 
                                         });
                                 })
@@ -179,40 +184,30 @@ class ActivateUser extends React.Component {
         return (
             <div>
                 <br/>
-                <br/>
                 <GridContainer xs={12} sm={12} md={12}>
-                    <GridItem xs={12} sm={12} md={12}>
-                        <span style={{fontSize:"30px", fontWeight:"700", marginLeft:"45%", color:"#0288d1"}}>
-                        待激活用户
-                        </span>
-                    </GridItem>
-                </GridContainer>
-                <br/>
-                <br/>
-                <GridContainer xs={12} sm={12} md={10}>
-                    <GridItem xs={12} sm={12} md={10}>
-                        <Table className="ActivateUser" style={{marginLeft:"23%"}}>
+                    <GridItem xs={12} sm={12} md={11}>
+                        <Table className="ActivateUser" style={{marginLeft:"5%"}}>
                             <TableHead>
                                 <TableRow >
-                                    <CustomTableCell style={{width:"25%", fontSize:"18px", fontWeight:"700", color:"#ba68c8"}}>公司</CustomTableCell>
-                                    <CustomTableCell  align="center" style={{width:"15%", fontSize:"20px", fontWeight:"700", color:"#ba68c8"}}>姓名</CustomTableCell>
+                                    <CustomTableCell style={{width:"20%", fontSize:"20px", fontWeight:"700", color:"#ba68c8"}}>职员编号</CustomTableCell>
+                                    <CustomTableCell  style={{width:"15%", fontSize:"20px", fontWeight:"700", color:"#ba68c8"}}>姓名</CustomTableCell>
                                     <CustomTableCell  style={{width:"15%", fontSize:"20px", fontWeight:"700", color:"#ba68c8"}}>联系电话</CustomTableCell>
-                                    <CustomTableCell  style={{width:"50%", fontSize:"20px", fontWeight:"700", color:"#ba68c8"}}>人脸图像</CustomTableCell>
-                                    <CustomTableCell  style={{width:"20%", fontSize:"20px", fontWeight:"700", color:"#ba68c8"}}>操作</CustomTableCell>
+                                    <CustomTableCell  style={{width:"20%", fontSize:"20px", fontWeight:"700", color:"#ba68c8"}}>状态</CustomTableCell>
+                                    <CustomTableCell  style={{width:"30%", fontSize:"20px", fontWeight:"700", color:"#ba68c8"}}>操作</CustomTableCell>
                                 </TableRow>
                             </TableHead>
                             <TableBody>
                                 {this.state.rows.map((row,key) => {
                                     return (
                                         <TableRow  key={row.id}>
-                                            <CustomTableCell style={{width:"25%", fontSize:"18px"}}>{row.enterpriceId}</CustomTableCell>
+                                            <CustomTableCell style={{width:"20%", fontSize:"18px"}}>{row.enterpriceId}</CustomTableCell>
                                             <CustomTableCell style={{width:"15%", fontSize:"18px"}}>{row.name}</CustomTableCell>
                                             <CustomTableCell style={{width:"15%", fontSize:"18px"}}>{row.phone}</CustomTableCell>
-                                            <CustomTableCell style={{width:"25%", fontSize:"18px"}}>
-                                                <img style={{width:"50%", height:"90px"}}></img>
-                                            </CustomTableCell>
+                                            <CustomTableCell style={{width:"20%", fontSize:"18px"}}>待激活</CustomTableCell>
                                             <CustomTableCell>
-                                                <Button style={{width: "20%", fontSize: "18px", background: "#29b6f6"}}
+                                              <Button style={{width: "30%", fontSize: "16px", background: "#303f9f"}}
+                                                      onClick={()=>this.handleDetail(key)} size="small">查看详情</Button>
+                                                <Button style={{width: "30%", fontSize: "16px", background: "#fb8c00"}}
                                                         onClick={()=>this.handleClickOpen(key)}>激活</Button>
                                             </CustomTableCell>
                                         </TableRow>
