@@ -3,6 +3,9 @@ const domain = "47.106.8.44";
 const port = "31000";
 const server = prefix + domain + ":" + port;
 const today = (new Date().toLocaleDateString()).replace(/\//g,'-');
+const bucket = "face-file";
+const endpoint = "oss-cn-shanghai.aliyuncs.com";
+const face_path = prefix + bucket + "." + endpoint + "/";
 
 const idToTime = (id) => {
   if (id % 2 === 0)
@@ -107,6 +110,7 @@ function ScheduleDataToRows(data){
 
 module.exports = {
   server,
+  face_path,
   today,
   idToTime,
   roomController,

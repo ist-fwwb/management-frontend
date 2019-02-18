@@ -13,11 +13,14 @@ import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Dialog from '@material-ui/core/Dialog';
+import DialogContent from "@material-ui/core/DialogContent";
+import Slide from "@material-ui/core/Slide";
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import { withStyles } from '@material-ui/core/styles';
 
-import { userController } from "variables/general.jsx";
+import { userController, face_path } from "variables/general.jsx";
+import DetailInfo from "./DetailInfo";
 
 
 const CustomTableCell = withStyles(theme => ({
@@ -40,19 +43,20 @@ class ActivateUser extends React.Component {
     constructor(props){
         super(props);
         this.state={
-            enterpriceId:"",
-            faceFile:"",
-            featureFile:"",
-            password:"",
-            type:"",
-            name:"",
-            phone:"",
-            face:"",
-            id: "",
-            toActivate: -1,
-            open: false,
-            rows: [],
-            new_rows:[]
+          enterpriceId:"",
+          faceFile:"",
+          featureFile:"",
+          password:"",
+          type:"",
+          name:"",
+          phone:"",
+          face:"",
+          id: "",
+          toActivate: -1,
+          open: false,
+          detail: false,
+          rows: [],
+          new_rows:[]
         };
         fetch(userController.getUserByType("UNACTIVATE"), {
             credentials: 'include',
@@ -73,7 +77,7 @@ class ActivateUser extends React.Component {
                             this.setState({
                                 enterpriceId: tmp.enterpriceId,
                                 faceFile: tmp.faceFile,
-                                featureFile: "http://face-file.oss-cn-shanghai.aliyuncs.com/0118317126628.jpg",
+                                featureFile: tmp.faceFile,
                                 id: tmp.id,
                                 name: tmp.name,
                                 password: tmp.password,
@@ -95,6 +99,26 @@ class ActivateUser extends React.Component {
         });
     };
 
+    handleDetail = (key) =>{
+      console.log(key);
+      console.log(this.state.rows[key].faceFile);
+      this.setState({
+        detail: true,
+        toActivate: key,
+        name: this.state.rows[key].name,
+        enterpriceId: this.state.rows[key].enterpriceId,
+        phone: this.state.rows[key].phone,
+        faceFile: "http://face-file.oss-cn-shanghai.aliyuncs.com/0118317126628.jpg",
+      });
+    };
+
+    handleDetailClose = () =>{
+      this.setState({
+        detail: false,
+        toActivate: -1,
+      })
+    };
+
     handleClose = () => {
         this.setState ({
             open: false,
@@ -102,9 +126,13 @@ class ActivateUser extends React.Component {
         })
     };
 
-    handleDetail = () =>{
+    Transition(props) {
+      return <Slide direction="up" {...props} />;
+    }
 
-    };
+
+
+
 
     handleActivate =() => {
         let {toActivate, rows, new_rows} = this.state;
@@ -113,7 +141,7 @@ class ActivateUser extends React.Component {
         this.setState({
             open: false,
         });
-        fetch(userController.editUserByUserId(rows[toActivate].id), {
+        /*fetch(userController.editUserByUserId(rows[toActivate].id), {
             credentials: 'include',
             method:'put',
             headers: {
@@ -176,37 +204,40 @@ class ActivateUser extends React.Component {
                         else
                             alert("激活失败");
                     });
-            })
+            })*/
 
     };
 
     render() {
+      let {toActivate, rows} = this.state;
         return (
             <div>
                 <br/>
+              <br/>
                 <GridContainer xs={12} sm={12} md={12}>
-                    <GridItem xs={12} sm={12} md={11}>
-                        <Table className="ActivateUser" style={{marginLeft:"5%"}}>
+                    <GridItem xs={12} sm={12} md={10}>
+                        <Table className="ActivateUser" style={{marginLeft:"10%"}}>
                             <TableHead>
                                 <TableRow >
-                                    <CustomTableCell style={{width:"20%", fontSize:"20px", fontWeight:"700", color:"#ba68c8"}}>职员编号</CustomTableCell>
-                                    <CustomTableCell  style={{width:"15%", fontSize:"20px", fontWeight:"700", color:"#ba68c8"}}>姓名</CustomTableCell>
-                                    <CustomTableCell  style={{width:"15%", fontSize:"20px", fontWeight:"700", color:"#ba68c8"}}>联系电话</CustomTableCell>
-                                    <CustomTableCell  style={{width:"20%", fontSize:"20px", fontWeight:"700", color:"#ba68c8"}}>状态</CustomTableCell>
-                                    <CustomTableCell  style={{width:"30%", fontSize:"20px", fontWeight:"700", color:"#ba68c8"}}>操作</CustomTableCell>
+                                    <CustomTableCell  style={{width:"20%", fontSize:"20px", fontWeight:"700", color:"#ba68c8", textAlign:"center"}}>职员编号</CustomTableCell>
+                                    <CustomTableCell  style={{width:"15%", fontSize:"20px", fontWeight:"700", color:"#ba68c8", textAlign:"center"}}>姓名</CustomTableCell>
+                                    <CustomTableCell  style={{width:"20%", fontSize:"20px", fontWeight:"700", color:"#ba68c8", textAlign:"center"}}>联系电话</CustomTableCell>
+                                    <CustomTableCell  style={{width:"15%", fontSize:"20px", fontWeight:"700", color:"#ba68c8", textAlign:"center"}}>状态</CustomTableCell>
+                                    <CustomTableCell  style={{width:"30%", fontSize:"20px", fontWeight:"700", color:"#ba68c8", textAlign:"center"}}>操作</CustomTableCell>
                                 </TableRow>
                             </TableHead>
                             <TableBody>
                                 {this.state.rows.map((row,key) => {
                                     return (
                                         <TableRow  key={row.id}>
-                                            <CustomTableCell style={{width:"20%", fontSize:"18px"}}>{row.enterpriceId}</CustomTableCell>
-                                            <CustomTableCell style={{width:"15%", fontSize:"18px"}}>{row.name}</CustomTableCell>
-                                            <CustomTableCell style={{width:"15%", fontSize:"18px"}}>{row.phone}</CustomTableCell>
-                                            <CustomTableCell style={{width:"20%", fontSize:"18px"}}>待激活</CustomTableCell>
-                                            <CustomTableCell>
-                                              <Button style={{width: "30%", fontSize: "16px", background: "#303f9f"}}
+                                            <CustomTableCell style={{width:"20%", fontSize:"18px", textAlign:"center"}}>{row.enterpriceId}</CustomTableCell>
+                                            <CustomTableCell style={{width:"15%", fontSize:"18px", textAlign:"center"}}>{row.name}</CustomTableCell>
+                                            <CustomTableCell style={{width:"20%", fontSize:"18px", textAlign:"center"}}>{row.phone}</CustomTableCell>
+                                            <CustomTableCell style={{width:"15%", fontSize:"18px", textAlign:"center"}}>待激活</CustomTableCell>
+                                            <CustomTableCell style={{textAlign:"center"}}>
+                                              <Button style={{height:"50px", width: "30%", fontSize: "16px", background: "#303f9f"}}
                                                       onClick={()=>this.handleDetail(key)} size="small">查看详情</Button>
+                                              &nbsp;&nbsp;
                                                 <Button style={{width: "30%", fontSize: "16px", background: "#fb8c00"}}
                                                         onClick={()=>this.handleClickOpen(key)}>激活</Button>
                                             </CustomTableCell>
@@ -215,19 +246,44 @@ class ActivateUser extends React.Component {
                                 <Dialog
                                     open={this.state.open}
                                     onClose={this.handleClose}
-                                    maxWidth={"sm"}
+                                    maxWidth={"xs"}
                                     fullWidth={true}
                                 >
                                     <DialogTitle >{"确认激活" +"?"}</DialogTitle>
                                     <DialogActions>
-                                        <Button onClick={this.handleClose} style={{background:"#29b6f6"}}>
+                                        <Button onClick={this.handleClose} style={{width:"15%", background:"#9e9e9e", fontSize:"16px"}}>
                                             取消
                                         </Button>
-                                        <Button onClick={this.handleActivate} style={{background:"#29b6f6"}}>
+                                        <Button onClick={this.handleActivate} style={{width:"15%", background:"#fb8c00", fontSize:"16px"}}>
                                             激活
                                         </Button>
                                     </DialogActions>
                                 </Dialog>
+                              <Dialog
+                                  open={this.state.detail}
+                                  TransitionComponent={this.Transition}
+                                  keepMounted
+                                  onClose={this.handleDetailClose}
+                                  maxWidth="sm"
+                                  fullWidth={true}
+                              >
+                                <DialogTitle style={{fontSize:"40px"}}>
+                                  {"详细信息"}
+                                </DialogTitle>
+                                <DialogContent>
+                                    <DetailInfo name={this.state.name} enterpriceId={this.state.enterpriceId}
+                                                tel={this.state.phone} faceFile={this.state.faceFile}/>
+                                </DialogContent>
+                                <DialogActions>
+                                  <Button onClick={this.handleActivate} style={{width: "15%", fontSize: "16px", background: "#fb8c00"}}>
+                                    激活
+                                  </Button>
+                                  &nbsp;&nbsp;
+                                  <Button onClick={this.handleDetailClose} style={{width: "15%", fontSize: "16px", background: "#9e9e9e"}}>
+                                    取消
+                                  </Button>
+                                </DialogActions>
+                              </Dialog>
                             </TableBody>
                         </Table>
                     </GridItem>
