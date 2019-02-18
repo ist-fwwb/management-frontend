@@ -76,6 +76,12 @@ const utils_list = {
   power: "POWERSUPPLY"
 };
 
+const user_type= {
+  "ORDINARY": "普通职员",
+  "SUPERIOR": "高级职员",
+  "GUEST": "外来宾客",
+};
+
 function ScheduleDataToRows(data){
     let re = [];
     for (let i in data){
@@ -118,5 +124,6 @@ module.exports = {
   meetingController,
   userController,
   utils_list,
+  user_type,
   ScheduleDataToRows
 };

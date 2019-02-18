@@ -12,14 +12,18 @@ import TextField from '@material-ui/core/TextField';
 
 import { withStyles } from '@material-ui/core/styles';
 
-
+import Card from "components/Card/Card.jsx";
+import CardHeader from "components/Card/CardHeader.jsx";
+import CardBody from "components/Card/CardBody.jsx";
+import CardIcon from "components/Card/CardIcon.jsx";
+import Search from "@material-ui/icons/Search";
 import GridItem from "components/Grid/GridItem.jsx";
 import GridContainer from "components/Grid/GridContainer.jsx";
-import Button from "components/CustomButtons/Button";
+import Button from "@material-ui/core/Button";
 import OutlinedInput from "@material-ui/core/OutlinedInput";
 import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
-import { userController } from "variables/general.jsx";
+import { userController, user_type} from "variables/general.jsx";
 
 
 
@@ -34,16 +38,19 @@ const CustomTableCell = withStyles(theme => ({
     },
 }))(TableCell);
 
-function showTypeInChinese(type){
-    if(type === "ORDINARY")
-        return "普通职员";
-    else if (type === "SUPERIORY")
-        return "高级职员";
-    else if (type === "GUEST")
-        return "外宾";
-    else if (type === "REGISTOR")
-        return "管理员"
-}
+const styles = theme => ({
+  container: {
+    display: 'flex',
+    flexWrap: 'wrap',
+  },
+  textField: {
+    marginLeft: theme.spacing.unit,
+    marginRight: theme.spacing.unit,
+  },
+  button: {
+    margin: theme.spacing.unit,
+  },
+});
 
 function showTypeInEnglish(type){
     if(type === "普通职员")
@@ -104,45 +111,10 @@ class ModifyUser extends React.Component{
     };
 
     handleSearch = () => {
-        const{searchType, searchId} = this.state;
-        if ((searchType === "") && (searchId === ""))
-            alert("请选择职员类型或输入职员id");
-
-        else if (searchId !== "")
-        {
-            console.log("id:", searchId);
-            fetch(userController.getUserByUserId(searchId), {
-                credentials: 'include',
-                method:'get',
-            })
-                .then(response => {
-                    console.log('Request successful', response);
-                    return response.json()
-                        .then(result => {
-                            console.log("result:", result.name);
-                            this.setState({
-                                rows:[],
-                            },()=>{
-                                this.state.rows.push (createData(result.enterpriceId, result.faceFile, result.featureFile,
-                                    result.id, result.name, result.password, result.phone, showTypeInChinese(result.type)));
-                                this.setState({
-                                    enterpriceId: result.enterpriceId,
-                                    faceFile: result.faceFile,
-                                    featureFile: result.featureFile,
-                                    id: result.id,
-                                    name: result.name,
-                                    password: result.password,
-                                    phone: result.phone,
-                                    modifyType: result.type
-                                });
-                            });
-
-                            console.log(this.state.rows.length);
-
-                        });
-                })
-        }
-        else if(searchType !== "")
+        const{searchType, } = this.state;
+        if (searchType === "")
+            alert("请选择职员类型");
+        else
         {
             console.log(searchType);
             console.log(userController.getUserByType(searchType));
@@ -163,7 +135,7 @@ class ModifyUser extends React.Component{
                                     let tmp = result[i];
                                     console.log(tmp.id);
                                     this.state.rows.push (createData(tmp.enterpriceId, tmp.faceFile, tmp.featureFile,
-                                        tmp.id, tmp.name, tmp.password, tmp.phone, showTypeInChinese(tmp.type)));
+                                        tmp.id, tmp.name, tmp.password, tmp.phone, user_type[tmp.type]));
                                     this.setState({
                                         enterpriceId: tmp.enterpriceId,
                                         faceFile: tmp.faceFile,
@@ -172,7 +144,7 @@ class ModifyUser extends React.Component{
                                         name: tmp.name,
                                         password: tmp.password,
                                         phone: tmp.phone,
-                                        modifyType: tmp.type
+
                                     });
                                 }
                             });
@@ -278,45 +250,63 @@ class ModifyUser extends React.Component{
 
 
     render() {
+        const {classes} = this.props;
         return (
             <div>
-                <br/>
-                <GridContainer xs={12} sm={12} md={12}>
-                    <GridItem xs={12} sm={12} md={12}>&nbsp;</GridItem>
-                    <GridItem xs={12} sm={12} md={12}>
-                        <span style={{ marginLeft: "18%", fontSize: "20px", lineHeight:"70px"}}>职员类型：</span>
-                        <Select
-                            value={this.state.searchType}
-                            onChange={this.handleTypeChange}
-                            style={{fontSize:"20px", width:"12%"}}
-                            input={
-                                <OutlinedInput  name="capacity" id="outlined-age-simple" />
-                            }>
-                            <MenuItem value={"ORDINARY"} style={{fontSize:"20px"}}>普通职员</MenuItem>
-                            <MenuItem value={"SUPERIORY"} style={{fontSize:"20px"}}>高级职员</MenuItem>
-                            <MenuItem value={"GUEST"} style={{fontSize:"20px"}}>外宾</MenuItem>
-                            <MenuItem value={"ADMINISTOR"} style={{fontSize:"20px"}}>管理员</MenuItem>
-                        </Select>
-                        <TextField placeholder="输入用户ID" style={{ width: "20%", lineHeight:"200px", marginLeft:"7%", fontSize:"20px"}}
-                                   onChange={this.handleSearchIdChange}/>
-                        <Button style={{ marginLeft: "7%", background:"#29b6f6", fontSize:"20px", width:"10%"}}
-                                onClick={this.handleSearch}>
-                            搜索
-                        </Button>
+                <GridContainer>
+                    <GridItem xs={12} sm={12} md={5}>
+                        <Card style={{marginLeft:"4%"}}>
+                            <CardBody>
+                                <CardIcon color="info">
+                                  {<Search style={{color:"#ffffff"}}/>}
+                                </CardIcon>
+                                <TextField
+                                    select
+                                    fullWidth
+                                    name="type"
+                                    label="职员类型"
+                                    className={classes.textField}
+                                    value={this.state.searchType}
+                                    onChange={this.handleTypeChange}
+                                    SelectProps={{
+                                      MenuProps: {
+                                        className: classes.menu,
+                                      },
+                                    }}
+                                    margin="normal"
+                                    variant="outlined"
+                                    style={{width:"30%", marginLeft:"30%"}}
+                                >
+                                    <MenuItem key={"ORDINARY"} value={"ORDINARY"}>
+                                        普通职员
+                                    </MenuItem>
+                                    <MenuItem key={"SUPERIOR"} value={"SUPERIOR"}>
+                                        高级职员
+                                    </MenuItem>
+                                    <MenuItem key={"GUEST"} value={"GUEST"}>
+                                        外来宾客
+                                    </MenuItem>
+                                </TextField>
+                                <Button style={{ marginLeft: "3%", background:"#303f9f", fontSize:"16px", color:"white", width:"18%"}}
+                                        onClick={this.handleSearch}>
+                                    搜索
+                                </Button>
+                            </CardBody>
+                        </Card>
                     </GridItem>
                 </GridContainer>
                 <br/>
-                <br/>
-                <GridContainer xs={12} sm={12} md={10}>
+
+                <GridContainer xs={12} sm={12} md={12}>
                     <GridItem xs={12} sm={12} md={10}>
-                        <Table className="room page" style={{marginLeft:"23%"}}>
+                        <Table className="room page" style={{marginLeft:"8%"}}>
                             <TableHead>
                                 <TableRow >
-                                    <CustomTableCell style={{width:"20%", fontSize:"18px", fontWeight:"700", color:"#ba68c8"}}>公司</CustomTableCell>
-                                    <CustomTableCell style={{width:"17%", fontSize:"20px", fontWeight:"700", color:"#ba68c8"}}>姓名</CustomTableCell>
-                                    <CustomTableCell style={{width:"22%", fontSize:"20px", fontWeight:"700", color:"#ba68c8"}}>联系电话</CustomTableCell>
-                                    <CustomTableCell style={{width:"17%", fontSize:"20px", fontWeight:"700", color:"#ba68c8"}}>职员类型</CustomTableCell>
-                                    <CustomTableCell style={{width:"22%", fontSize:"20px", fontWeight:"700", color:"#ba68c8"}}>操作</CustomTableCell>
+                                    <CustomTableCell style={{width:"20%", fontSize:"18px", fontWeight:"700", color:"#ba68c8", textAlign:"center"}}>公司</CustomTableCell>
+                                    <CustomTableCell style={{width:"17%", fontSize:"20px", fontWeight:"700", color:"#ba68c8", textAlign:"center"}}>姓名</CustomTableCell>
+                                    <CustomTableCell style={{width:"22%", fontSize:"20px", fontWeight:"700", color:"#ba68c8", textAlign:"center"}}>联系电话</CustomTableCell>
+                                    <CustomTableCell style={{width:"17%", fontSize:"20px", fontWeight:"700", color:"#ba68c8", textAlign:"center"}}>职员类型</CustomTableCell>
+                                    <CustomTableCell style={{width:"22%", fontSize:"20px", fontWeight:"700", color:"#ba68c8", textAlign:"center"}}>操作</CustomTableCell>
                                 </TableRow>
                             </TableHead>
                             <TableBody>
@@ -324,12 +314,17 @@ class ModifyUser extends React.Component{
                                     if(this.state.toModify === -1)
                                         return (
                                             <TableRow  key={row.id}>
-                                                <CustomTableCell style={{width:"20%", fontSize:"18px"}}>{row.enterpriceId}</CustomTableCell>
-                                                <CustomTableCell style={{width:"17%", fontSize:"18px"}}>{row.name}</CustomTableCell>
-                                                <CustomTableCell style={{width:"22%", fontSize:"18px"}}>{row.phone}</CustomTableCell>
-                                                <CustomTableCell style={{width:"17%", fontSize:"18px"}}>{row.type}</CustomTableCell>
-                                                <CustomTableCell>
-                                                    <Button style={{width:"20%", fontSize:"18px", background:"#29b6f6"}} onClick={()=>this.handleClickModify(key)}>修改</Button>
+                                                <CustomTableCell style={{width:"20%", fontSize:"18px", textAlign:"center"}}>{row.enterpriceId}</CustomTableCell>
+                                                <CustomTableCell style={{width:"17%", fontSize:"18px", textAlign:"center"}}>{row.name}</CustomTableCell>
+                                                <CustomTableCell style={{width:"22%", fontSize:"18px", textAlign:"center"}}>{row.phone}</CustomTableCell>
+                                                <CustomTableCell style={{width:"17%", fontSize:"18px", textAlign:"center"}}>{row.type}</CustomTableCell>
+                                                <CustomTableCell style={{textAlign:"center"}}>
+                                                    <Button style={{width:"50%", fontSize:"18px", background:"#f36c60", color:"white"}}
+                                                            onClick={()=>this.handleClickModify(key)}
+                                                            className={classes.button}>
+                                                      修改
+                                                    </Button>
+
                                                 </CustomTableCell>
                                             </TableRow>
                                         );
@@ -337,21 +332,21 @@ class ModifyUser extends React.Component{
                                         if(key !== this.state.toModify)
                                             return (
                                                 <TableRow key={row.id}>
-                                                    <CustomTableCell style={{width:"20%", fontSize:"18px"}}>{row.enterpriceId}</CustomTableCell>
-                                                    <CustomTableCell style={{width:"17%", fontSize:"18px"}}>{row.name}</CustomTableCell>
-                                                    <CustomTableCell style={{width:"22%", fontSize:"18px"}}>{row.phone}</CustomTableCell>
-                                                    <CustomTableCell style={{width:"17%", fontSize:"18px"}}>{row.type}</CustomTableCell>
-                                                    <CustomTableCell>
-                                                        <Button style={{width: "18%", fontSize: "18px", background: "#29b6f6"}}>修改</Button>
+                                                    <CustomTableCell style={{width:"20%", fontSize:"18px", textAlign:"center"}}>{row.enterpriceId}</CustomTableCell>
+                                                    <CustomTableCell style={{width:"17%", fontSize:"18px", textAlign:"center"}}>{row.name}</CustomTableCell>
+                                                    <CustomTableCell style={{width:"22%", fontSize:"18px", textAlign:"center"}}>{row.phone}</CustomTableCell>
+                                                    <CustomTableCell style={{width:"17%", fontSize:"18px", textAlign:"center"}}>{row.type}</CustomTableCell>
+                                                    <CustomTableCell style={{textAlign:"center"}}>
+                                                        <Button style={{width: "50%", fontSize: "18px", background:"#f36c60", color:"white"}}>修改</Button>
                                                     </CustomTableCell>
                                                 </TableRow>
                                             )
                                         else
                                             return (
                                                 <TableRow key={row.id}>
-                                                    <CustomTableCell style={{width:"20%", fontSize:"18px"}}>{row.enterpriceId}</CustomTableCell>
-                                                    <CustomTableCell style={{width:"17%", fontSize:"18px"}}>{row.name}</CustomTableCell>
-                                                    <CustomTableCell style={{width:"22%", fontSize:"18px"}}>
+                                                    <CustomTableCell style={{width:"20%", fontSize:"18px", textAlign:"center"}}>{row.enterpriceId}</CustomTableCell>
+                                                    <CustomTableCell style={{width:"17%", fontSize:"18px", textAlign:"center"}}>{row.name}</CustomTableCell>
+                                                    <CustomTableCell style={{width:"22%", fontSize:"18px", textAlign:"center"}}>
                                                         <TextField
                                                             value={this.state.phone}
                                                             onChange={this.handlePhoneChange}
@@ -361,7 +356,7 @@ class ModifyUser extends React.Component{
                                                             }}
                                                         />
                                                     </CustomTableCell>
-                                                    <CustomTableCell style={{width:"17%", fontSize:"18px"}}>
+                                                    <CustomTableCell style={{width:"17%", fontSize:"18px", textAlign:"center"}}>
                                                         <Select
                                                             value={this.state.modifyType}
                                                             onChange={this.handleTypeChange}
@@ -373,10 +368,10 @@ class ModifyUser extends React.Component{
                                                             <MenuItem value={"管理员"} style={{fontSize:"20px"}}>管理员</MenuItem>
                                                         </Select>
                                                     </CustomTableCell>
-                                                    <CustomTableCell>
-                                                        <Button style={{width: "40%", fontSize: "18px", background: "#29b6f6"}} onClick={()=>this.handleConfirmModify(key)}>确认</Button>
+                                                    <CustomTableCell style={{textAlign:"center"}}>
+                                                        <Button style={{width: "40%", fontSize: "18px", background:"#f36c60", color:"white"}} onClick={()=>this.handleConfirmModify(key)}>确认</Button>
                                                         &nbsp;&nbsp;&nbsp;
-                                                        <Button style={{width: "40%", fontSize: "18px", background: "#b0bec5"}} onClick={this.handleCancelModify}>取消</Button>
+                                                        <Button style={{width: "40%", fontSize: "18px", background: "#b0bec5", color:"white"}} onClick={this.handleCancelModify}>取消</Button>
                                                     </CustomTableCell>
                                                 </TableRow>
                                             )
@@ -391,4 +386,4 @@ class ModifyUser extends React.Component{
     }
 }
 
-export default ModifyUser;
+export default withStyles(styles)(ModifyUser);
