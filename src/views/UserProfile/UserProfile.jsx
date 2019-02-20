@@ -5,7 +5,6 @@ import Button from "@material-ui/core/Button";
 
 import Search from "@material-ui/icons/Search";
 import DeleteOutline from "@material-ui/icons/DeleteOutline";
-import HowToReg from "@material-ui/icons/HowToReg";
 import ConfirmationNumber from "@material-ui/icons/ConfirmationNumber";
 // core components
 import GridItem from "components/Grid/GridItem.jsx";
@@ -79,12 +78,6 @@ class UserProfile extends React.Component {
                   tabName: "用户激活",
                   tabIcon: ConfirmationNumber,
                   tabContent: <ActivateUser/>
-                },
-                {
-                  tabName: "外宾注册",
-                  tabIcon: HowToReg
-                  //tabContent:
-
                 },
                 {
                   tabName: "查询用户",

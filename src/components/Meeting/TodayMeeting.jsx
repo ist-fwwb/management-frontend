@@ -2,7 +2,8 @@ import React from "react";
 
 import GridItem from "components/Grid/GridItem.jsx";
 import GridContainer from "components/Grid/GridContainer.jsx";
-
+import HowToReg from "@material-ui/icons/HowToReg";
+import Button from "@material-ui/core/Button";
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
@@ -69,6 +70,7 @@ class TodayMeeting extends React.Component {
             attendantNum:"",
             status: "",
             type:"",
+            add: false,
         };
 
         console.log(getNowFormatDate());
@@ -108,7 +110,7 @@ class TodayMeeting extends React.Component {
     }
 
     createData = (heading, description, date, location, startTime, endTime, needSignIn, status, type) =>{
-        let time = date + "  " + idToTime(startTime) + "-" + idToTime(endTime);
+        let time = idToTime(startTime) + "-" + idToTime(endTime);
         let signIn = "否";
         let meetingType = "普通";
         if (needSignIn === true)
@@ -117,6 +119,24 @@ class TodayMeeting extends React.Component {
             meetingType = "紧急";
         let statusChinese = changeStatusToChinese(status);
         return {heading, description, date, location, time, signIn, statusChinese, meetingType};
+    };
+
+    handleAddGuest = (key)=>{
+      let row = this.state.rows[key];
+      console.log(row);
+      this.setState({
+        add: true,
+        heading: row.heading,
+        description: row.description,
+        date: row.date,
+        location: row.location,
+        startTime: row.startTime,
+        endTime: row.endTime,
+        needSignIn: row.needSignIn,
+        status: row.status,
+        type: row.type,
+      })
+
     };
 
     render() {
@@ -128,26 +148,32 @@ class TodayMeeting extends React.Component {
                         <Table className="room page" >
                             <TableHead>
                                 <TableRow >
-                                    <CustomTableCell  align="center" style={{width:"23%", fontSize:"140%", fontWeight:"700", color:"#ba68c8"}}>标题</CustomTableCell>
-                                    <CustomTableCell  style={{width:"15%", fontSize:"140%", fontWeight:"700", color:"#ba68c8"}}>描述</CustomTableCell>
-                                    <CustomTableCell  style={{width:"24%", fontSize:"140%", fontWeight:"700", color:"#ba68c8"}}>时间</CustomTableCell>
-                                    <CustomTableCell  style={{width:"10%", fontSize:"140%", fontWeight:"700", color:"#ba68c8"}}>地点</CustomTableCell>
-                                    <CustomTableCell  style={{width:"10%", fontSize:"140%", fontWeight:"700", color:"#ba68c8"}}>是否签到</CustomTableCell>
-                                    <CustomTableCell  style={{width:"10%", fontSize:"140%", fontWeight:"700", color:"#ba68c8"}}>类型</CustomTableCell>
-                                    <CustomTableCell  style={{width:"10%", fontSize:"140%", fontWeight:"700", color:"#ba68c8"}}>状态</CustomTableCell>
+                                    <CustomTableCell  style={{width:"15%", fontSize:"140%", fontWeight:"700", color:"#ba68c8", textAlign:"center"}}>标题</CustomTableCell>
+                                    <CustomTableCell  style={{width:"17%", fontSize:"140%", fontWeight:"700", color:"#ba68c8", textAlign:"center"}}>描述</CustomTableCell>
+                                    <CustomTableCell  style={{width:"14%", fontSize:"140%", fontWeight:"700", color:"#ba68c8", textAlign:"center"}}>时间</CustomTableCell>
+                                    <CustomTableCell  style={{width:"9%", fontSize:"140%", fontWeight:"700", color:"#ba68c8", textAlign:"center"}}>地点</CustomTableCell>
+                                    <CustomTableCell  style={{width:"10%", fontSize:"140%", fontWeight:"700", color:"#ba68c8", textAlign:"center" }}>签到</CustomTableCell>
+                                    <CustomTableCell  style={{width:"10%", fontSize:"140%", fontWeight:"700", color:"#ba68c8", textAlign:"center"}}>类型</CustomTableCell>
+                                    <CustomTableCell  style={{width:"11%", fontSize:"140%", fontWeight:"700", color:"#ba68c8", textAlign:"center"}}>状态</CustomTableCell>
+                                    <CustomTableCell  style={{width:"14%", fontSize:"140%", fontWeight:"700", color:"#ba68c8", textAlign:"center"}}>操作</CustomTableCell>
                                 </TableRow>
                             </TableHead>
                             <TableBody>
-                                {this.state.rows.map(row => (
-                                    <TableRow >
-                                        <CustomTableCell style={{width:"23%", fontSize:"18px"}}>{row.heading}</CustomTableCell>
-                                        <CustomTableCell style={{width:"15%", fontSize:"18px"}}>{row.description}</CustomTableCell>
-                                        <CustomTableCell style={{width:"24%", fontSize:"18px"}}>{row.time}</CustomTableCell>
-                                        <CustomTableCell style={{width:"10%", fontSize:"18px"}}>{row.location}</CustomTableCell>
-                                        <CustomTableCell style={{width:"10%", fontSize:"18px"}}>{row.signIn}</CustomTableCell>
-                                        <CustomTableCell style={{width:"10%", fontSize:"18px"}}>{row.meetingType}</CustomTableCell>
-                                        <CustomTableCell style={{width:"10%", fontSize:"18px"}}>{row.statusChinese}</CustomTableCell>
-
+                                {this.state.rows.map((row,key) => (
+                                    <TableRow key={row.id}>
+                                        <CustomTableCell style={{width:"15%", fontSize:"18px", textAlign:"center"}}>{row.heading}</CustomTableCell>
+                                        <CustomTableCell style={{width:"17%", fontSize:"18px", textAlign:"center"}}>{row.description}</CustomTableCell>
+                                        <CustomTableCell style={{width:"14%", fontSize:"18px", textAlign:"center"}}>{row.time}</CustomTableCell>
+                                        <CustomTableCell style={{width:"9%", fontSize:"18px", textAlign:"center"}}>{row.location}</CustomTableCell>
+                                        <CustomTableCell style={{width:"10%", fontSize:"18px", textAlign:"center"}}>{row.signIn}</CustomTableCell>
+                                        <CustomTableCell style={{width:"10%", fontSize:"18px", textAlign:"center"}}>{row.meetingType}</CustomTableCell>
+                                        <CustomTableCell style={{width:"11%", fontSize:"18px", textAlign:"center"}}>{row.statusChinese}</CustomTableCell>
+                                      <CustomTableCell  style={{width:"14%", fontSize:"140%", fontWeight:"700", color:"#ba68c8", textAlign:"center"}}>
+                                        <Button style={{color:"white", background:"#ff7043", fontSize:"16px"}} onClick={()=>this.handleAddGuest(key)}>
+                                          添加外宾&nbsp;&nbsp;
+                                          <HowToReg />
+                                        </Button>
+                                      </CustomTableCell>
                                     </TableRow>
                                 ))}
                             </TableBody>
