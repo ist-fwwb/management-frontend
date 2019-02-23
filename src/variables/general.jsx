@@ -54,6 +54,7 @@ const meetingController = {
   "attendMeetingByAttendantNum": (attendantNum, userId) => (server + "/meeting/" + attendantNum + "/attendants?userId=" + userId),
   "exitMeetingByMeetingId": (meetingId , userId) => (server +"/meeting/" + meetingId + "/attendants/" + userId),
   "getMeetingByUserIdAndDate": (userId, date) => (server + "/user/" + userId + "/meeting/" + date),
+  "postForeignGuest":(meetingId) =>(server + "/meeting/" + meetingId + "/foreignGuest"), //json params of guest info in req body
 };
 
 const userController = {
