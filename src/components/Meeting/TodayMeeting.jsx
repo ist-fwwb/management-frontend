@@ -4,6 +4,7 @@ import GridItem from "components/Grid/GridItem.jsx";
 import GridContainer from "components/Grid/GridContainer.jsx";
 import Snackbar from "components/Snackbar/Snackbar.jsx";
 import HowToReg from "@material-ui/icons/HowToReg";
+import Description from "@material-ui/icons/Description";
 import Button from "@material-ui/core/Button";
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
@@ -221,6 +222,10 @@ class TodayMeeting extends React.Component {
     );
   };
 
+  handleDetail=()=>{
+
+  };
+
   handleCommit=()=> {
     console.log(this.state.newName);
     console.log(this.state.newPhone);
@@ -279,10 +284,9 @@ class TodayMeeting extends React.Component {
                       <CustomTableCell  style={{width:"17%", fontSize:"140%", fontWeight:"700", color:"#ba68c8", textAlign:"center"}}>描述</CustomTableCell>
                       <CustomTableCell  style={{width:"14%", fontSize:"140%", fontWeight:"700", color:"#ba68c8", textAlign:"center"}}>时间</CustomTableCell>
                       <CustomTableCell  style={{width:"9%", fontSize:"140%", fontWeight:"700", color:"#ba68c8", textAlign:"center"}}>地点</CustomTableCell>
-                      <CustomTableCell  style={{width:"10%", fontSize:"140%", fontWeight:"700", color:"#ba68c8", textAlign:"center" }}>签到</CustomTableCell>
                       <CustomTableCell  style={{width:"10%", fontSize:"140%", fontWeight:"700", color:"#ba68c8", textAlign:"center"}}>类型</CustomTableCell>
                       <CustomTableCell  style={{width:"11%", fontSize:"140%", fontWeight:"700", color:"#ba68c8", textAlign:"center"}}>状态</CustomTableCell>
-                      <CustomTableCell  style={{width:"14%", fontSize:"140%", fontWeight:"700", color:"#ba68c8", textAlign:"center"}}>操作</CustomTableCell>
+                      <CustomTableCell  style={{width:"24%", fontSize:"140%", fontWeight:"700", color:"#ba68c8", textAlign:"center"}}>操作</CustomTableCell>
                   </TableRow>
               </TableHead>
               <TableBody>
@@ -292,10 +296,13 @@ class TodayMeeting extends React.Component {
                     <CustomTableCell style={{width:"17%", fontSize:"18px", textAlign:"center"}}>{row.description}</CustomTableCell>
                     <CustomTableCell style={{width:"14%", fontSize:"18px", textAlign:"center"}}>{row.time}</CustomTableCell>
                     <CustomTableCell style={{width:"9%", fontSize:"18px", textAlign:"center"}}>{row.location}</CustomTableCell>
-                    <CustomTableCell style={{width:"10%", fontSize:"18px", textAlign:"center"}}>{row.signIn}</CustomTableCell>
                     <CustomTableCell style={{width:"10%", fontSize:"18px", textAlign:"center"}}>{row.meetingType}</CustomTableCell>
                     <CustomTableCell style={{width:"11%", fontSize:"18px", textAlign:"center"}}>{row.statusChinese}</CustomTableCell>
-                    <CustomTableCell  style={{width:"14%", fontSize:"140%", fontWeight:"700", color:"#ba68c8", textAlign:"center"}}>
+                    <CustomTableCell  style={{width:"24%", fontSize:"140%", fontWeight:"700", color:"#ba68c8", textAlign:"center"}}>
+                      <Button style={{color:"white", background:"#303f9f", fontSize:"16px"}} onClick={()=>this.handleDetail(key)}>
+                        <Description />&nbsp;&nbsp;查看详情
+                      </Button>
+                      &nbsp;&nbsp;
                       <Button style={{color:"white", background:"#ff7043", fontSize:"16px"}} onClick={()=>this.handleAddGuest(key)}>
                         添加外宾&nbsp;&nbsp;
                         <HowToReg />

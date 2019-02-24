@@ -5,7 +5,7 @@ import CustomTabs from "components/CustomTabs/CustomTabs.jsx";
 import Assignment from "@material-ui/icons/Assignment";
 import LocationSearching from "@material-ui/icons/LocationSearching";
 import History from "@material-ui/icons/History";
-import Table from "components/Table/Table.jsx";
+import HistoryMeeting from "../../components/Meeting/HistoryMeeting";
 import Button from "@material-ui/core/Button";
 import { Link } from "react-router-dom";
 import TodayMeeting from "../../components/Meeting/TodayMeeting";
@@ -147,11 +147,7 @@ class MeetingPage extends React.Component {
                   tabName: "历史会议",
                   tabIcon: History,
                   tabContent: (
-                    <Table
-                      tableHeaderColor="primary"
-                      tableHead={["ID", "发起人", "会议室", "日期", "时间", "操作"]}
-                      tableData={JSONToArray(historyMeetings, "history")}
-                    />
+                    <HistoryMeeting />
                   )
                 },
                   {
