@@ -130,10 +130,6 @@ class ActivateUser extends React.Component {
       return <Slide direction="up" {...props} />;
     }
 
-
-
-
-
     handleActivate =() => {
         let {toActivate, rows, new_rows} = this.state;
         console.log(rows[toActivate].id);

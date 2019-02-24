@@ -4,10 +4,14 @@
 import React from "react";
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
-import classNames from 'classnames';
 import Card from "components/Card/Card.jsx";
 import CardHeader from "components/Card/CardHeader.jsx";
 import CardBody from "components/Card/CardBody.jsx";
+import Table from '@material-ui/core/Table';
+import TableBody from '@material-ui/core/TableBody';
+import TableCell from '@material-ui/core/TableCell';
+import TableHead from '@material-ui/core/TableHead';
+import TableRow from '@material-ui/core/TableRow';
 import TextField from "@material-ui/core/TextField";
 import GridItem from "components/Grid/GridItem.jsx";
 import GridContainer from "components/Grid/GridContainer.jsx";
@@ -19,14 +23,64 @@ const styles = theme => ({
   },
 });
 
+const CustomTableCell = withStyles(theme => ({
+  root: {
+    width: '100%',
+    marginTop: theme.spacing.unit * 3,
+    overflowX: 'auto',
+  },
+  table: {
+    minWidth: 700,
+  },
+}))(TableCell);
+
 class MeetingInfo extends React.Component{
   constructor(props) {
     super(props);
-
+    this.state={
+      rows:[],
+    }
   }
 
   render(){
     const { classes } = this.props;
+    let foreignGuest;
+    if(this.props.foreignGuestList === null)
+      foreignGuest = (
+          <div>
+            <br />
+            <span style={{fontSize:"16px", marginLeft:"2%"}}>无外宾参加</span>
+          </div>
+      )
+    else
+      foreignGuest = (
+          <Card>
+            <CardHeader style={{fontSize:"16px", color:"#616161"}}>
+              外宾信息
+            </CardHeader>
+            <CardBody>
+              <Table>
+                <TableHead>
+                  <TableRow>
+                    <CustomTableCell  style={{width:"30%", fontSize:"20px", fontWeight:"700", color:"#8d6e63", textAlign:"center"}}>姓名</CustomTableCell>
+                    <CustomTableCell  style={{width:"30%", fontSize:"20px", fontWeight:"700", color:"#8d6e63", textAlign:"center"}}>联系电话</CustomTableCell>
+                    <CustomTableCell  style={{width:"30%", fontSize:"20px", fontWeight:"700", color:"#8d6e63", textAlign:"center"}}>进入码</CustomTableCell>
+                  </TableRow>
+                </TableHead>
+                <TableBody>
+                  {this.props.foreignGuestList.map(row => {
+                    return (
+                        <TableRow>
+                          <CustomTableCell style={{width:"30%", fontSize:"18px", textAlign:"center"}}>{row.name}</CustomTableCell>
+                          <CustomTableCell style={{width:"30%", fontSize:"18px", textAlign:"center"}}>{row.phone}</CustomTableCell>
+                          <CustomTableCell style={{width:"30%", fontSize:"18px", textAlign:"center"}}>{row.uuid}</CustomTableCell>
+                        </TableRow>
+                    )})}
+                </TableBody>
+              </Table>
+            </CardBody>
+          </Card>
+      )
     return (
         <div>
           <GridContainer xs={12} sm={12} md={12}>
@@ -143,8 +197,8 @@ class MeetingInfo extends React.Component{
                   variant="outlined"
               />
             </GridItem>
-            <GridItem xs={12} sm={12} md={11}>
-
+            <GridItem xs={12} sm={12} md={8}>
+              {foreignGuest}
             </GridItem>
           </GridContainer>
         </div>

@@ -152,7 +152,6 @@ class HistoryMeeting extends React.Component {
             id:"",
             heading:"",
             description:"",
-            date:"",
             location:"",
             startTime:"",
             endTime:"",
@@ -340,7 +339,7 @@ class HistoryMeeting extends React.Component {
                   </DialogContent>
                   <DialogActions>
                     &nbsp;&nbsp;
-                    <Button onClick={this.handleDetailClose} style={{width: "15%", fontSize: "16px", background: "#9e9e9e", color:"white"}}>
+                    <Button onClick={this.handleDetailClose} style={{width: "15%", fontSize: "16px", background: "#a1887f", color:"white"}}>
                       取消
                     </Button>
                   </DialogActions>
