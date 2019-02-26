@@ -2,40 +2,33 @@
  * Created by 励颖 on 2019/1/26.
  */
 import React from "react";
-
+import moment from 'moment';
 import GridItem from "components/Grid/GridItem.jsx";
 import GridContainer from "components/Grid/GridContainer.jsx";
 import Button from "components/CustomButtons/Button";
-import DatePicker from "components/Pickers/DatePicker";
-
-import Select from "@material-ui/core/Select";
-import MenuItem from "@material-ui/core/MenuItem";
+import Card from "components/Card/Card.jsx";
+import CardBody from "components/Card/CardBody.jsx";
+import CardIcon from "components/Card/CardIcon.jsx";
+import Search from "@material-ui/icons/Search";
+import Description from "@material-ui/icons/Description";
+import Slide from "@material-ui/core/Slide";
+import Dialog from '@material-ui/core/Dialog';
+import DialogContent from "@material-ui/core/DialogContent";
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogTitle from '@material-ui/core/DialogTitle';
+import Snackbar from "components/Snackbar/Snackbar.jsx";
+import ErrorOutline from "@material-ui/icons/ErrorOutline";
+import Done from "@material-ui/icons/Done";
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
+import { DatePicker } from 'antd';
+import 'antd/lib/date-picker/style/css';
 import { withStyles } from '@material-ui/core/styles';
 import { meetingController, idToTime } from "variables/general.jsx";
-
-const style = {
-    selector:{
-        width:"15%",
-        fontSize:"15px",
-        marginLeft:"4%",
-        marginTop:"3%"
-    },
-    picker:{
-        marginLeft:"3.5%",
-    },
-    button:{
-        width:"6%",
-        background:"#29b6f6",
-        marginLeft:"5%",
-        height:"2%",
-        marginTop:"1.8%"
-    }
-};
+import MeetingInfo from "components/Meeting/MeetingInfo.jsx";
 
 
 const CustomTableCell = withStyles(theme => ({
@@ -74,189 +67,253 @@ function changeStatusToEnglish(status){
 
 class ConditionSearch extends React.Component {
     constructor(props) {
-        super(props);
-        this.state = {
-            rows:[],
-            heading:"",
-            description:"",
-            date:"",
-            location:"",
-            hostId:"",
-            hostName:"",
-            startTime:"",
-            endTime:"",
-            needSignIn: false,
-            attendantNum:"",
-            status: "",
-            type:"",
-        };
+      super(props);
+      this.state = {
+        rows:[],
+        id:"",
+        heading:"",
+        description:"",
+        date:"",
+        location:"",
+        hostname:"",
+        time:"",
+        attendants:[],
+        foreignGuestList:[],
+        needSignIn: false,
+        attendantNum:"",
+        status: "",
+        type:"",
+        notificationType: "",
+        notificationMessage: "",
+        br: false,
+        detail: false,
+      };
+      console.log(meetingController.getMeetingByStatus("Pending"));
+      fetch(meetingController.getMeetingByStatus("Pending") , {
+        credentials: 'include',
+        method:'get',
+      })
+          .then(response => {
+            console.log('Request successful', response);
+            return response.json()
+                .then(result => {
+                  console.log("result:", result.length);
+                  this.setState({
+                    rows:[],
+                  });
+                  for(let i=0; i<result.length; i++)
+                  {
+                    let tmp = result[i];
+                    console.log(tmp.id);
+                    let host = tmp.host;
+                    if(host === null)
+                      this.state.rows.push (this.createData(tmp.id, tmp.heading, tmp.description, tmp.date, tmp.location,
+                          tmp.startTime, tmp.endTime, tmp.needSignIn, tmp.status, tmp.type, tmp.attendantNum, tmp.foreignGuestList, ""));
+                    else
+                      this.state.rows.push (this.createData(tmp.id, tmp.heading, tmp.description, tmp.date, tmp.location,
+                          tmp.startTime, tmp.endTime, tmp.needSignIn, tmp.status, tmp.type, tmp.attendantNum, tmp.foreignGuestList, host.name));
+                  }
+                  console.log("length:", this.state.rows.length);
+                  this.setState({
+                    id:"",
+                    heading:"",
+                    description:"",
+                    date:"",
+                    location:"",
+                    hostname:"",
+                    time:"",
+                    attendants:[],
+                    foreignGuestList:[],
+                    needSignIn: false,
+                    attendantNum:"",
+                    status: "",
+                    type:"",
+                  })
+                });
+          })
     }
 
-    createData = (heading, description, date, location, startTime, endTime, needSignIn, status, type) =>{
-        let time = date + "  " + idToTime(startTime) + "-" + idToTime(endTime);
-        let signIn = "否";
-        let meetingType = "普通";
-        if (needSignIn === true)
-            signIn = "是";
-        if (type !== "COMMON")
-            meetingType = "紧急";
-        let statusChinese = changeStatusToChinese(status);
-        return {heading, description, date, location, time, signIn, statusChinese, meetingType};
+  createData = (id, heading, description, date, location, startTime, endTime, needSignIn, status, type, attendantNum, foreignGuestList, hostname ) =>{
+    let time = date + " " + idToTime(startTime) + "-" + idToTime(endTime);
+    let signIn = "否";
+    let meetingType = "普通";
+    if (needSignIn === true)
+      signIn = "是";
+    if (type !== "COMMON")
+      meetingType = "紧急";
+    let statusChinese = changeStatusToChinese(status);
+    return {id, heading, description, date, location, time, signIn, statusChinese, meetingType, attendantNum, foreignGuestList, hostname};
+  };
+
+  Transition(props) {
+    return <Slide direction="up" {...props} />;
+  }
+
+
+  handleDateChange =(date, dateString)=>{
+    console.log(dateString);
+    this.setState({
+      date: dateString
+    })
+  };
+
+
+    disabledDate=(current)=> {
+      // Can not select days before today and today
+      return current && current > moment().endOf('day');
     };
 
-    handleLocationChange =(e) =>{
-        console.log(e.target.value);
-        this.setState({
-            location: e.target.value
-        })
-    };
 
-    handleStatusChange =(e) =>{
-        console.log(e.target.value);
-        this.setState({
-            status: e.target.value
-        })
-    };
+  handleDetail=(key)=>{
+    let row = this.state.rows[key];
+    console.log(row.hostname);
+    this.setState({
+      detail: true,
+      id: row.id,
+      heading: row.heading,
+      description: row.description,
+      date: row.date,
+      location: row.location,
+      time: row.time,
+      needSignIn: row.signIn,
+      attendantNum: row.attendantNum,
+      foreignGuestList: row.foreignGuestList,
+      hostname: row.hostname,
+      status: row.statusChinese,
+      type: row.meetingType,
+    })
+  };
 
-    handleDateChange=(val)=>{
-        console.log("hello");
-        console.log(val);
-        this.setState({
-            date: val
-        })
-    };
+  handleDetailClose=()=>{
+    this.setState({
+      detail: false
+    })
+  };
 
-    handleTimeChange=(val)=>{
-        console.log("bye");
-        console.log(val);
-    };
+  typeToIcon = (type) => {
+    if (type === "success")
+      return Done;
+    if (type === "danger")
+      return ErrorOutline;
+    return null;
+  };
 
-    handleSearch=()=>{
-        const {date, location, status} = this.state;
-        if ((date === "") && (location === "") && (status === "")){
-            alert("请选择搜索的条件");
-            return;
-        }
-        let route = meetingController.getMeeting() + "?";
-        let statusChinese = changeStatusToEnglish(status);
-        if(date !== ""){
-            route = route + "date=" + date;
-            if(location !== "")
-                route = route + "&location=" + location;
-            if(status !== "")
-                route = route + "&status=" + statusChinese;
-        }
-        else if (location !== ""){
-            route = route + "location=" + location;
-            if(status !== "")
-                route = route + "&status=" + statusChinese;
-        }
-        else
-            route = route + "status=" + statusChinese;
+  success = (msg) => {
+    this.setState({
+      notificationType: "success",
+      notificationMessage: msg
+    });
+    this.showNotification("br");
+  };
 
-        //fetch --------------------------------------------------------------------------
-        console.log("route:",route);
-        fetch(route, {
-            credentials: 'include',
-            method:'get',
-        })
-            .then(response => {
-                console.log('Request successful', response);
-                return response.json()
-                    .then(result => {
-                        console.log("result:", result.length);
-                        this.setState({
-                            rows:[],
-                        });
-                        for(let i=0; i<result.length; i++)
-                        {
-                            let tmp = result[i];
-                            console.log(tmp.id);
-                            this.state.rows.push (this.createData(tmp.heading, tmp.description, tmp.date, tmp.location,
-                                                tmp.startTime, tmp.endTime, tmp.needSignIn, tmp.status, tmp.type));
-                        }
-                        console.log("length:", this.state.rows.length);
-                        this.setState({
-                            heading:"",
-                            description:"",
-                            hostId:"",
-                            hostName:"",
-                            startTime:"",
-                            endTime:"",
-                            needSignIn: false,
-                            type:"",
-                        })
-                    })
-            })
-        /*this.setState({
-            date:"",
-            location:"",
-            status:"",
-        })*/
-    };
+  warning = (msg) => {
+    this.setState({
+      notificationType: "danger",
+      notificationMessage: msg
+    });
+    this.showNotification("br");
+  };
+
+  showNotification = (place) => {
+    let x = [];
+    x[place] = true;
+    this.setState({[place]: true});
+    this.alertTimeout = setTimeout(
+        function() {
+          x[place] = false;
+          this.setState(x);
+        }.bind(this),
+        6000
+    );
+  };
 
     render() {
+      const { rows, rowsPerPage, page, id, heading, description, location, time, date, type, status, needSignIn, attendantNum, hostname, foreignGuestList } = this.state;
         return (
             <div>
-                <br/>
-                <GridContainer xs={12} sm={12} md={12}>
-                    <Select
-                        style={style.selector}
-                        value={this.state.location}
-                        onChange={this.handleLocationChange}
-                        displayEmpty
-                        >
-                        <MenuItem value={""} disabled>选择房间号</MenuItem>
-                        <MenuItem value={"5310"} style={{fontSize:"20px"}}>5310</MenuItem>
-                        <MenuItem value={"5312"} style={{fontSize:"20px"}}>5312</MenuItem>
-                    </Select>
-                    <Select
-                        style={style.selector}
-                        value={this.state.status}
-                        onChange={this.handleStatusChange}
-                        displayEmpty
-                        >
-                        <MenuItem value={""} disabled>选择状态</MenuItem>
-                        <MenuItem value={"待办"} style={{fontSize:"20px"}}>待办</MenuItem>
-                        <MenuItem value={"进行中"} style={{fontSize:"20px"}}>进行中</MenuItem>
-                        <MenuItem value={"已取消"} style={{fontSize:"20px"}}>已取消</MenuItem>
-                    </Select>
-                    <DatePicker style={style.picker} handleDateChange={this.handleDateChange.bind(this)}/>
+              <GridContainer>
+                <GridItem xs={12} sm={12} md={5}>
+                  <Card style={{marginLeft:"4%"}}>
+                    <CardBody>
+                      <CardIcon color="info">
+                        {<Search style={{color:"#ffffff"}}/>}
+                      </CardIcon>
+                      <DatePicker onChange={this.handleDateChange} size="large" style={{marginLeft:"15%", marginTop:"10%"}}/>
 
-                    <Button style={style.button} onClick={this.handleSearch}>搜索</Button>
-                </GridContainer>
+                      <Button style={{ marginLeft: "3%", background:"#303f9f", fontSize:"16px", color:"white", width:"18%", marginTop:"-1%"}}>
+                        搜索
+                      </Button>
+                    </CardBody>
+                  </Card>
+                </GridItem>
+              </GridContainer>
                 <br/>
                 <GridContainer xs={12} sm={12} md={12}>
                     <GridItem xs={12} sm={12} md={12}>
                         <Table className="room page" >
                             <TableHead>
                                 <TableRow >
-                                    <CustomTableCell  align="center" style={{width:"23%", fontSize:"140%", fontWeight:"700", color:"#ba68c8"}}>标题</CustomTableCell>
-                                    <CustomTableCell  style={{width:"15%", fontSize:"140%", fontWeight:"700", color:"#ba68c8"}}>描述</CustomTableCell>
-                                    <CustomTableCell  style={{width:"24%", fontSize:"140%", fontWeight:"700", color:"#ba68c8"}}>时间</CustomTableCell>
-                                    <CustomTableCell  style={{width:"10%", fontSize:"140%", fontWeight:"700", color:"#ba68c8"}}>地点</CustomTableCell>
-                                    <CustomTableCell  style={{width:"10%", fontSize:"140%", fontWeight:"700", color:"#ba68c8"}}>是否签到</CustomTableCell>
-                                    <CustomTableCell  style={{width:"10%", fontSize:"140%", fontWeight:"700", color:"#ba68c8"}}>类型</CustomTableCell>
-                                    <CustomTableCell  style={{width:"10%", fontSize:"140%", fontWeight:"700", color:"#ba68c8"}}>状态</CustomTableCell>
+                                    <CustomTableCell  style={{width:"20%", fontSize:"140%", fontWeight:"700", color:"#ba68c8", textAlign:"center"}}>标题</CustomTableCell>
+                                    <CustomTableCell  style={{width:"20%", fontSize:"140%", fontWeight:"700", color:"#ba68c8", textAlign:"center"}}>描述</CustomTableCell>
+                                    <CustomTableCell  style={{width:"23%", fontSize:"140%", fontWeight:"700", color:"#ba68c8", textAlign:"center"}}>时间</CustomTableCell>
+                                    <CustomTableCell  style={{width:"9%", fontSize:"140%", fontWeight:"700", color:"#ba68c8", textAlign:"center"}}>地点</CustomTableCell>
+                                    <CustomTableCell  style={{width:"10%", fontSize:"140%", fontWeight:"700", color:"#ba68c8", textAlign:"center"}}>是否签到</CustomTableCell>
+                                    <CustomTableCell  style={{width:"10%", fontSize:"140%", fontWeight:"700", color:"#ba68c8", textAlign:"center"}}>类型</CustomTableCell>
+                                    <CustomTableCell  style={{width:"8%", fontSize:"140%", fontWeight:"700", color:"#ba68c8", textAlign:"center"}}>操作</CustomTableCell>
                                 </TableRow>
                             </TableHead>
                             <TableBody>
-                                {this.state.rows.map(row => (
-                                    <TableRow >
-                                        <CustomTableCell style={{width:"23%", fontSize:"18px"}}>{row.heading}</CustomTableCell>
-                                        <CustomTableCell style={{width:"15%", fontSize:"18px"}}>{row.description}</CustomTableCell>
-                                        <CustomTableCell style={{width:"24%", fontSize:"18px"}}>{row.time}</CustomTableCell>
-                                        <CustomTableCell style={{width:"10%", fontSize:"18px"}}>{row.location}</CustomTableCell>
-                                        <CustomTableCell style={{width:"10%", fontSize:"18px"}}>{row.signIn}</CustomTableCell>
-                                        <CustomTableCell style={{width:"10%", fontSize:"18px"}}>{row.meetingType}</CustomTableCell>
-                                        <CustomTableCell style={{width:"10%", fontSize:"18px"}}>{row.statusChinese}</CustomTableCell>
-
+                                {this.state.rows.map((row, key) => (
+                                    <TableRow key={row.id}>
+                                        <CustomTableCell style={{width:"20%", fontSize:"18px", textAlign:"center"}}>{row.heading}</CustomTableCell>
+                                        <CustomTableCell style={{width:"20%", fontSize:"18px", textAlign:"center"}}>{row.description}</CustomTableCell>
+                                        <CustomTableCell style={{width:"23%", fontSize:"18px", textAlign:"center"}}>{row.time}</CustomTableCell>
+                                        <CustomTableCell style={{width:"9%", fontSize:"18px", textAlign:"center"}}>{row.location}</CustomTableCell>
+                                        <CustomTableCell style={{width:"10%", fontSize:"18px", textAlign:"center"}}>{row.signIn}</CustomTableCell>
+                                        <CustomTableCell style={{width:"10%", fontSize:"18px", textAlign:"center"}}>{row.meetingType}</CustomTableCell>
+                                        <CustomTableCell style={{width:"8%", fontSize:"18px", textAlign:"center"}}>
+                                          <Button style={{color:"white", background:"#303f9f", fontSize:"16px", textAlign:"center"}} onClick={()=>this.handleDetail(key)}>
+                                            <Description />&nbsp;&nbsp;查看详情
+                                          </Button>
+                                        </CustomTableCell>
                                     </TableRow>
                                 ))}
+                              <Dialog
+                                  open={this.state.detail}
+                                  TransitionComponent={this.Transition}
+                                  keepMounted
+                                  onClose={this.handleDetailClose}
+                                  maxWidth="md"
+                                  fullWidth={true}
+                              >
+                                <DialogTitle style={{fontSize:"40px"}}>
+                                  {"会议详细信息"}
+                                </DialogTitle>
+                                <DialogContent>
+                                  <MeetingInfo heading={heading} description={description} location={location} time={date + " " + time}
+                                               type={type} status={status} needSignIn={needSignIn} hostname={hostname}
+                                               attendantNum={attendantNum} foreignGuestList={foreignGuestList} />
+                                </DialogContent>
+                                <DialogActions>
+                                  &nbsp;&nbsp;
+                                  <Button onClick={this.handleDetailClose} style={{width: "15%", fontSize: "16px", background: "#a1887f", color:"white"}}>
+                                    取消
+                                  </Button>
+                                </DialogActions>
+                              </Dialog>
                             </TableBody>
                         </Table>
                     </GridItem>
                 </GridContainer>
+              <Snackbar
+                  place="br"
+                  color={this.state.notificationType}
+                  icon={this.typeToIcon(this.state.notificationType)}
+                  message={this.state.notificationMessage}
+                  open={this.state.br}
+                  closeNotification={() => this.setState({ br: false })}
+                  close
+              />
             </div>
         )
     }

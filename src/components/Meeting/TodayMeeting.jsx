@@ -40,7 +40,6 @@ const styles = theme => ({
     marginLeft: theme.spacing.unit,
     marginRight: theme.spacing.unit,
   },
-
 });
 
 function changeStatusToChinese(status){
@@ -125,13 +124,18 @@ class TodayMeeting extends React.Component {
           }
           console.log("length:", this.state.rows.length);
           this.setState({
+            id:"",
             heading:"",
             description:"",
-            hostId:"",
-            hostName:"",
-            startTime:"",
-            endTime:"",
+            date:"",
+            location:"",
+            hostname:"",
+            time:"",
+            attendants:[],
+            foreignGuestList:[],
             needSignIn: false,
+            attendantNum:"",
+            status: "",
             type:"",
           })
         });
@@ -155,21 +159,24 @@ class TodayMeeting extends React.Component {
   }
 
   handleAddGuest = (key)=>{
-    let row = this.state.rows[key];
-    console.log(row);
-    this.setState({
-      add: true,
-      id: row.id,
-      heading: row.heading,
-      description: row.description,
-      date: row.date,
-      location: row.location,
-      startTime: row.startTime,
-      endTime: row.endTime,
-      needSignIn: row.needSignIn,
-      status: row.status,
-      type: row.type,
-    })
+    if(this.state.rows[key].statusChinese === "已取消")
+      this.warning("该会议已结束，无法添加外宾");
+    else{
+      let row = this.state.rows[key];
+      console.log(row);
+      this.setState({
+        add: true,
+        id: row.id,
+        heading: row.heading,
+        description: row.description,
+        date: row.date,
+        location: row.location,
+        time:row.time,
+        needSignIn: row.needSignIn,
+        status: row.statusChinese,
+        type: row.meetingType,
+      });
+    }
   };
 
   handleGuestPhoneChange=(e)=>{

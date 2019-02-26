@@ -103,7 +103,6 @@ class ModifyUser extends React.Component{
     console.log(e.target.value)
   };
 
-
     handleSearchIdChange = (e) => {
       this.setState({
         searchId: e.target.value,
@@ -326,8 +325,6 @@ class ModifyUser extends React.Component{
         6000
     );
   };
-
-
 
     render() {
         const {classes} = this.props;

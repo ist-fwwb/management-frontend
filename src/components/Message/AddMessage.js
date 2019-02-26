@@ -81,7 +81,7 @@ class AddMessage extends React.Component {
                 <GridItem xs={20} sm={20} md={12}>
                     <Button
                         onClick={this.handleAdd}
-                        style={{marginLeft:"47%", fontSize:"25px", lineHeight:"60px", background:"#29b6f6"}}>
+                        style={{marginLeft:"47%", fontSize:"20px", background:"#303f9f"}}>
                         添加新闻
                     </Button>
                 </GridItem>

@@ -6,7 +6,7 @@ import React from "react";
 import GridItem from "components/Grid/GridItem.jsx";
 import GridContainer from "components/Grid/GridContainer.jsx";
 import Button from "components/CustomButtons/Button.jsx";
-
+import Snackbar from "components/Snackbar/Snackbar.jsx";
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
@@ -15,10 +15,11 @@ import TableRow from '@material-ui/core/TableRow';
 import Dialog from '@material-ui/core/Dialog';
 import DialogContent from "@material-ui/core/DialogContent";
 import Slide from "@material-ui/core/Slide";
+import ErrorOutline from "@material-ui/icons/ErrorOutline";
+import Done from "@material-ui/icons/Done";
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import { withStyles } from '@material-ui/core/styles';
-
 import { userController, face_path } from "variables/general.jsx";
 import DetailInfo from "./DetailInfo";
 
@@ -34,8 +35,8 @@ const CustomTableCell = withStyles(theme => ({
     },
 }))(TableCell);
 
-function createData(enterpriceId, faceFile, featureFile, id, name, password, phone, type ) {
-    return {enterpriceId, faceFile, featureFile, id, name, password, phone, type};
+function createData(enterpriceId, faceFile, featureFile, id, name, password, phone, type, deviceId ) {
+    return {enterpriceId, faceFile, featureFile, id, name, password, phone, type, deviceId};
 }
 
 
@@ -56,7 +57,10 @@ class ActivateUser extends React.Component {
           open: false,
           detail: false,
           rows: [],
-          new_rows:[]
+          new_rows:[],
+          notificationType: "",
+          notificationMessage: "",
+          br: false,
         };
         fetch(userController.getUserByType("UNACTIVATE"), {
             credentials: 'include',
@@ -73,7 +77,7 @@ class ActivateUser extends React.Component {
                         for(let i=0; i<result.length; i++)
                         {
                             let tmp = result[i];
-                            this.state.rows.push (createData(tmp.enterpriceId, tmp.faceFile, tmp.featureFile, tmp.id, tmp.name, tmp.password, tmp.phone, tmp.type));
+                            this.state.rows.push (createData(tmp.enterpriceId, tmp.faceFile, tmp.featureFile, tmp.id, tmp.name, tmp.password, tmp.phone, tmp.type, tmp.deviceId));
                             this.setState({
                                 enterpriceId: tmp.enterpriceId,
                                 faceFile: tmp.faceFile,
@@ -82,7 +86,8 @@ class ActivateUser extends React.Component {
                                 name: tmp.name,
                                 password: tmp.password,
                                 phone: tmp.phone,
-                                type: tmp.type
+                                type: tmp.type,
+                                deviceId: tmp.deviceId,
                             });
                         }
                         console.log(this.state.rows.length);
@@ -137,7 +142,7 @@ class ActivateUser extends React.Component {
         this.setState({
             open: false,
         });
-        /*fetch(userController.editUserByUserId(rows[toActivate].id), {
+        fetch(userController.editUserByUserId(rows[toActivate].id), {
             credentials: 'include',
             method:'put',
             headers: {
@@ -152,7 +157,8 @@ class ActivateUser extends React.Component {
                 "name": rows[toActivate].name,
                 "password": rows[toActivate].password,
                 "phone": rows[toActivate].phone,
-                "type": "ORDINARY"
+                "type": "ORDINARY",
+                "deviceId": rows[toActivate].deviceId,
             })
         })
             .then(response => {
@@ -162,7 +168,8 @@ class ActivateUser extends React.Component {
                         console.log("result:", result.id);
                         if(response.status === 200)
                         {
-                            alert("激活成功");
+                            this.success("激活成功！");
+
                             fetch(userController.getUserByType("UNACTIVATE"), {
                                 credentials: 'include',
                                 method:'get',
@@ -198,11 +205,52 @@ class ActivateUser extends React.Component {
                         }
 
                         else
-                            alert("激活失败");
+                          this.warning("激活失败！");
                     });
-            })*/
+            })
 
     };
+
+  Transition(props) {
+    return <Slide direction="up" {...props} />;
+  }
+
+  typeToIcon = (type) => {
+    if (type === "success")
+      return Done;
+    if (type === "danger")
+      return ErrorOutline;
+    return null;
+  };
+
+  success = (msg) => {
+    this.setState({
+      notificationType: "success",
+      notificationMessage: msg
+    });
+    this.showNotification("br");
+  };
+
+  warning = (msg) => {
+    this.setState({
+      notificationType: "danger",
+      notificationMessage: msg
+    });
+    this.showNotification("br");
+  };
+
+  showNotification = (place) => {
+    let x = [];
+    x[place] = true;
+    this.setState({[place]: true});
+    this.alertTimeout = setTimeout(
+        function() {
+          x[place] = false;
+          this.setState(x);
+        }.bind(this),
+        6000
+    );
+  };
 
     render() {
       let {toActivate, rows} = this.state;
@@ -284,6 +332,15 @@ class ActivateUser extends React.Component {
                         </Table>
                     </GridItem>
                 </GridContainer>
+              <Snackbar
+                  place="br"
+                  color={this.state.notificationType}
+                  icon={this.typeToIcon(this.state.notificationType)}
+                  message={this.state.notificationMessage}
+                  open={this.state.br}
+                  closeNotification={() => this.setState({ br: false })}
+                  close
+              />
             </div>
         );
     }

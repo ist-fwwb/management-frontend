@@ -180,7 +180,7 @@ class HistoryMeeting extends React.Component {
   disabledDate=(current)=> {
     // Can not select days before today and today
     return current && current > moment().endOf('day');
-  }
+  };
 
   handleDetail=(key)=>{
     let row = this.state.rows[key];
@@ -207,7 +207,6 @@ class HistoryMeeting extends React.Component {
       detail: false
     })
   };
-
 
   Transition(props) {
     return <Slide direction="up" {...props} />;
