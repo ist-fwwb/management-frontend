@@ -197,6 +197,20 @@ class MeetingInfo extends React.Component{
                   variant="outlined"
               />
             </GridItem>
+            <GridItem xs={12} sm={12} md={12}>
+              <TextField
+                  label="与会人员"
+                  name="attendants"
+                  fullWidth
+                  InputProps={{
+                    readOnly: true,
+                  }}
+                  className={classes.textField}
+                  value={this.props.attendants}
+                  margin="normal"
+                  variant="outlined"
+              />
+            </GridItem>
             <GridItem xs={12} sm={12} md={8}>
               {foreignGuest}
             </GridItem>

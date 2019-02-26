@@ -79,7 +79,7 @@ const utils_list = {
 
 const user_type= {
   "ORDINARY": "普通职员",
-  "SUPERIOR": "高级职员",
+  "SUPERIORY": "高级职员",
   "GUEST": "外来宾客",
 };
 

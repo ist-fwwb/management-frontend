@@ -3,6 +3,7 @@ import React from "react";
 import GridItem from "components/Grid/GridItem.jsx";
 import GridContainer from "components/Grid/GridContainer.jsx";
 import Snackbar from "components/Snackbar/Snackbar.jsx";
+import MeetingInfo from "components/Meeting/MeetingInfo.jsx";
 import HowToReg from "@material-ui/icons/HowToReg";
 import Description from "@material-ui/icons/Description";
 import Button from "@material-ui/core/Button";
@@ -80,11 +81,10 @@ class TodayMeeting extends React.Component {
       description:"",
       date:"",
       location:"",
-      hostId:"",
-      hostName:"",
-      startTime:"",
-      endTime:"",
+      hostname:"",
+      time:"",
       attendants:[],
+      foreignGuestList:[],
       needSignIn: false,
       attendantNum:"",
       status: "",
@@ -95,6 +95,7 @@ class TodayMeeting extends React.Component {
       notificationType: "",
       notificationMessage: "",
       br: false,
+      detail: false,
     };
 
     console.log(getNowFormatDate());
@@ -114,9 +115,13 @@ class TodayMeeting extends React.Component {
           {
             let tmp = result[i];
             console.log(tmp.id);
-            this.state.rows.push (this.createData(tmp.id, tmp.heading, tmp.description, tmp.date, tmp.location,
-                tmp.startTime, tmp.endTime, tmp.needSignIn, tmp.status, tmp.type));
-
+            let host = tmp.host;
+            if(host === null)
+              this.state.rows.push (this.createData(tmp.id, tmp.heading, tmp.description, tmp.date, tmp.location,
+                  tmp.startTime, tmp.endTime, tmp.needSignIn, tmp.status, tmp.type, tmp.attendantNum, tmp.foreignGuestList, ""));
+            else
+              this.state.rows.push (this.createData(tmp.id, tmp.heading, tmp.description, tmp.date, tmp.location,
+                  tmp.startTime, tmp.endTime, tmp.needSignIn, tmp.status, tmp.type, tmp.attendantNum, tmp.foreignGuestList, host.name));
           }
           console.log("length:", this.state.rows.length);
           this.setState({
@@ -133,7 +138,7 @@ class TodayMeeting extends React.Component {
     })
   }
 
-  createData = (id, heading, description, date, location, startTime, endTime, needSignIn, status, type) =>{
+  createData = (id, heading, description, date, location, startTime, endTime, needSignIn, status, type, attendantNum, foreignGuestList, hostname) =>{
     let time = idToTime(startTime) + "-" + idToTime(endTime);
     let signIn = "否";
     let meetingType = "普通";
@@ -142,7 +147,7 @@ class TodayMeeting extends React.Component {
     if (type !== "COMMON")
         meetingType = "紧急";
     let statusChinese = changeStatusToChinese(status);
-    return {id, heading, description, date, location, time, signIn, statusChinese, meetingType};
+    return {id, heading, description, date, location, time, signIn, statusChinese, meetingType, attendantNum, foreignGuestList, hostname};
   };
 
   Transition(props) {
@@ -185,13 +190,39 @@ class TodayMeeting extends React.Component {
     })
   };
 
+  handleDetail=(key)=>{
+    let row = this.state.rows[key];
+    console.log(row.hostname);
+    this.setState({
+      detail: true,
+      id: row.id,
+      heading: row.heading,
+      description: row.description,
+      date: row.date,
+      location: row.location,
+      time: row.time,
+      needSignIn: row.signIn,
+      attendantNum: row.attendantNum,
+      foreignGuestList: row.foreignGuestList,
+      hostname: row.hostname,
+      status: row.statusChinese,
+      type: row.meetingType,
+    })
+  };
+
+  handleDetailClose=()=>{
+    this.setState({
+      detail: false
+    })
+  };
+
   typeToIcon = (type) => {
     if (type === "success")
       return Done;
     if (type === "danger")
       return ErrorOutline;
     return null;
-  }
+  };
 
   success = (msg) => {
     this.setState({
@@ -220,10 +251,6 @@ class TodayMeeting extends React.Component {
         }.bind(this),
         6000
     );
-  };
-
-  handleDetail=()=>{
-
   };
 
   handleCommit=()=> {
@@ -272,6 +299,8 @@ class TodayMeeting extends React.Component {
 
   render() {
     const {classes} = this.props;
+    const { rows, rowsPerPage, page, id, heading, description, location, time, date, type, status, needSignIn, attendantNum, hostname, foreignGuestList } = this.state;
+    const emptyRows = rowsPerPage - Math.min(rowsPerPage, rows.length - page * rowsPerPage);
     return (
       <div>
         <br/>
@@ -358,6 +387,29 @@ class TodayMeeting extends React.Component {
                     </Button>
                     &nbsp;&nbsp;
                     <Button onClick={this.handleGuestClose} style={{color:"white", width: "15%", fontSize: "16px", background: "#9e9e9e"}}>
+                      取消
+                    </Button>
+                  </DialogActions>
+                </Dialog>
+                <Dialog
+                    open={this.state.detail}
+                    TransitionComponent={this.Transition}
+                    keepMounted
+                    onClose={this.handleDetailClose}
+                    maxWidth="md"
+                    fullWidth={true}
+                >
+                  <DialogTitle style={{fontSize:"40px"}}>
+                    {"会议详细信息"}
+                  </DialogTitle>
+                  <DialogContent>
+                    <MeetingInfo heading={heading} description={description} location={location} time={date + " " + time}
+                                 type={type} status={status} needSignIn={needSignIn} hostname={hostname}
+                                 attendantNum={attendantNum} foreignGuestList={foreignGuestList} />
+                  </DialogContent>
+                  <DialogActions>
+                    &nbsp;&nbsp;
+                    <Button onClick={this.handleDetailClose} style={{width: "15%", fontSize: "16px", background: "#a1887f", color:"white"}}>
                       取消
                     </Button>
                   </DialogActions>

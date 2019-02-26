@@ -2,7 +2,7 @@
  * Created by 励颖 on 2019/2/24.
  */
 import React from "react";
-
+import moment from 'moment';
 import GridItem from "components/Grid/GridItem.jsx";
 import GridContainer from "components/Grid/GridContainer.jsx";
 import Snackbar from "components/Snackbar/Snackbar.jsx";
@@ -24,8 +24,8 @@ import Dialog from '@material-ui/core/Dialog';
 import DialogContent from "@material-ui/core/DialogContent";
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogTitle from '@material-ui/core/DialogTitle';
-import Slide from "@material-ui/core/Slide";
 import { withStyles } from '@material-ui/core/styles';
+import Slide from "@material-ui/core/Slide";
 import ErrorOutline from "@material-ui/icons/ErrorOutline";
 import Done from "@material-ui/icons/Done";
 import { DatePicker } from 'antd';
@@ -130,7 +130,7 @@ class HistoryMeeting extends React.Component {
       return response.json()
         .then(result => {
           if(response.status === 200)
-            this.success("搜索成功，"+this.state.date+"共有"+result.length+"条会议记录")
+            this.success("搜索成功，"+this.state.date+"共有"+result.length+"条会议记录");
           console.log("result:", result.length);
           this.setState({
             rows:[],
@@ -176,6 +176,11 @@ class HistoryMeeting extends React.Component {
     let statusChinese = changeStatusToChinese(status);
     return {id, heading, description, date, location, time, signIn, statusChinese, meetingType, attendantNum, foreignGuestList, hostname};
   };
+
+  disabledDate=(current)=> {
+    // Can not select days before today and today
+    return current && current > moment().endOf('day');
+  }
 
   handleDetail=(key)=>{
     let row = this.state.rows[key];
@@ -258,7 +263,7 @@ class HistoryMeeting extends React.Component {
                 <CardIcon color="info">
                   {<Search style={{color:"#ffffff"}}/>}
                 </CardIcon>
-                <DatePicker onChange={this.handleDateChange} size="large" style={{marginLeft:"15%", marginTop:"10%"}}/>
+                <DatePicker onChange={this.handleDateChange} disabledDate={this.disabledDate} size="large" style={{marginLeft:"15%", marginTop:"10%"}}/>
                 <Button style={{ marginLeft: "3%", background:"#303f9f", fontSize:"16px", color:"white", width:"18%", marginTop:"-1%"}}
                         onClick={this.handleSearch}>
                   搜索
@@ -276,7 +281,6 @@ class HistoryMeeting extends React.Component {
                   <CustomTableCell  style={{width:"17%", fontSize:"140%", fontWeight:"700", color:"#ba68c8", textAlign:"center"}}>描述</CustomTableCell>
                   <CustomTableCell  style={{width:"14%", fontSize:"140%", fontWeight:"700", color:"#ba68c8", textAlign:"center"}}>时间</CustomTableCell>
                   <CustomTableCell  style={{width:"9%", fontSize:"140%", fontWeight:"700", color:"#ba68c8", textAlign:"center"}}>地点</CustomTableCell>
-                  <CustomTableCell  style={{width:"10%", fontSize:"140%", fontWeight:"700", color:"#ba68c8", textAlign:"center" }}>签到</CustomTableCell>
                   <CustomTableCell  style={{width:"10%", fontSize:"140%", fontWeight:"700", color:"#ba68c8", textAlign:"center"}}>类型</CustomTableCell>
                   <CustomTableCell  style={{width:"11%", fontSize:"140%", fontWeight:"700", color:"#ba68c8", textAlign:"center"}}>状态</CustomTableCell>
                   <CustomTableCell  style={{width:"14%", fontSize:"140%", fontWeight:"700", color:"#ba68c8", textAlign:"center"}}>查看详情</CustomTableCell>
@@ -289,7 +293,6 @@ class HistoryMeeting extends React.Component {
                       <CustomTableCell style={{width:"17%", fontSize:"18px", textAlign:"center"}}>{row.description}</CustomTableCell>
                       <CustomTableCell style={{width:"14%", fontSize:"18px", textAlign:"center"}}>{row.time}</CustomTableCell>
                       <CustomTableCell style={{width:"9%", fontSize:"18px", textAlign:"center"}}>{row.location}</CustomTableCell>
-                      <CustomTableCell style={{width:"10%", fontSize:"18px", textAlign:"center"}}>{row.signIn}</CustomTableCell>
                       <CustomTableCell style={{width:"10%", fontSize:"18px", textAlign:"center"}}>{row.meetingType}</CustomTableCell>
                       <CustomTableCell style={{width:"11%", fontSize:"18px", textAlign:"center"}}>{row.statusChinese}</CustomTableCell>
                       <CustomTableCell  style={{width:"14%", fontSize:"140%", fontWeight:"700", color:"#ba68c8", textAlign:"center"}}>

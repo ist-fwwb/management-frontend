@@ -9,14 +9,16 @@ import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import TextField from '@material-ui/core/TextField';
-
 import { withStyles } from '@material-ui/core/styles';
-
+import Snackbar from "components/Snackbar/Snackbar.jsx";
 import Card from "components/Card/Card.jsx";
 import CardHeader from "components/Card/CardHeader.jsx";
 import CardBody from "components/Card/CardBody.jsx";
 import CardIcon from "components/Card/CardIcon.jsx";
 import Search from "@material-ui/icons/Search";
+import Slide from "@material-ui/core/Slide";
+import ErrorOutline from "@material-ui/icons/ErrorOutline";
+import Done from "@material-ui/icons/Done";
 import GridItem from "components/Grid/GridItem.jsx";
 import GridContainer from "components/Grid/GridContainer.jsx";
 import Button from "@material-ui/core/Button";
@@ -63,189 +65,267 @@ function showTypeInEnglish(type){
         return "REGISTOR"
 }
 
-function createData(enterpriceId, faceFile, featureFile, id, name, password, phone, type ) {
-    return {enterpriceId, faceFile, featureFile, id, name, password, phone, type};
+
+function createData(enterpriceId, id, name, password, phone, type, faceFile, featureFile, deviceId ) {
+    return {enterpriceId, id, name, password, phone, type, faceFile, featureFile, deviceId };
 }
+
 class ModifyUser extends React.Component{
-    constructor(props) {
-        super(props);
-        this.state = {
-            searchType: "",
-            modifyType: "",
-            toModify: -1,
-            rows: [],
-            id: "",
-            searchId:"",
-            enterpriceId:"",
-            phone:"",
-            name:"",
-            faceFile:"",
-            featureFile:"",
-            password:"",
-
-        }
+  constructor(props) {
+    super(props);
+    this.state = {
+      searchType: "",
+      modifyType: "",
+      toModify: -1,
+      rows: [],
+      id: "",
+      searchId:"",
+      enterpriceId:"",
+      phone:"",
+      name:"",
+      password:"",
     }
+  }
 
-    handleTypeChange = (e) => {
-        if(this.state.toModify === -1)
-        {
-            this.setState({
-                searchType: e.target.value
-            });
-        }
-        else
-        {
-            this.setState({
-                modifyType: e.target.value
-            });
-        }
-
-        console.log(e.target.value)
-    };
+  handleTypeChange = (e) => {
+    if(this.state.toModify === -1)
+    {
+      this.setState({
+          searchType: e.target.value
+      });
+    }
+    else
+    {
+      this.setState({
+          modifyType: e.target.value
+      });
+    }
+    console.log(e.target.value)
+  };
 
 
     handleSearchIdChange = (e) => {
-        this.setState({
-            searchId: e.target.value,
-        })
+      this.setState({
+        searchId: e.target.value,
+      })
     };
 
     handleSearch = () => {
-        const{searchType, } = this.state;
-        if (searchType === "")
-            alert("请选择职员类型");
-        else
-        {
-            console.log(searchType);
-            console.log(userController.getUserByType(searchType));
-            fetch(userController.getUserByType(searchType), {
-                credentials: 'include',
-                method:'get',
-            })
-                .then(response => {
-                    console.log('Request successful', response);
-                    return response.json()
-                        .then(result => {
-                            console.log("result:", result.length);
-                            this.setState({
-                                rows:[],
-                            },()=>{
-                                for(let i=0; i<result.length; i++)
-                                {
-                                    let tmp = result[i];
-                                    console.log(tmp.id);
-                                    this.state.rows.push (createData(tmp.enterpriceId, tmp.faceFile, tmp.featureFile,
-                                        tmp.id, tmp.name, tmp.password, tmp.phone, user_type[tmp.type]));
-                                    this.setState({
-                                        enterpriceId: tmp.enterpriceId,
-                                        faceFile: tmp.faceFile,
-                                        featureFile: tmp.featureFile,
-                                        id: tmp.id,
-                                        name: tmp.name,
-                                        password: tmp.password,
-                                        phone: tmp.phone,
+      const{searchType, } = this.state;
+      if (searchType === "")
+         this.warning("请选择职员类型");
+      else
+      {
+        console.log(searchType);
+        console.log(userController.getUserByType(searchType));
+        fetch(userController.getUserByType(searchType), {
+          credentials: 'include',
+          method:'get',
+        })
+          .then(response => {
+              console.log('Request successful', response);
+              return response.json()
+                .then(result => {
+                  console.log("result:", result.length);
+                  if(response.status === 200) {
+                    this.success("搜索成功，共有" + result.length + "名" + user_type[this.state.searchType]);
+                    this.setState({
+                      rows: [],
+                    }, () => {
+                      for (let i = 0; i < result.length; i++) {
+                        let tmp = result[i];
+                        console.log(tmp.id);
+                        this.state.rows.push(createData(tmp.enterpriceId, tmp.id, tmp.name, tmp.password, tmp.phone,
+                            user_type[tmp.type], tmp.faceFile, tmp.featureFile, tmp.deviceId));
+                      }
+                    });
+                  }
+                  console.log(this.state.rows.length);
 
-                                    });
-                                }
-                            });
-                            console.log(this.state.rows.length);
-                        });
-                })
-        }
-
+                  this.setState({
+                    enterpriceId: "",
+                    id: "",
+                    name: "",
+                    password: "",
+                    phone: "",
+                    modifyType:"",
+                    faceFile:"",
+                    featureFile:"",
+                    deviceId:"",
+                  });
+                });
+          })
+      }
     };
 
     handlePhoneChange = (e) => {
-        this.setState({
-            phone:e.target.value
-        });
+      this.setState({
+          phone:e.target.value
+      });
         console.log(e.target.value)
     };
 
     handleClickModify=(key) => {
-        this.setState({
-            toModify: key,
-            enterpriceId: this.state.rows[key].enterpriceId,
-            id: this.state.rows[key].id,
-            name: this.state.rows[key].name,
-            phone: this.state.rows[key].phone,
-            modifyType: this.state.rows[key].type,
-            faceFile: this.state.rows[key].faceFile,
-            featureFile: this.state.rows[key].featureFile,
-            password: this.state.rows[key].password,
-        },()=>{
-            console.log(key);
-            console.log(this.state.enterpriceId);
-            console.log(this.state.id);
-            console.log(this.state.name);
-            console.log(this.state.phone);
-            console.log(this.state.modifyType);
-        });
+      this.setState({
+        toModify: key,
+        enterpriceId: this.state.rows[key].enterpriceId,
+        id: this.state.rows[key].id,
+        name: this.state.rows[key].name,
+        phone: this.state.rows[key].phone,
+        modifyType: this.state.rows[key].type,
+        faceFile: this.state.rows[key].faceFile,
+        featureFile: this.state.rows[key].featureFile,
+        password: this.state.rows[key].password,
+      },()=>{
+        console.log(key);
+        console.log(this.state.name);
+        console.log(this.state.phone);
+        console.log(this.state.modifyType);
+      });
 
     };
 
 
     handleConfirmModify=(key)=>{
-        console.log(key);
-        fetch(userController.editUserByUserId(this.state.id), {
-            credentials: 'include',
-            method:'put',
-            headers: {
-                'Accept': "application/json",
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify({
-                "enterpriceId": this.state.enterpriceId,
-                "faceFile": this.state.faceFile,
-                "featureFile": this.state.featureFile,
-                "id": this.state.id,
-                "name": this.state.name,
-                "password": this.state.password,
-                "phone": this.state.phone,
-                "type": showTypeInEnglish(this.state.modifyType),
-            })
-        })
-            .then(response => {
-                console.log('Request successful', response);
-                return response.json()
-                    .then(result => {
-                        console.log("result:", result.id);
-                        if(response.status === 200)
-                        {
-                            this.state.rows[key].phone = this.state.phone;
-                            this.state.rows[key].type = this.state.modifyType;
-                            alert("修改成功");
-                        }
-                        else
-                            alert("修改失败");
-                    });
+      console.log(key);
+      this.state.rows[key].phone = this.state.phone;
+      this.state.rows[key].type = this.state.modifyType;
+      fetch(userController.editUserByUserId(this.state.id), {
+          credentials: 'include',
+          method:'put',
+          headers: {
+              'Accept': "application/json",
+              "Content-Type": "application/json"
+          },
+          body: JSON.stringify({
+              "enterpriceId": this.state.enterpriceId,
+              "faceFile": this.state.faceFile,
+              "featureFile": this.state.featureFile,
+              "id": this.state.id,
+              "name": this.state.name,
+              "password": this.state.password,
+              "phone": this.state.phone,
+              "type": showTypeInEnglish(this.state.modifyType),
+              "deviceId": this.state.deviceId
+          })
+      })
+        .then(response => {
+          console.log('Request successful', response);
+          return response.json()
+            .then(result => {
+                console.log("result:", result.id);
+                if(response.status === 200)
+                  this.success("修改成功！");
+                else
+                  this.warning("修改失败！");
+              fetch(userController.getUserByType(this.state.searchType), {
+                credentials: 'include',
+                method:'get',
+              })
+                  .then(response => {
+                    console.log('Request successful', response);
+                    return response.json()
+                        .then(result => {
+                          console.log("result:", result.length);
+                          this.setState({
+                            rows:[],
+                          },()=>{
+                            for(let i=0; i<result.length; i++)
+                            {
+                              let tmp = result[i];
+                              console.log(tmp.id);
+                              this.state.rows.push (createData(tmp.enterpriceId, tmp.id, tmp.name, tmp.password, tmp.phone,
+                                  user_type[tmp.type], tmp.faceFile, tmp.featureFile, tmp.deviceId));
+                            }
+                          });
+                          console.log(this.state.rows.length);
+                          this.setState({
+                            enterpriceId: "",
+                            id: "",
+                            name: "",
+                            password: "",
+                            phone: "",
+                            modifyType:"",
+                            faceFile:"",
+                            featureFile:"",
+                            deviceId:"",
+                          });
+                        });
+                  })
             });
-        this.setState({
-            toModify: -1,
-            id: "",
-            enterpriceId:"",
-            phone:"",
-            name:"",
-            modifyType:"",
-            faceFile: "",
-            featureFile: "",
-            password: "",
-        })
+        });
+      console.log(this.state.phone);
+      console.log(this.state.modifyType);
+      this.setState({
+        toModify: -1,
+        id: "",
+        enterpriceId:"",
+        phone:"",
+        name:"",
+        modifyType:"",
+        faceFile: "",
+        featureFile: "",
+        password: "",
+        deviceId:""
+      })
+
     };
 
     handleCancelModify=()=>{
-        this.setState({
-            toModify: -1,
-            id: "",
-            enterpriceId:"",
-            phone:"",
-            name:"",
-            faceFile: "",
-            featureFile: "",
-            password: "",
-            modifyType:"",
-        })
+      this.setState({
+        toModify: -1,
+        id: "",
+        enterpriceId:"",
+        phone:"",
+        name:"",
+        faceFile: "",
+        featureFile: "",
+        password: "",
+        modifyType:"",
+        deviceId:"",
+      })
     };
+
+  Transition(props) {
+    return <Slide direction="up" {...props} />;
+  }
+
+  typeToIcon = (type) => {
+    if (type === "success")
+      return Done;
+    if (type === "danger")
+      return ErrorOutline;
+    return null;
+  };
+
+  success = (msg) => {
+    this.setState({
+      notificationType: "success",
+      notificationMessage: msg
+    });
+    this.showNotification("br");
+  };
+
+  warning = (msg) => {
+    this.setState({
+      notificationType: "danger",
+      notificationMessage: msg
+    });
+    this.showNotification("br");
+  };
+
+  showNotification = (place) => {
+    let x = [];
+    x[place] = true;
+    this.setState({[place]: true});
+    this.alertTimeout = setTimeout(
+        function() {
+          x[place] = false;
+          this.setState(x);
+        }.bind(this),
+        6000
+    );
+  };
 
 
 
@@ -280,11 +360,8 @@ class ModifyUser extends React.Component{
                                     <MenuItem key={"ORDINARY"} value={"ORDINARY"}>
                                         普通职员
                                     </MenuItem>
-                                    <MenuItem key={"SUPERIOR"} value={"SUPERIOR"}>
+                                    <MenuItem key={"SUPERIORY"} value={"SUPERIORY"}>
                                         高级职员
-                                    </MenuItem>
-                                    <MenuItem key={"GUEST"} value={"GUEST"}>
-                                        外来宾客
                                     </MenuItem>
                                 </TextField>
                                 <Button style={{ marginLeft: "3%", background:"#303f9f", fontSize:"16px", color:"white", width:"18%"}}
@@ -364,8 +441,6 @@ class ModifyUser extends React.Component{
                                                         >
                                                             <MenuItem value={"普通职员"} style={{fontSize:"20px"}}>普通职员</MenuItem>
                                                             <MenuItem value={"高级职员"} style={{fontSize:"20px"}}>高级职员</MenuItem>
-                                                            <MenuItem value={"外宾"} style={{fontSize:"20px"}}>外宾</MenuItem>
-                                                            <MenuItem value={"管理员"} style={{fontSize:"20px"}}>管理员</MenuItem>
                                                         </Select>
                                                     </CustomTableCell>
                                                     <CustomTableCell style={{textAlign:"center"}}>
@@ -381,6 +456,15 @@ class ModifyUser extends React.Component{
                         </Table>
                     </GridItem>
                 </GridContainer>
+              <Snackbar
+                  place="br"
+                  color={this.state.notificationType}
+                  icon={this.typeToIcon(this.state.notificationType)}
+                  message={this.state.notificationMessage}
+                  open={this.state.br}
+                  closeNotification={() => this.setState({ br: false })}
+                  close
+              />
             </div>
         );
     }

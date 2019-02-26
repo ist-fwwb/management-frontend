@@ -3,7 +3,7 @@ import GridItem from "components/Grid/GridItem.jsx";
 import GridContainer from "components/Grid/GridContainer.jsx";
 import CustomTabs from "components/CustomTabs/CustomTabs.jsx";
 import Assignment from "@material-ui/icons/Assignment";
-import LocationSearching from "@material-ui/icons/LocationSearching";
+import Alarm from "@material-ui/icons/Alarm";
 import History from "@material-ui/icons/History";
 import HistoryMeeting from "../../components/Meeting/HistoryMeeting";
 import Button from "@material-ui/core/Button";
@@ -151,8 +151,8 @@ class MeetingPage extends React.Component {
                   )
                 },
                   {
-                      tabName: "条件搜索",
-                      tabIcon: LocationSearching,
+                      tabName: "待办会议",
+                      tabIcon: Alarm,
                       tabContent: <ConditionSearch/>
                   }
               ]}

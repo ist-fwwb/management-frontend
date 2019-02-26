@@ -386,10 +386,10 @@ class RoomProfile extends React.Component {
                           <td width="25%">
                           {
                             <IconButton
-                                onClick={()=>this.handleChangeDevice("power")}
-                                style={{background:"#ffffff", marginLeft:"10%"}}
-                                disableRipple={true}
-                                disabled={!updating}
+                              onClick={()=>this.handleChangeDevice("power")}
+                              style={{background:"#ffffff", marginLeft:"10%"}}
+                              disableRipple={true}
+                              disabled={!updating}
                             >
                               <img width="80%" src={power?powerIcon:powerIcon0} alt="icon"/>
                             </IconButton>
@@ -398,10 +398,10 @@ class RoomProfile extends React.Component {
                           <td width="25%">
                             {
                               <IconButton
-                                  onClick={() => this.handleChangeDevice("wifi")}
-                                  style={{background: "#ffffff", }}
-                                  disableRipple={true}
-                                  disabled={!updating}
+                                onClick={() => this.handleChangeDevice("wifi")}
+                                style={{background: "#ffffff", }}
+                                disableRipple={true}
+                                disabled={!updating}
                               >
                                 <img width="60%" src={wifi ? wifiIcon : wifiIcon0} alt="icon"/>
                               </IconButton>
@@ -410,10 +410,10 @@ class RoomProfile extends React.Component {
                           <td width="25%">
                           {
                             <IconButton
-                                onClick={() => this.handleChangeDevice("wirenetwork")}
-                                style={{background: "#ffffff", marginLeft: "5%"}}
-                                disableRipple={true}
-                                disabled={!updating}
+                              onClick={() => this.handleChangeDevice("wirenetwork")}
+                              style={{background: "#ffffff", marginLeft: "5%"}}
+                              disableRipple={true}
+                              disabled={!updating}
                             >
                               <img width="70%" src={wireNetwork ? wireNetworkIcon : wireNetworkIcon0} alt="icon"/>
                             </IconButton>
@@ -422,10 +422,10 @@ class RoomProfile extends React.Component {
                           <td width="25%">
                           {
                             <IconButton
-                                onClick={() => this.handleChangeDevice("tv")}
-                                style={{background: "#ffffff", marginLeft: "15%"}}
-                                disableRipple={true}
-                                disabled={!updating}
+                              onClick={() => this.handleChangeDevice("tv")}
+                              style={{background: "#ffffff", marginLeft: "15%"}}
+                              disableRipple={true}
+                              disabled={!updating}
                             >
                               <img width="75%" src={tv ? tvIcon : tvIcon0} alt="icon"/>
                             </IconButton>

@@ -11,7 +11,7 @@ import withStyles from "@material-ui/core/styles/withStyles";
 //import SentimentDissatisfied from "@material-ui/icons/SentimentDissatisfied";
 import SentimentVerySatisfied from "@material-ui/icons/SentimentVerySatisfied";
 import Info from "@material-ui/icons/Info";
-import Schedule from "assets/icon/schedule.svg";
+import Today from "@material-ui/icons/Today";
 import ErrorOutline from "@material-ui/icons/ErrorOutline";
 import Done from "@material-ui/icons/Done";
 import Update from "@material-ui/icons/Update";
@@ -130,7 +130,8 @@ class NowStatus extends React.Component {
 
   handleSearchChange = (data) => {
     this.setState({rooms: data});
-    this.success("搜索成功");
+    console.log(data.length);
+    this.success("搜索成功，共有"+data.length+"间符合条件的会议室");
   };
 
     render() {
@@ -159,16 +160,16 @@ class NowStatus extends React.Component {
                                                 <br/>
                                                 <small>{roomCategory(room.size)}</small>
                                                 <br/>
-                                                <small>{"容量:"+10}</small>
+                                                <small>{"容量:"+20}</small>
                                             </h3>
                                         </CardHeader>
                                         <CardBody>
                                             <table>
                                                 <tbody>
                                                 <tr>
-                                                    <td><Info/>&nbsp;&nbsp;<Link aligh="right" to={"/room/"+room.id+"/profile"}>基本信息</Link></td>
+                                                    <td><Info/>&nbsp;&nbsp;<Link align="right" to={"/room/"+room.id+"/profile"}>基本信息</Link></td>
                                                     <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
-                                                    <td><img src={Schedule} width="24px" alt="schedule icon"/>&nbsp;&nbsp;<Link align="left" to={"/room/"+room.id +"/"+room.location+"/schedule"}>日程安排</Link></td>
+                                                    <td><Today/>&nbsp;&nbsp;<Link align="right" to={"/room/"+room.id +"/"+room.location+"/schedule"}>日程安排</Link></td>
                                                 </tr>
                                                 </tbody>
                                             </table>
