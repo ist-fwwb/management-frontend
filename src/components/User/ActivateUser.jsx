@@ -113,7 +113,7 @@ class ActivateUser extends React.Component {
         name: this.state.rows[key].name,
         enterpriceId: this.state.rows[key].enterpriceId,
         phone: this.state.rows[key].phone,
-        faceFile: "http://face-file.oss-cn-shanghai.aliyuncs.com/0118317126628.jpg",
+        faceFile: this.state.rows[key].faceFile,
       });
     };
 
@@ -141,6 +141,7 @@ class ActivateUser extends React.Component {
         console.log(rows[toActivate].password);
         this.setState({
             open: false,
+            detail: false,
         });
         fetch(userController.editUserByUserId(rows[toActivate].id), {
             credentials: 'include',
@@ -188,7 +189,7 @@ class ActivateUser extends React.Component {
                                                 this.state.rows.push (createData(tmp.enterpriceId, tmp.faceFile, tmp.featureFile, tmp.id, tmp.name, tmp.password, tmp.phone, tmp.type));
                                                 this.setState({
                                                     enterpriceId: tmp.enterpriceId,
-                                                    faceFile: "http://face-file.oss-cn-shanghai.aliyuncs.com/0118317126628.jpg",
+                                                    faceFile: tmp.faceFile,
                                                     featureFile: tmp.featureFile,
                                                     id: tmp.id,
                                                     name: tmp.name,
@@ -316,7 +317,7 @@ class ActivateUser extends React.Component {
                                 </DialogTitle>
                                 <DialogContent>
                                     <DetailInfo name={this.state.name} enterpriceId={this.state.enterpriceId}
-                                                tel={this.state.phone} faceFile={this.state.faceFile}/>
+                                                tel={this.state.phone} faceFile={face_path + this.state.faceFile}/>
                                 </DialogContent>
                                 <DialogActions>
                                   <Button onClick={this.handleActivate} style={{width: "15%", fontSize: "16px", background: "#fb8c00"}}>

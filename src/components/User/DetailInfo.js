@@ -91,7 +91,7 @@ class DetailInfo extends React.Component{
                 人脸图像
               </CardHeader>
               <CardBody>
-                <img src={this.props.faceFile}/>
+                <img src={this.props.faceFile} style={{height:"500px", width:"500px"}}/>
               </CardBody>
             </Card>
           </GridItem>
