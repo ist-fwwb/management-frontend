@@ -10,6 +10,7 @@ import MeetingPage from "views/MeetingPage/MeetingPage.jsx";
 import UserProfile from "views/UserProfile/UserProfile.jsx";
 import RoomProfile from "components/Room/RoomProfile.jsx";
 import RoomSchedulePage from "views/RoomSchedulePage/RoomSchedulePage.jsx";
+import AddRoom from "components/Room/AddRoom.jsx";
 import HomePage from "views/HomePage/HomePage.jsx";
 import MessagePage from "views/MessagePage/MessagePage.jsx";
 
@@ -62,6 +63,10 @@ let routesNotInSideBar = [
       {
         path: "/room/:roomId/profile",
         component: RoomProfile
+      },
+      {
+        path: "/room/addroom",
+        component: AddRoom
       },
 ];
 

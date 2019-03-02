@@ -22,7 +22,8 @@ import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import { roomController, utils_list } from "variables/general.jsx";
-import {Upload, Icon,} from 'antd';
+import {ossClient, meetingRoomDir} from "variables/oss.jsx";
+import {Upload, Icon, Modal} from 'antd';
 import 'antd/lib/upload/style/css';
 
 const styles = theme => ({
@@ -41,6 +42,13 @@ const styles = theme => ({
   }
 });
 
+function getBase64(img, callback) {
+  const reader = new FileReader();
+  reader.addEventListener('load', () => callback(reader.result));
+  reader.readAsDataURL(img);
+}
+
+
 
 class AddRoom extends React.Component {
   constructor(props){
@@ -57,16 +65,16 @@ class AddRoom extends React.Component {
       utils: [],
       previewVisible: false,
       previewImage: '',
-      fileList: [{
-        uid: '-1',
-        name: 'xxx.png',
-        status: 'done',
-        url: 'http://img007.hc360.cn/m3/M02/0F/73/wKhQ51SahQqEbJIGAAAAAC3XqsA148.jpg',
-      }],
+      loading: false,
+      imageUrl:"",
+      fileList: [],
+      fileName:[],
     }
   }
 
-  handleCancel = () => this.setState({ previewVisible: false })
+
+
+  handleCancel = () => this.setState({ previewVisible: false });
 
   handlePreview = (file) => {
     this.setState({
@@ -75,7 +83,22 @@ class AddRoom extends React.Component {
     });
   };
 
-  handlePictureChange = ({ fileList }) => this.setState({ fileList })
+  handlePictureChange = (info) => {
+    console.log(this.state.fileList);
+    this.setState({ fileList: info.fileList });
+
+    if (info.file.status === 'uploading') {
+      this.setState({ loading: true });
+      return;
+    }
+    if (info.file.status === 'done') {
+      // Get this url from response in real world.
+      getBase64(info.file.originFileObj, imageUrl => this.setState({
+        imageUrl,
+        loading: false,
+      }));
+    }
+  };
 
   handleChange = (e) => {
     e.preventDefault();
@@ -120,11 +143,18 @@ class AddRoom extends React.Component {
           "id": "",
           "location": this.state.location,
           "size": "BIG",
-          "utils": this.state.devices
+          "utils": this.state.devices,
+          "images":[]
       };
       console.log(room.id);
       console.log(room.location);
       console.log(this.state.devices);
+      let picCount = this.state.fileList.length;
+      for(let i=0; i<picCount; i++) {
+        //let result = ossClient.put(room.location + String(i), this.state.fileList[i].url);
+        //console.log(result);
+      }
+
       /*fetch(roomController.createRoom()+"/", {
           credentials: 'include',
           method:'post',
@@ -136,7 +166,8 @@ class AddRoom extends React.Component {
               "id": "",
               "location": this.state.location,
               "size": "BIG",
-              "utils": this.state.devices
+              "utils": this.state.devices,
+              "deviceId": null
           })
       })
           .then(response => {
@@ -152,15 +183,59 @@ class AddRoom extends React.Component {
           })*/
 };
 
+  beforeUpload=(file)=>{
+
+    //rc-upload-1551444190052-2
+    let len = file.uid.length;
+    let filename = file.uid.substring(10, len);
+    console.log(filename);
+    let extensions;
+    if (file.type === "image/jpeg"){
+      extensions = ".jpg";
+    }
+    else if (file.type === "image/png"){
+      extensions = ".png";
+    }
+    else{
+      alert("仅支持 JPG 和 PNG 格式图片");
+      return false;
+    }
+    let path = meetingRoomDir + "/" + filename;
+
+    let faceFile = path + extensions;
+    console.log("faceFile:", faceFile);
+    let reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onloadend = () => {
+      ossClient.multipartUpload(faceFile, file)
+          .then((result) => {
+              console.log("oss result:", result);
+             console.log("oss result code:", result.res.status);
+
+             if (result.res.status === 200){
+               console.log("hello");
+               this.setState({
+                 imageUrl: "http://face-file.oss-cn-shanghai.aliyuncs.com/" + faceFile
+               })
+             }
+             else{
+               console.log("failed!");
+             }
+      })
+    }
+    return false;
+
+
+  };
 
   render() {
     const {classes} = this.props;
     const {location, size, utils} = this.state;
-    const { previewVisible, previewImage, fileList } = this.state;
+    const { previewVisible, previewImage, fileList, imageUrl } = this.state;
     const uploadButton = (
         <div>
-          <Icon type="plus" />
-          <div className="ant-upload-text">Upload</div>
+          <Icon type={this.state.loading ? 'loading' : 'plus'} />
+          <div className="ant-upload-text">上传图片</div>
         </div>
     );
 
@@ -330,7 +405,7 @@ class AddRoom extends React.Component {
               </CardHeader>
               <CardBody >
                 <Upload
-                    action="//jsonplaceholder.typicode.com/posts/"
+                    beforeUpload={this.beforeUpload}
                     listType="picture-card"
                     fileList={fileList}
                     onPreview={this.handlePreview}
@@ -338,6 +413,9 @@ class AddRoom extends React.Component {
                 >
                   {fileList.length >= 3 ? null : uploadButton}
                 </Upload>
+                <Modal visible={previewVisible} footer={null} onCancel={this.handleCancel}>
+                  <img alt="example" style={{ width: '100%' }} src={previewImage} />
+                </Modal>
                 <Dialog open={previewVisible} onClose={this.handleCancel}>
                   <DialogActions>
                     <IconButton  onClick={this.handleCancel}>
@@ -364,10 +442,6 @@ class AddRoom extends React.Component {
             </Button>
           </GridItem>
         </GridContainer>
-
-
-
-
         </div>
     );
   }

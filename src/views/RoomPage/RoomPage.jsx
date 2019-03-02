@@ -119,17 +119,17 @@ class RoomPage extends React.Component {
               headerColor="success"
               handleSecondNavbar={this.handleSecondNavbar.bind(this)}
               tabs={[
-                {
-                  tabName: "当前使用情况",
-                  tabIcon: Assignment,
-                  tabContent: <NowStatus />
-                },
+
                 {
                   tabName: "添加会议室",
                   tabIcon: AddCircleOutline,
                   tabContent: <AddRoom />
                 },
-
+                {
+                  tabName: "当前使用情况",
+                  tabIcon: Assignment,
+                  tabContent: <NowStatus />
+                },
               ]}
             />
           </GridItem>
