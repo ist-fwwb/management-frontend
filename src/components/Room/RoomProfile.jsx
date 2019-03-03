@@ -16,6 +16,7 @@ import Snackbar from "components/Snackbar/Snackbar.jsx";
 import Update from "@material-ui/icons/Update";
 import ErrorOutline from "@material-ui/icons/ErrorOutline";
 import Done from "@material-ui/icons/Done";
+import Slider from "react-slick";
 import Block from "@material-ui/icons/Block";
 import Undo from "@material-ui/icons/Undo";
 
@@ -52,6 +53,16 @@ function roomCategory(eng){
   return "中会议室";
 }
 
+const slidesSettings = {
+  dots: true,
+  fade: true,
+  infinite: true,
+  autoplay: true,
+  speed: 1000,
+  slidesToShow: 1,
+  slidesToScroll: 1
+};
+
 class RoomProfile extends React.Component {
   constructor(props) {
     super(props);
@@ -64,6 +75,7 @@ class RoomProfile extends React.Component {
       modifying: false,
       capacity: 10,
       tmp_capacity: 10,
+      images:[],
       airConditioned: false,
       blackBoard: false,
       desk: false,
@@ -95,6 +107,7 @@ class RoomProfile extends React.Component {
       console.log(data);
       const devices = data.utils;
       this.setState({
+        images: data.images,
         room: data,
         airConditioned: devices.includes("AIRCONDITIONER"),
         blackBoard: devices.includes("BLACKBOARD"),
@@ -248,7 +261,25 @@ class RoomProfile extends React.Component {
     //const roomId = this.props.match.params.roomId
     const {room, updating, modifying} = this.state;
     const {airConditioned, blackBoard, desk, projector, power, wifi, wireNetwork, tv} = this.state;
-
+    let meetingRoomImages = [];
+    for(let i=0; i<this.state.images.length; i++)
+      meetingRoomImages.push(
+          <div
+            style={{
+              maxWidth: "100%",
+              height: "30%",
+              paddingBottom: "40%",
+              overflow: "hidden"
+            }}
+          >
+            <img
+                width="100%"
+                style={{height:"350px"}}
+                alt="img"
+                src={"http://face-file.oss-cn-shanghai.aliyuncs.com/meetingroom-file/" + this.state.images[i]}
+            />
+          </div>
+      )
     return (
       <div>
         <GridContainer >
@@ -296,7 +327,7 @@ class RoomProfile extends React.Component {
                 <br/>
               
               <GridContainer>
-                <GridItem xs={12} sm={6} md={4}>
+                <GridItem xs={12} sm={6} md={5}>
                   <Card>
                     <CardHeader color="warning" stats icon>
                       <CardIcon color="warning">
@@ -360,22 +391,22 @@ class RoomProfile extends React.Component {
                         </tr>
                         <tr style={{fontSize:"16px"}}>
                           <td >
-                            <div style={{marginLeft:"32%"}}>
+                            <div style={{marginLeft:"36%"}}>
                               空调
                             </div>
                           </td>
                           <td>
-                            <div style={{marginLeft:"32%"}}>
+                            <div style={{marginLeft:"36%"}}>
                               黑板
                             </div>
                           </td>
                           <td>
-                            <div style={{marginLeft:"32%"}}>
+                            <div style={{marginLeft:"36%"}}>
                               桌子
                             </div>
                           </td>
                           <td>
-                            <div style={{marginLeft:"32%"}}>
+                            <div style={{marginLeft:"40%"}}>
                               投影仪
                             </div>
                           </td>
@@ -432,22 +463,22 @@ class RoomProfile extends React.Component {
                         </tr>
                         <tr style={{fontSize:"16px"}}>
                           <td>
-                            <div style={{marginLeft:"32%"}}>
+                            <div style={{marginLeft:"36%"}}>
                               电源
                             </div>
                           </td>
                           <td>
-                            <div style={{marginLeft:"32%"}}>
+                            <div style={{marginLeft:"36%"}}>
                               WiFi
                             </div>
                           </td>
                           <td>
-                            <div style={{marginLeft:"32%"}}>
+                            <div style={{marginLeft:"38%"}}>
                               网线
                             </div>
                           </td>
                           <td>
-                            <div style={{marginLeft:"40%"}}>
+                            <div style={{marginLeft:"43%"}}>
                               电视
                             </div>
                           </td>
@@ -537,9 +568,20 @@ class RoomProfile extends React.Component {
                     </CardFooter>
                   </Card>
                 </GridItem>
+
                 <GridItem xs={12} sm={6} md={4}>
                   <br/>
-                  <img src={meetingRoomImage} width={"110%"} alt="meetingroom"/>
+                  <div>
+                    {
+                      (this.state.images.length > 0) ?
+                        <Slider {...slidesSettings} style={{width: "50%"}}>
+                          {meetingRoomImages}
+                        </Slider>
+                        :
+                        <img src={meetingRoomImage} width={"110%"} alt="meetingroom"/>
+                    }
+                  </div>
+
                 </GridItem>
               </GridContainer>
               </CardBody>
