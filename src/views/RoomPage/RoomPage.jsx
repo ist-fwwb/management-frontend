@@ -27,12 +27,6 @@ import DeleteRoom from "../../components/Room/DeleteRoom";
 import ModifyRoom from "../../components/Room/ModifyRoom";
 import NowStatus from "../../components/Room/NowStatus";
 
-let rooms = [
-  { location: "410", capacity: 10, status: 2, device: "是", others: "无" },
-  { location: "411", capacity: 15, status: 1, device: "是", others: "投影设备已坏"},
-  { location: "412", capacity: 5, status: 0, device: "否", others: "无" },
-  { location: "501", capacity: 5, status: 2, device: "是", others: "无" }
-];
 
 function JSONToArray(jsonArray, type) {
   let re = [];
@@ -119,17 +113,17 @@ class RoomPage extends React.Component {
               headerColor="success"
               handleSecondNavbar={this.handleSecondNavbar.bind(this)}
               tabs={[
-
-                {
-                  tabName: "添加会议室",
-                  tabIcon: AddCircleOutline,
-                  tabContent: <AddRoom />
-                },
                 {
                   tabName: "当前使用情况",
                   tabIcon: Assignment,
                   tabContent: <NowStatus />
                 },
+                {
+                  tabName: "添加会议室",
+                  tabIcon: AddCircleOutline,
+                  tabContent: <AddRoom />
+                },
+
               ]}
             />
           </GridItem>

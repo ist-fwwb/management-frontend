@@ -7,6 +7,7 @@ import CloseIcon from '@material-ui/icons/Close';
 import { withStyles } from '@material-ui/core/styles';
 import GridItem from "components/Grid/GridItem.jsx";
 import GridContainer from "components/Grid/GridContainer.jsx";
+import Snackbar from "components/Snackbar/Snackbar.jsx";
 import Button from "components/CustomButtons/Button.jsx";
 import Card from "components/Card/Card.jsx";
 import CardHeader from "components/Card/CardHeader.jsx";
@@ -18,6 +19,9 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
 import MenuItem from '@material-ui/core/MenuItem';
 import TextField from "@material-ui/core/TextField";
+import Slide from "@material-ui/core/Slide";
+import ErrorOutline from "@material-ui/icons/ErrorOutline";
+import Done from "@material-ui/icons/Done";
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
@@ -42,12 +46,6 @@ const styles = theme => ({
   }
 });
 
-function getBase64(img, callback) {
-  const reader = new FileReader();
-  reader.addEventListener('load', () => callback(reader.result));
-  reader.readAsDataURL(img);
-}
-
 
 
 class AddRoom extends React.Component {
@@ -68,11 +66,31 @@ class AddRoom extends React.Component {
       loading: false,
       imageUrl:"",
       fileList: [],
-      fileName:[],
+      filenameList:[],
     }
   }
 
+  changeUidToFilename(){
+    let len = this.state.fileList.length;
+    console.log("fileList len:", len);
+    for(let i=0; i<len; i++)
+    {
+      let file =this.state.fileList[i];
+      let extensions;
+      if (file.type === "image/jpeg")
+        extensions = ".jpg";
+      else if (file.type === "image/png")
+        extensions = ".png";
 
+      let uid = file.uid;
+      let uidlen = uid.length;
+      let filename = uid.substring(10, uidlen) + extensions;
+      this.state.filenameList.push(filename);
+    }
+    this.setState({
+      filenameList: [],
+    })
+  }
 
   handleCancel = () => this.setState({ previewVisible: false });
 
@@ -84,20 +102,9 @@ class AddRoom extends React.Component {
   };
 
   handlePictureChange = (info) => {
-    console.log(this.state.fileList);
+    //console.log(this.state.fileList);
+    console.log("file:",info.file);
     this.setState({ fileList: info.fileList });
-
-    if (info.file.status === 'uploading') {
-      this.setState({ loading: true });
-      return;
-    }
-    if (info.file.status === 'done') {
-      // Get this url from response in real world.
-      getBase64(info.file.originFileObj, imageUrl => this.setState({
-        imageUrl,
-        loading: false,
-      }));
-    }
   };
 
   handleChange = (e) => {
@@ -138,24 +145,17 @@ class AddRoom extends React.Component {
   };
 
   handleAdd = () =>{
-      //console.log("hello");
-      let room={
-          "id": "",
-          "location": this.state.location,
-          "size": "BIG",
-          "utils": this.state.devices,
-          "images":[]
-      };
-      console.log(room.id);
-      console.log(room.location);
-      console.log(this.state.devices);
-      let picCount = this.state.fileList.length;
-      for(let i=0; i<picCount; i++) {
-        //let result = ossClient.put(room.location + String(i), this.state.fileList[i].url);
-        //console.log(result);
+      this.changeUidToFilename();
+      if(this.state.utils.length === 0){
+        this.warning("请选择会议室的设备情况");
+        return;
+      }
+      if(this.state.filenameList.length === 0){
+        this.warning("请为会议室添加至少一张照片");
+        return;
       }
 
-      /*fetch(roomController.createRoom()+"/", {
+      fetch(roomController.createRoom()+"/", {
           credentials: 'include',
           method:'post',
           headers: {
@@ -163,11 +163,12 @@ class AddRoom extends React.Component {
               'Content-Type': 'application/json',
           },
           body: JSON.stringify({
-              "id": "",
-              "location": this.state.location,
-              "size": "BIG",
-              "utils": this.state.devices,
-              "deviceId": null
+             "id": "",
+             "location": this.state.location,
+             "size": this.state.size,
+             "utils": this.state.utils,
+             "images": this.state.filenameList,
+             "deviceId": ""
           })
       })
           .then(response => {
@@ -175,63 +176,108 @@ class AddRoom extends React.Component {
               return response.json()
                   .then(result => {
                       console.log("result:", result.id);
-                      if(response.status === 200)
-                          alert("添加成功");
+                      if(response.status === 200){
+                        this.success("添加成功");
+
+                      }
+
                       else
-                          alert("添加失败");
+                          this.warning("添加失败");
                   });
-          })*/
+          })
 };
 
   beforeUpload=(file)=>{
-
     //rc-upload-1551444190052-2
-    let len = file.uid.length;
-    let filename = file.uid.substring(10, len);
-    console.log(filename);
-    let extensions;
-    if (file.type === "image/jpeg"){
-      extensions = ".jpg";
-    }
-    else if (file.type === "image/png"){
-      extensions = ".png";
-    }
-    else{
-      alert("仅支持 JPG 和 PNG 格式图片");
-      return false;
-    }
-    let path = meetingRoomDir + "/" + filename;
+      let len = file.uid.length;
+      let filename = file.uid.substring(10, len);
+      console.log(filename);
+      let extensions;
+      if (file.type === "image/jpeg"){
+        extensions = ".jpg";
+      }
+      else if (file.type === "image/png"){
+        extensions = ".png";
+      }
+      else{
+        alert("仅支持 JPG 和 PNG 格式图片");
+        return false;
+      }
+      let path = meetingRoomDir + "/" + filename;
 
-    let faceFile = path + extensions;
-    console.log("faceFile:", faceFile);
-    let reader = new FileReader();
-    reader.readAsDataURL(file);
-    reader.onloadend = () => {
-      ossClient.multipartUpload(faceFile, file)
-          .then((result) => {
+      let faceFile = path + extensions;
+      console.log("faceFile:", faceFile);
+      let reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onloadend = () => {
+        ossClient.multipartUpload(faceFile, file)
+            .then((result) => {
               console.log("oss result:", result);
-             console.log("oss result code:", result.res.status);
+              console.log("oss result code:", result.res.status);
 
-             if (result.res.status === 200){
-               console.log("hello");
-               this.setState({
-                 imageUrl: "http://face-file.oss-cn-shanghai.aliyuncs.com/" + faceFile
-               })
-             }
-             else{
-               console.log("failed!");
-             }
-      })
-    }
+              if (result.res.status === 200){
+                console.log("hello");
+                this.setState({
+                  imageUrl: "http://face-file.oss-cn-shanghai.aliyuncs.com/" + faceFile,
+                  loading: false
+                })
+              }
+              else{
+                console.log("failed!");
+                this.setState({
+                  loading: false
+                })
+              }
+            })
+    };
     return false;
+  };
 
+  Transition(props) {
+    return <Slide direction="up" {...props} />;
+  }
 
+  typeToIcon = (type) => {
+    if (type === "success")
+      return Done;
+    if (type === "danger")
+      return ErrorOutline;
+    return null;
+  };
+
+  success = (msg) => {
+    this.setState({
+      notificationType: "success",
+      notificationMessage: msg
+    });
+    this.showNotification("br");
+  };
+
+  warning = (msg) => {
+    this.setState({
+      notificationType: "danger",
+      notificationMessage: msg
+    });
+    this.showNotification("br");
+  };
+
+  showNotification = (place) => {
+    let x = [];
+    x[place] = true;
+    this.setState({[place]: true});
+    this.alertTimeout = setTimeout(
+        function() {
+          x[place] = false;
+          this.setState(x);
+        }.bind(this),
+        6000
+    );
   };
 
   render() {
     const {classes} = this.props;
     const {location, size, utils} = this.state;
-    const { previewVisible, previewImage, fileList, imageUrl } = this.state;
+    const { previewVisible, previewImage, fileList, } = this.state;
     const uploadButton = (
         <div>
           <Icon type={this.state.loading ? 'loading' : 'plus'} />
@@ -442,6 +488,15 @@ class AddRoom extends React.Component {
             </Button>
           </GridItem>
         </GridContainer>
+        <Snackbar
+            place="br"
+            color={this.state.notificationType}
+            icon={this.typeToIcon(this.state.notificationType)}
+            message={this.state.notificationMessage}
+            open={this.state.br}
+            closeNotification={() => this.setState({ br: false })}
+            close
+        />
         </div>
     );
   }

@@ -62,10 +62,8 @@ class RoomProfile extends React.Component {
       notificationType: null,
       updating: false,
       modifying: false,
-
       capacity: 10,
       tmp_capacity: 10,
-
       airConditioned: false,
       blackBoard: false,
       desk: false,
@@ -100,7 +98,7 @@ class RoomProfile extends React.Component {
         room: data,
         airConditioned: devices.includes("AIRCONDITIONER"),
         blackBoard: devices.includes("BLACKBOARD"),
-        desk: devices.includes("DESK"),
+        desk: devices.includes("TABLE"),
         projector: devices.includes("PROJECTOR"),
         power: devices.includes("POWER"),
         wifi: devices.includes("WIFI"),
