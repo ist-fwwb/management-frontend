@@ -25,6 +25,7 @@ import Done from "@material-ui/icons/Done";
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
+import { Link } from "react-router-dom";
 import { roomController, utils_list } from "variables/general.jsx";
 import {ossClient, meetingRoomDir} from "variables/oss.jsx";
 import {Upload, Icon, Modal} from 'antd';
@@ -178,9 +179,9 @@ class AddRoom extends React.Component {
                       console.log("result:", result.id);
                       if(response.status === 200){
                         this.success("添加成功");
-
-                      }
-
+                        setTimeout(() => {
+                          window.location.href = "/room/"+result.id+"/profile"}, 3000)
+                        }
                       else
                           this.warning("添加失败");
                   });
