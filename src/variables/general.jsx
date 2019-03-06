@@ -66,6 +66,10 @@ const userController = {
   "editUserByUserId": (userId) => (server + "/user/" + userId),
 };
 
+const searchController={
+  "search":(content)=>(server +"/search?request=" + content)
+};
+
 const utils_list = {
   tv: "TV",
   airconditioner: "AIRCONDITIONER",
@@ -124,6 +128,7 @@ module.exports = {
   timeSliceController,
   meetingController,
   userController,
+  searchController,
   utils_list,
   user_type,
   ScheduleDataToRows

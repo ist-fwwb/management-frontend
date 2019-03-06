@@ -6,6 +6,7 @@ import Mail from "@material-ui/icons/Mail";
 import Home from "@material-ui/icons/Home";
 // core components/views
 import RoomPage from "views/RoomPage/RoomPage.jsx";
+import SearchPage from "views/Search/SearchPage.jsx";
 import MeetingPage from "views/MeetingPage/MeetingPage.jsx";
 import UserProfile from "views/UserProfile/UserProfile.jsx";
 import RoomProfile from "components/Room/RoomProfile.jsx";
@@ -68,6 +69,10 @@ let routesNotInSideBar = [
         path: "/room/addroom",
         component: AddRoom
       },
+      {
+        path:"/search/:content",
+        component: SearchPage
+      }
 ];
 
 export const deepRoutes = routesNotInSideBar.concat(dashboardRoutes);

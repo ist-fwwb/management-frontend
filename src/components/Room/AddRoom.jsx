@@ -28,7 +28,7 @@ import DialogContent from '@material-ui/core/DialogContent';
 import { Link } from "react-router-dom";
 import { roomController, utils_list } from "variables/general.jsx";
 import {ossClient, meetingRoomDir} from "variables/oss.jsx";
-import {Upload, Icon, Modal} from 'antd';
+import {Upload, Icon, Modal, Spin} from 'antd';
 import 'antd/lib/upload/style/css';
 
 const styles = theme => ({
@@ -46,6 +46,7 @@ const styles = theme => ({
     color: "#999",
   }
 });
+
 
 
 
@@ -70,6 +71,12 @@ class AddRoom extends React.Component {
       filenameList:[],
     }
   }
+
+  showSpin=()=>{
+    const antIcon = (<Icon type="loading" style={{ fontSize: 24 }} spin />);
+    return (<Spin indicator={antIcon}/>)
+  };
+
 
   changeUidToFilename(){
     let len = this.state.fileList.length;
@@ -106,31 +113,12 @@ class AddRoom extends React.Component {
     //console.log(this.state.fileList);
     console.log("file:",info.file);
     this.setState({ fileList: info.fileList });
+    setTimeout(()=>{this.showSpin()}, 3000);
   };
 
   handleChange = (e) => {
     e.preventDefault();
     this.setState({[e.target.name]:e.target.value});
-  };
-
-  handleDeviceChange = name => event => {
-    this.setState({
-        [name]:event.target.checked,
-        devices:[]
-    },()=>{
-    if(this.state.AirConditioner)
-        this.state.devices.push("AIRCONDITIONER");
-      if(this.state.BlockBoard)
-          this.state.devices.push("BLOCKBOARD");
-      if(this.state.Table)
-          this.state.devices.push("TABLE");
-      if(this.state.Projector)
-          this.state.devices.push("PROJECTOR");
-      if(this.state.PowerSupply)
-          this.state.devices.push("POWERSUPPLY");
-      for (let i =0; i< this.state.devices.length;i++)
-        console.log(this.state.devices[i]);
-  })
   };
 
   handleChangeCheckBox = event => {
@@ -190,6 +178,7 @@ class AddRoom extends React.Component {
 
   beforeUpload=(file)=>{
     //rc-upload-1551444190052-2
+
       let len = file.uid.length;
       let filename = file.uid.substring(10, len);
       console.log(filename);
