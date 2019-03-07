@@ -262,8 +262,14 @@ class RoomProfile extends React.Component {
     const {room, updating, modifying} = this.state;
     const {airConditioned, blackBoard, desk, projector, power, wifi, wireNetwork, tv} = this.state;
     let meetingRoomImages = [];
-    for(let i=0; i<this.state.images.length; i++)
-      meetingRoomImages.push(
+    if(this.state.images === null)
+      this.setState({
+        images:[]
+      });
+
+    else
+      for(let i=0; i<this.state.images.length; i++)
+        meetingRoomImages.push(
           <div
             style={{
               maxWidth: "100%",
@@ -573,12 +579,12 @@ class RoomProfile extends React.Component {
                   <br/>
                   <div>
                     {
-                      (this.state.images.length > 0) ?
+                      (meetingRoomImages.length > 0) ?
                         <Slider {...slidesSettings} style={{width: "50%"}}>
                           {meetingRoomImages}
                         </Slider>
                         :
-                        <img src={meetingRoomImage} width={"110%"} alt="meetingroom"/>
+                        <img src={meetingRoomImage} width={"100%"} alt="meetingroom"/>
                     }
                   </div>
 

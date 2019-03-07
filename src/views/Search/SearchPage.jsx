@@ -127,9 +127,9 @@ class SearchPage extends React.Component {
         })
   }
 
-  Transition(props) {
-    return <Slide direction="up" {...props} />;
-  }
+    Transition(props) {
+      return <Slide direction="up" {...props} />;
+    }
 
 
     handleClickNotes=()=>{
@@ -150,6 +150,7 @@ class SearchPage extends React.Component {
         meetingsOpen: !this.state.meetingsOpen
       })
     };
+
 
     handleClickUsers=()=>{
       this.setState({
@@ -206,39 +207,71 @@ class SearchPage extends React.Component {
               <ListItem  style={{fontSize:"24px", width:"100%"}} >
                 <Label style={{color:"#5677fc", fontSize:"40px"}}/>
                 &nbsp;&nbsp;&nbsp;会议笔记
+                {this.state.notesOpen ?
+                  <IconButton  onClick={this.handleClickNotes}><ExpandLess/></IconButton>
+                  :
+                  <IconButton  onClick={this.handleClickNotes}><ExpandMore/></IconButton>
+                }
+                </ListItem>
                 {meetingNotes.length > 0 ?
                     <div>
-                      {this.state.notesOpen ?
-                          <ExpandLess button onClick={this.handleClickNotes}/>
-                          :
-                          <ExpandMore button onClick={this.handleClickNotes}/>
-                      }
                       <Collapse in={this.state.notesOpen} timeout="auto" unmountOnExit>
                         <List component="div" disablePadding>
                         </List>
                       </Collapse>
+                      <br/>
                     </div>
                 :
                     <br/>
                       }
-              </ListItem>
               <Divider />
               <ListItem style={{fontSize:"24px", width:"100%"}} onClick={this.handleClickRooms}>
                 <Label style={{color:"#ff7043", fontSize:"40px"}}/>
                 &nbsp;&nbsp;&nbsp;会议室
+                {this.state.roomsOpen ?
+                  <IconButton  onClick={this.handleClickRooms}><ExpandLess/></IconButton>
+                  :
+                  <IconButton  onClick={this.handleClickRooms}><ExpandMore/></IconButton>
+                }
+              </ListItem>
               {meetingRooms.length > 0 ?
                   <div>
-                    {this.state.roomsOpen ?
-                        <ExpandLess />:<ExpandMore/>}
                     <Collapse in={this.state.roomsOpen} timeout="auto" unmountOnExit>
-                      <List component="div" disablePadding>
-                      </List>
+                      <Table style={{marginLeft:"5%", width:"90%"}}>
+                        <TableHead>
+                          <TableRow >
+                            <CustomTableCell style={{width:"20%", fontSize:"18px",  color:"#9e9e9e", textAlign:"center"}}>标题</CustomTableCell>
+                            <CustomTableCell style={{width:"20%", fontSize:"18px",  color:"#9e9e9e", textAlign:"center"}}>场所</CustomTableCell>
+                            <CustomTableCell style={{width:"20%", fontSize:"18px",  color:"#9e9e9e", textAlign:"center"}}>日期</CustomTableCell>
+                            <CustomTableCell style={{width:"20%", fontSize:"18px",  color:"#9e9e9e", textAlign:"center"}}>时间</CustomTableCell>
+                            <CustomTableCell style={{width:"20%", fontSize:"18px",  color:"#9e9e9e", textAlign:"center"}}>操作</CustomTableCell>
+                          </TableRow>
+                        </TableHead>
+                        <TableBody>
+                          {meetings.map((row,key) => {
+                            return (
+                                <TableRow  key={row.id}>
+                                  <CustomTableCell style={{width:"20%", fontSize:"18px", textAlign:"center"}}>{row.heading}</CustomTableCell>
+                                  <CustomTableCell style={{width:"20%", fontSize:"18px", textAlign:"center"}}>{row.location}</CustomTableCell>
+                                  <CustomTableCell style={{width:"20%", fontSize:"18px", textAlign:"center"}}>{row.date}</CustomTableCell>
+                                  <CustomTableCell style={{width:"20%", fontSize:"18px", textAlign:"center"}}>{idToTime(row.startTime) + "-" + idToTime(row.endTime)}</CustomTableCell>
+                                  <CustomTableCell style={{width:"20%", fontSize:"18px", textAlign:"center"}}>
+                                    <IconButton style={{ color:"#ec407a", fontSize:"16px"}}
+                                                onClick={()=>this.handleMeetingDetail(key)}>
+                                      <Description />
+                                    </IconButton>
+                                  </CustomTableCell>
+
+                                </TableRow>
+                            )})}
+                        </TableBody>
+                      </Table>
                     </Collapse>
+                    <br/>
                   </div>
                   :
                   <br/>
-                    }
-              </ListItem>
+              }
               <Divider />
               <ListItem  style={{fontSize:"24px", width:"100%"}} >
                 <Label style={{color:"#8bc34a", fontSize:"40px"}}/>
@@ -282,28 +315,34 @@ class SearchPage extends React.Component {
                         </TableBody>
                       </Table>
                     </Collapse>
-
+                    <br/>
                   </div>
                   :
-                  <br/>
+                    <br/>
               }
 
               <Divider />
               <ListItem button style={{fontSize:"24px", width:"100%"}} onClick={this.handleClickUsers}>
                 <Label style={{color:"#ba68c8", fontSize:"40px"}}/>
                 &nbsp;&nbsp;&nbsp;用户
+                {this.state.usersOpen ?
+                  <IconButton  onClick={this.handleClickUsers}><ExpandLess/></IconButton>
+                  :
+                  <IconButton  onClick={this.handleClickUsers}><ExpandMore/></IconButton>
+                }
+              </ListItem>
                 {users.length > 0 ?
                     <div>
-                      {this.state.usersOpen ? <ExpandLess/>:<ExpandMore/>}
-                      <Collapse in={this.state.usersOpen} timeout="auto" unmountOnExit>
+                        <Collapse in={this.state.usersOpen} timeout="auto" unmountOnExit>
                         <List component="div" disablePadding>
                         </List>
                       </Collapse>
+                        <br/>
                     </div>
                     :
                     <br/>
                 }
-              </ListItem>
+
               <Divider />
             </List>
             <Dialog
