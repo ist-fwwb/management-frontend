@@ -133,10 +133,10 @@ class SearchPage extends React.Component {
       meetingRooms: [],
       meetings: [],
       users: [],
-      notesOpen: true,
-      roomsOpen: true,
-      meetingsOpen: true,
-      usersOpen: true,
+      notesOpen: false,
+      roomsOpen: false,
+      meetingsOpen: false,
+      usersOpen: false,
       meetingDetail: false,
       noteDetail: false,
       roomDetail: false,
@@ -293,12 +293,11 @@ class SearchPage extends React.Component {
                   :
                   <IconButton  onClick={this.handleClickNotes}><ExpandMore/></IconButton>
                 }
+                <span style={{fontSize:"14px"}}>共{meetingNotes.length}条</span>
                 </ListItem>
                 {meetingNotes.length > 0 ?
                     <div>
                       <Collapse in={this.state.notesOpen} timeout="auto" unmountOnExit>
-                        <List component="div" disablePadding>
-                        </List>
                       </Collapse>
                       <br/>
                     </div>
@@ -314,6 +313,7 @@ class SearchPage extends React.Component {
                   :
                   <IconButton  onClick={this.handleClickRooms}><ExpandMore/></IconButton>
                 }
+                <span style={{fontSize:"14px"}}>共{meetingRooms.length}条</span>
               </ListItem>
               {meetingRooms.length > 0 ?
                   <div>
@@ -356,6 +356,7 @@ class SearchPage extends React.Component {
                     :
                     <IconButton  onClick={this.handleClickMeetings}><ExpandMore/></IconButton>
                 }
+                <span style={{fontSize:"14px"}}>共{meetings.length}条</span>
                 </ListItem>
                 {meetings.length > 0 ?
                   <div>
@@ -400,11 +401,13 @@ class SearchPage extends React.Component {
               <ListItem button style={{fontSize:"24px", width:"100%"}} onClick={this.handleClickUsers}>
                 <Label style={{color:"#ba68c8", fontSize:"40px"}}/>
                 &nbsp;&nbsp;&nbsp;用户
+
                 {this.state.usersOpen ?
                   <IconButton  onClick={this.handleClickUsers}><ExpandLess/></IconButton>
                   :
                   <IconButton  onClick={this.handleClickUsers}><ExpandMore/></IconButton>
                 }
+                <span style={{fontSize:"14px"}}>共{users.length}条</span>
               </ListItem>
                 {users.length > 0 ?
                     <div>

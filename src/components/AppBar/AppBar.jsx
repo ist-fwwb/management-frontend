@@ -191,7 +191,7 @@ class PrimarySearchAppBar extends React.Component {
 
   handleSearch=()=>{
     console.log(this.state.content);
-
+    window.location.href = "/search/"+this.state.content;
     /*fetch(searchController.search(this.state.content), {
       credentials: 'include',
       method:'get',
@@ -242,9 +242,9 @@ class PrimarySearchAppBar extends React.Component {
                   <Toolbar  style={{background:"#ffffff"}}>
                       <div className={classes.search} style={{marginLeft:"71%" }}>
                             <TextField  placeholder="Search..." margin="normal" onChange={this.handleContentChange} />
-                        <Link align="right" to={"/search/"+this.state.content}>
-                          <IconButton> <Search style={{color:"#757575"}} /></IconButton>
-                        </Link>
+
+                          <IconButton onClick={this.handleSearch}> <Search style={{color:"#757575"}} /></IconButton>
+
                       </div>
                       <div className={classes.grow} />
                       <div className={classes.sectionDesktop}>
