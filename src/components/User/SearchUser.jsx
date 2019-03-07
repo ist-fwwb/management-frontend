@@ -227,7 +227,7 @@ class SearchUser extends React.Component {
                                             <CustomTableCell style={{width:"15%", fontSize:"18px", textAlign:"center"}}>{row.phone}</CustomTableCell>
                                             <CustomTableCell style={{width:"15%", fontSize:"18px", textAlign:"center"}}>{user_type[type]}</CustomTableCell>
                                             <CustomTableCell style={{width:"25%", fontSize:"18px", textAlign:"center"}}>
-                                                <img style={{width:"35%", height:"100px"}} src={face_path + row.faceFile}></img>
+                                                <img style={{width:"35%", height:"100px"}} src={face_path + row.faceFile}/>
                                             </CustomTableCell>
 
                                         </TableRow>

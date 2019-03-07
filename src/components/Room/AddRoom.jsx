@@ -56,11 +56,6 @@ class AddRoom extends React.Component {
     this.state={
       size: "MIDDLE",
       location: "软件学院3510",
-      AirConditioner: false,
-      BlockBoard: false,
-      Table: false,
-      Projector: false,
-      PowerSupply: false,
       devices:[],
       utils: [],
       previewVisible: false,
