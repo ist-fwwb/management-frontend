@@ -338,7 +338,7 @@ class TodayMeeting extends React.Component {
                       <Button style={{color:"white", background:"#303f9f", fontSize:"16px"}} onClick={()=>this.handleDetail(key)}>
                         <Description />&nbsp;&nbsp;查看详情
                       </Button>
-                      &nbsp;&nbsp;
+                      &nbsp;
                       <Button style={{color:"white", background:"#ff7043", fontSize:"16px"}} onClick={()=>this.handleAddGuest(key)}>
                         添加外宾&nbsp;&nbsp;
                         <HowToReg />

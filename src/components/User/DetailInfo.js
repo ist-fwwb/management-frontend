@@ -33,18 +33,18 @@ class DetailInfo extends React.Component{
         <GridContainer >
           <GridItem xs={12} sm={12} md={8}>
             <TextField
-                label="公司"
-                name="enterprise"
-                fullWidth
-                InputProps={{
-                  readOnly: true,
-                }}
-                className={classes.textField}
-                value="上海交通大学"
-                margin="normal"
-                variant="outlined"
-                style={{width:"80%"}}
-            />
+              label="公司"
+              name="enterprise"
+              fullWidth
+              InputProps={{
+                readOnly: true,
+              }}
+              className={classes.textField}
+              value="上海交通大学"
+              margin="normal"
+              variant="outlined"
+              style={{width:"80%"}}
+          />
             <TextField
                 label="职员编号"
                 name="id"

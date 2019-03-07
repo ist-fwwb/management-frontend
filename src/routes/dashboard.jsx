@@ -45,13 +45,6 @@ export const dashboardRoutes = [
     icon: Today,
     component: MeetingPage
   },
-  {
-    path: "/message",
-    sidebarName: "新闻管理",
-    navbarName: "新闻管理",
-    icon: Mail,
-    component: MessagePage//------------------------------------------------------------
-  },
 
   { redirect: true, path: "/", to: "/home", navbarName: "Redirect" }
 ];
