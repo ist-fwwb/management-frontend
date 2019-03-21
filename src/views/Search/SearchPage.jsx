@@ -166,12 +166,24 @@ class SearchPage extends React.Component {
               .then(result => {
                 console.log("totalCount:", result.totalCount);
                 this.setState({
-                  totalCount: result.totalCount,
-                  meetingNotes: result.meetingNotes,
-                  meetingRooms: result.meetingRooms,
-                  meetings: result.meetings,
-                  users: result.users,
+                  totalCount: result.totalCount
                 });
+                if(result.hasOwnProperty("meetingNotes"))
+                  this.setState({
+                    meetingNotes: result.meetingNotes,
+                  });
+                if(result.hasOwnProperty("meetingRooms"))
+                  this.setState({
+                    meetingRooms: result.meetingRooms,
+                  });
+                if(result.hasOwnProperty("meetings"))
+                  this.setState({
+                    meetings: result.meetings,
+                  });
+                if(result.hasOwnProperty("users"))
+                  this.setState({
+                    users: result.users,
+                  });
               });
         })
   }
