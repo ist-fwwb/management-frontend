@@ -23,5 +23,5 @@ pipeline:
     secrets: [ssh_username, ssh_password]
     port: 22
     script:
-      - /root/shell/deploy.sh meetingroom-reserve-frontend 31003
+      - /root/shell/deploy.sh meetingroom-management-frontend 31003
 
